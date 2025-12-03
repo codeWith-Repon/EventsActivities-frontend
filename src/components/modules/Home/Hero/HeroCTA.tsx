@@ -28,7 +28,7 @@ const HeroCTA: React.FC<HeroCTAProps> = ({
     >
       <button
         onClick={onPrimaryClick}
-        className='btn-primary bg-primary flex items-center gap-2 group'
+        className='btn-primary bg-gradient-coral flex items-center gap-2 group'
       >
         {primaryText}
         <ArrowRight
