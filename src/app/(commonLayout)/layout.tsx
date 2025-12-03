@@ -1,14 +1,14 @@
+import Footer from '@/components/shared/Footer';
 import Navbar from '@/components/shared/Navbar/PublicNavbar';
-import PublicFooter from '@/components/shared/PublicFooter';
 import React from 'react';
 
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
+    <div className='flex flex-col min-h-screen'>
       <Navbar />
-      {children}
-      <PublicFooter />
-    </>
+      <div className='grow'>{children}</div>
+      <Footer />
+    </div>
   );
 };
 
