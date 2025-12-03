@@ -5,22 +5,10 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import Dropdown from './Dropdown';
 import { usePathname } from 'next/navigation';
+import MobileSidebar from './MobileSidebar';
+import { navItems } from './NavbarItem';
 
-const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Explore Events', href: '/events' },
-  {
-    label: 'Communities',
-    submenu: [
-      { label: 'Hiking & Outdoors', href: '/community/hiking-outdoors' },
-      { label: 'Music & Concerts', href: '/community/music-concerts' },
-      { label: 'Food & Dining', href: '/community/food-dining' },
-    ],
-  },
-  { label: 'About', href: '/about' },
-];
-
-export default function PublicNavbar() {
+export default function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -106,6 +94,12 @@ export default function PublicNavbar() {
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
+
+        <MobileSidebar
+          open={mobileOpen}
+          onClose={() => setMobileOpen(false)}
+          navItems={navItems}
+        />
       </div>
     </nav>
   );

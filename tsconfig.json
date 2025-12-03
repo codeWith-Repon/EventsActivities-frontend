@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
-, "src/components/shared/Dropdown.tsx"  ],
+    "**/*.mts",
+    "src/components/shared/Navbar/Dropdown.tsx"
+  ],
   "exclude": ["node_modules"]
 }
