@@ -121,7 +121,7 @@ const AIWidget = () => {
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer ${
+        className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-[0.98] cursor-pointer ${
           isOpen
             ? 'bg-gray-800 text-white'
             : 'bg-linear-to-r from-primary to-accent text-white'
