@@ -156,7 +156,7 @@ const Footer: React.FC = () => {
 
         <div className='pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4'>
           <p className='text-sm text-muted-foreground'>
-            © 2025 Eventure Inc. All rights reserved.
+            © 2025 eventshub Inc. All rights reserved.
           </p>
           <div className='flex gap-8'>
             <span className='text-sm text-muted-foreground flex items-center gap-2'>

@@ -9,7 +9,7 @@ import TopHosts from '@/components/modules/Home/TopHosts';
 
 const Home = () => {
   return (
-    <>
+    <div className='bg-primary/5'>
       <Hero />
       <EventCategory />
       <FeaturedEvents />
@@ -18,7 +18,7 @@ const Home = () => {
       <LatestArticles />
       <Testimonials />
       <CallToAction />
-    </>
+    </div>
   );
 };
 
