@@ -14,10 +14,10 @@ const HeroSearch: React.FC<HeroSearchProps> = ({ delay = 0 }) => {
       initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{ duration: 0.8, delay, ease: 'easeOut' }}
-      className='bg-white/80 backdrop-blur-md p-2 rounded-2xl shadow-sm border border-primary/40 mb-10 max-w-xl'
+      className='bg-white/80 backdrop-blur-md p-2 rounded-2xl shadow-sm border  mb-10 max-w-xl'
     >
       <div className='flex flex-col md:flex-row gap-2'>
-        <div className='flex-1 relative group'>
+        <div className='flex-1 relative group md:border-none border rounded-xl'>
           <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
             <Search className='h-5 w-5 text-gray-400 group-focus-within:text-primary transition-colors' />
           </div>
@@ -30,7 +30,7 @@ const HeroSearch: React.FC<HeroSearchProps> = ({ delay = 0 }) => {
 
         <div className='w-px bg-gray-200 my-2 hidden md:block' />
 
-        <div className='flex-1 relative group'>
+        <div className='flex-1 relative group md:border-none border rounded-xl'>
           <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
             <MapPin className='h-5 w-5 text-gray-400 group-focus-within:text-primary transition-colors' />
           </div>
@@ -43,7 +43,7 @@ const HeroSearch: React.FC<HeroSearchProps> = ({ delay = 0 }) => {
 
         <div className='w-px bg-gray-200 my-2 hidden md:block' />
 
-        <div className='flex-1 relative group'>
+        <div className='flex-1 relative group md:border-none border rounded-xl'>
           <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
             <Calendar className='h-5 w-5 text-gray-400 group-focus-within:text-primary transition-colors' />
           </div>

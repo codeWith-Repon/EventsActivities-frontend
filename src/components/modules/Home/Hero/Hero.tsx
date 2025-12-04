@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import HeroBadge from './Hero/HeroBadge';
-import HeroText from './Hero/HeroText';
-import { motion } from 'framer-motion';
-import HeroCollage from './Hero/HeroCollage';
-import HeroCTA from './Hero/HeroCTA';
-import HeroSearch from './Hero/HeroSection';
 import { HeroCollageImage } from '@/assets';
+import HeroBadge from './HeroBadge';
+import HeroText from './HeroText';
+import HeroCTA from './HeroCTA';
+import HeroSearch from './HeroSection';
+import HeroCollage from './HeroCollage';
+import { motion } from 'framer-motion';
 
 const Hero: React.FC = () => {
   const activityCards = [
@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section className='relative min-h-screen flex items-center pt-20 overflow-hidden bg-background-soft'>
+    <section className='relative min-h-screen flex items-center pt-20 pb-10 overflow-hidden bg-background-soft'>
       {/* Option B: Glass Layers Background */}
       <div className='absolute inset-0 overflow-hidden pointer-events-none'>
         <div className='absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/20  blur-[80px] -z-10' />

@@ -121,6 +121,21 @@
   }
 }
 
+@layer base {
+  body {
+    @apply bg-primary/5 font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight font-semibold;
+  }
+}
+
 @layer utilities {
   .bg-gradient-coral {
     background-image: linear-gradient(135deg, #ff7a4d, #ff9e7d);

@@ -59,14 +59,14 @@ const EventCategory = () => {
   ];
 
   return (
-    <section className='py-20 bg-white'>
+    <section className='py-10 bg-white'>
       <div className='container-custom'>
         <div className='flex justify-between items-end mb-12'>
           <div>
-            <h2 className='text-3xl md:text-4xl font-bold text-text-dark mb-3'>
+            <h2 className='text-3xl md:text-4xl font-bold mb-3'>
               Explore Activities
             </h2>
-            <p className='text-text-muted text-lg'>
+            <p className='text-muted-foreground text-lg'>
               Discover communities based on your interests
             </p>
           </div>
@@ -79,21 +79,21 @@ const EventCategory = () => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className='group flex flex-col items-center justify-center p-6 rounded-2xl bg-primary/5 border border-transparent hover:border-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer hover:-translate-y-1'
+              className='group flex flex-col items-center justify-center p-6 rounded-2xl bg-primary/5 border border-transparent hover:border-gray-200 hover:shadow-md transition-all duration-300 cursor-pointer hover:-translate-y-1'
             >
               <div
                 className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 ${category.color} transition-transform duration-300 group-hover:scale-110`}
               >
                 {category.icon}
               </div>
-              <h3 className='font-medium text-text-dark group-hover:text-primary transition-colors'>
+              <h3 className='font-medium text-muted-foreground group-hover:text-primary transition-colors'>
                 {category.name}
               </h3>
             </div>
           ))}
         </div>
 
-        <button className='md:hidden w-full mt-8 py-3 border border-gray-200 rounded-xl text-text-dark font-medium hover:bg-gray-50 transition-colors'>
+        <button className='md:hidden w-full mt-8 py-3 border border-gray-200 rounded-xl text-muted-foreground font-medium hover:bg-gray-50 transition-colors'>
           View all categories
         </button>
       </div>
