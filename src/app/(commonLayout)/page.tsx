@@ -1,3 +1,4 @@
+import AIWidget from '@/components/modules/AIWidget';
 import CallToAction from '@/components/modules/Home/CallToAction';
 import EventCategory from '@/components/modules/Home/EventCategory';
 import FeaturedEvents from '@/components/modules/Home/FeaturedEvent/FeaturedEvents';
@@ -18,6 +19,7 @@ const Home = () => {
       <LatestArticles />
       <Testimonials />
       <CallToAction />
+      <AIWidget />
     </div>
   );
 };
