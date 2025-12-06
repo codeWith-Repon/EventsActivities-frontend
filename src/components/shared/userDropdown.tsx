@@ -9,8 +9,9 @@ import { getInitials } from '@/lib/formatter';
 interface IUserDropdownProps {
   user: IUserInfo;
   icon?: boolean;
+  onLogout: () => void;
 }
-const UserDropdown = ({ user, icon }: IUserDropdownProps) => {
+const UserDropdown = ({ user, icon, onLogout }: IUserDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -107,6 +108,7 @@ const UserDropdown = ({ user, icon }: IUserDropdownProps) => {
               <button
                 onClick={() => {
                   setIsOpen(false);
+                  onLogout();
                 }}
                 className='w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors text-left'
               >

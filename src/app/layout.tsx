@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'sonner';
 import { UserContextProvider } from '@/context/UserContext';
+import LoginSuccessToast from '@/components/shared/LoginSuccessToast';
+import LogoutSuccessToast from '@/components/shared/LogoutSuccessToast';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +34,8 @@ export default function RootLayout({
         <UserContextProvider>
           {children}
           <Toaster position='bottom-right' richColors />
+          <LoginSuccessToast />
+          <LogoutSuccessToast />
         </UserContextProvider>
       </body>
     </html>

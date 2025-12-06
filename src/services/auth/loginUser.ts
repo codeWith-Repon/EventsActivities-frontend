@@ -16,7 +16,6 @@ export const loginUser = async (_currentState: any, formData: any) => {
         email: formData.get('email'),
         password: formData.get('password')
     }
-    console.log("✅✅✅✅",formData, "========================")
 
     const validatedPayload = zodValidator(payload, loginValidationZodSchema)
 
@@ -40,6 +39,7 @@ export const loginUser = async (_currentState: any, formData: any) => {
     try {
         let accessTokenObj: null | any = null
         let refreshTokenObj: null | any = null
+        const redirectTo = formData.get("redirect") || null
 
         const res = await serverFetch.post("/auth/login", {
             body: JSON.stringify(validatedPayload.data),
@@ -100,11 +100,13 @@ export const loginUser = async (_currentState: any, formData: any) => {
             sameSite: refreshTokenObj.SameSite || "none"
         })
 
-
-
-        if (result.success) {
-            redirect("/")
+        if (redirectTo) {
+            const requestedPath = redirectTo.toString();
+            redirect(`${requestedPath}?loggedIn=true`);
+        } else {
+            redirect("/?loggedIn=true");
         }
+
 
         return result
     } catch (error: any) {

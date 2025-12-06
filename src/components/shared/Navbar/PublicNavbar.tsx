@@ -9,13 +9,14 @@ import MobileSidebar from './MobileSidebar';
 import { navItems } from './NavbarItem';
 import { useUser } from '@/hook/useUser';
 import UserDropdown from '../userDropdown';
+import { logoutUser } from '@/services/auth/logoutUser';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { user, loading } = useUser();
+  const { user, setUser, loading, fetchUser } = useUser();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -23,6 +24,11 @@ export default function Navbar() {
 
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const handleLogout = async () => {
+    setUser(null);
+    await logoutUser();
+  };
 
   return (
     <nav
@@ -76,7 +82,7 @@ export default function Navbar() {
         {/* Desktop Auth */}
 
         {!loading && user ? (
-          <UserDropdown user={user} icon />
+          <UserDropdown user={user} icon onLogout={handleLogout} />
         ) : (
           <div className='hidden md:flex items-center gap-4'>
             <Link
