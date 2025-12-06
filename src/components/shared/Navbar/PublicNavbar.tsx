@@ -7,15 +7,15 @@ import Dropdown from './Dropdown';
 import { usePathname } from 'next/navigation';
 import MobileSidebar from './MobileSidebar';
 import { navItems } from './NavbarItem';
-import { getUserInfo } from '@/services/auth/getUserInfo';
-import { IUserInfo } from '@/types/user.interface';
+import { useUser } from '@/hook/useUser';
+import UserDropdown from '../userDropdown';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const [user, setUser] = useState<IUserInfo | null>(null);
+  const { user, loading } = useUser();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -24,15 +24,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      const user = await getUserInfo();
-      setUser(user ? user.data : null);
-    };
-    fetchUserInfo();
-  }, []);
-
-  console.log(user)
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 
@@ -83,22 +74,27 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Auth */}
-        <div className='hidden md:flex items-center gap-4'>
-          <Link
-            href='/login'
-            className='hover:text-primary font-medium transition-colors'
-          >
-            Login
-          </Link>
 
-          <Link
-            href='/register'
-            className='bg-gradient-coral text-white px-5 py-2.5 rounded-full font-medium shadow-md
+        {!loading && user ? (
+          <UserDropdown user={user} icon />
+        ) : (
+          <div className='hidden md:flex items-center gap-4'>
+            <Link
+              href='/login'
+              className='hover:text-primary font-medium transition-colors'
+            >
+              Login
+            </Link>
+
+            <Link
+              href='/register'
+              className='bg-gradient-coral text-white px-5 py-2.5 rounded-full font-medium shadow-md
             hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-sm'
-          >
-            Register
-          </Link>
-        </div>
+            >
+              Register
+            </Link>
+          </div>
+        )}
 
         {/* Mobile Menu Button */}
         <button
