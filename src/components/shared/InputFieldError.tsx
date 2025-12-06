@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getInputFieldError } from '@/lib/getInputFieldError';
 import { FieldDescription } from '../ui/field';
 
 interface FieldErrorProps {
   field: string;
-  state: { errors?: { field: string; message: string }[] } | null;
+  state: any
 }
 
 const InputFieldError = ({ field, state }: FieldErrorProps) => {

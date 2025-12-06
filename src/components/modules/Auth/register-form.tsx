@@ -20,15 +20,19 @@ export function RegisterForm({}: React.ComponentProps<'form'>) {
   const [state, fromAction, isPending] = useActionState(registerUser, null);
 
   useEffect(() => {
-    console.log(state);
     if (state && !state.success && state.message) {
-      toast.error(state.message);
+      if (state.message !== 'Validation failed.') {
+        console.log(state);
+        toast.error(state.message);
+      }
     }
-    toast.success(
-      state?.message === 'User created successfully'
-        ? 'Registration successful! Welcome aboard...'
-        : 'Registration failed.'
-    );
+    if (state && state.success && state.message) {
+      toast.success(
+        state?.message === 'User created successfully'
+          ? 'Registration successful! Welcome aboard.'
+          : 'Registration failed.'
+      );
+    }
   }, [state]);
 
   return (
@@ -90,6 +94,7 @@ export function RegisterForm({}: React.ComponentProps<'form'>) {
               disabled={isPending}
               className='disabled:bg-primary/80 cursor-pointer'
             >
+              {isPending && <span className='mr-2 animate-spin'>⌛</span>}
               {isPending ? 'Registering...' : 'Create Account'}
             </Button>
           </Field>

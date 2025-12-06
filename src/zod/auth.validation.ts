@@ -17,7 +17,7 @@ export const registerUserZodSchema = z.object({
 
 export const loginValidationZodSchema = z.object({
     email: z.email({
-        error: "Email is required"
+        error: "Invalid email address."
     }),
     password: z.string().min(6, "Password is required and must be at least 6 characters").max(100, "Password must be at most 100 characters")
 })
