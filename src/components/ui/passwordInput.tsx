@@ -8,9 +8,11 @@ import { Input } from '@/components/ui/input';
 export default function PasswordInput({
   id,
   name,
+  defaultValue,
 }: {
   id?: string;
   name?: string;
+  defaultValue?: string;
 }) {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -25,6 +27,7 @@ export default function PasswordInput({
           name={name}
           placeholder='**********'
           type={isVisible ? 'text' : 'password'}
+          defaultValue={defaultValue}
         />
         <button
           aria-controls='password'
