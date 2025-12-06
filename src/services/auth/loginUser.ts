@@ -10,12 +10,13 @@ import { setCookie } from "./tokenHandlers"
 import { redirect } from "next/navigation"
 
 
-export const loginUser = async (_currentState: any, fromData: any) => {
+export const loginUser = async (_currentState: any, formData: any) => {
 
     const payload = {
-        email: fromData.get('email'),
-        password: fromData.get('password')
+        email: formData.get('email'),
+        password: formData.get('password')
     }
+    console.log("✅✅✅✅",formData, "========================")
 
     const validatedPayload = zodValidator(payload, loginValidationZodSchema)
 
@@ -99,7 +100,7 @@ export const loginUser = async (_currentState: any, fromData: any) => {
             sameSite: refreshTokenObj.SameSite || "none"
         })
 
-       
+
 
         if (result.success) {
             redirect("/")

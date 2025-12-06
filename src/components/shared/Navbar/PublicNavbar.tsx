@@ -7,11 +7,15 @@ import Dropdown from './Dropdown';
 import { usePathname } from 'next/navigation';
 import MobileSidebar from './MobileSidebar';
 import { navItems } from './NavbarItem';
+import { getUserInfo } from '@/services/auth/getUserInfo';
+import { IUserInfo } from '@/types/user.interface';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const [user, setUser] = useState<IUserInfo | null>(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -20,6 +24,15 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const user = await getUserInfo();
+      setUser(user ? user.data : null);
+    };
+    fetchUserInfo();
+  }, []);
+
+  console.log(user)
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 

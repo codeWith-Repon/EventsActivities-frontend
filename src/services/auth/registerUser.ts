@@ -4,6 +4,7 @@
 import { serverFetch } from "@/lib/server-fetch"
 import { zodValidator } from "@/lib/zodValidator"
 import { registerUserZodSchema } from "@/zod/auth.validation"
+import { loginUser } from "./loginUser"
 
 export const registerUser = async (_currentState: any, formData: any): Promise<any> => {
 
@@ -41,12 +42,29 @@ export const registerUser = async (_currentState: any, formData: any): Promise<a
         })
 
         const result = await res.json()
-        console.log("✅✅✅✅✅✅",result)
+
+        if (!result.success) {
+            return {
+                success: false,
+                message: result.message,
+                formData: payload
+            }
+        }
+
+
+        if (result.success) {
+            await loginUser(_currentState, formData)
+        }
+
         return result
 
     } catch (error: any) {
         console.error(error)
 
+        if (error?.digest?.startsWith("NEXT_REDIRECT")) {
+            throw error
+        }
+        
         return {
             success: false,
             message:
