@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 'use client';
 
 import { getUserInfo } from '@/services/auth/getUserInfo';
@@ -8,6 +9,7 @@ interface UserContextType {
   user: IUserInfo | null;
   setUser: (user: IUserInfo | null) => void;
   loading: boolean;
+  fetchUser: () => Promise<void>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -18,19 +20,19 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUserInfo | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      setLoading(true);
-      const res = await getUserInfo();
-      setUser(res?.data || null);
-      setLoading(false);
-    };
+  const fetchUser = async () => {
+    setLoading(true);
+    const res = await getUserInfo();
+    setUser(res?.data || null);
+    setLoading(false);
+  };
 
+  useEffect(() => {
     fetchUser();
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, loading }}>
+    <UserContext.Provider value={{ user, setUser, loading, fetchUser }}>
       {children}
     </UserContext.Provider>
   );

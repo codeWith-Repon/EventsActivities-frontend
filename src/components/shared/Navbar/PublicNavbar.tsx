@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, RefreshCcw, X } from 'lucide-react';
 import Dropdown from './Dropdown';
 import { usePathname } from 'next/navigation';
 import MobileSidebar from './MobileSidebar';
@@ -16,7 +16,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { user, setUser, loading, fetchUser } = useUser();
+  const { user, setUser, loading } = useUser();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -26,8 +26,8 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = async () => {
-    setUser(null);
     await logoutUser();
+    setUser(null);
   };
 
   return (
@@ -51,7 +51,7 @@ export default function Navbar() {
               <Dropdown key={item.label} label={item.label}>
                 {item.submenu.map((sub) => (
                   <Link
-                    key={item.href}
+                    key={sub.href}
                     href={sub.href}
                     className={`block px-4 py-2.5 text-sm transition-colors font-medium hover:bg-gray-50 hover:text-primary  ${
                       pathname === sub.href
@@ -81,7 +81,11 @@ export default function Navbar() {
 
         {/* Desktop Auth */}
 
-        {!loading && user ? (
+        {loading ? (
+          <span className='animate-spin text-primary'>
+            <RefreshCcw />
+          </span>
+        ) : user ? (
           <UserDropdown user={user} icon onLogout={handleLogout} />
         ) : (
           <div className='hidden md:flex items-center gap-4'>
