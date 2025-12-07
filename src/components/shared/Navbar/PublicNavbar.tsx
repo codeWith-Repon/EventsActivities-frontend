@@ -77,6 +77,19 @@ export default function Navbar() {
               </Link>
             )
           )}
+          {(user && user.role === 'ADMIN') ||
+            (user?.role === 'SUPER_ADMIN' && (
+              <Link
+                href='/admin/dashboard'
+                className={`hover:text-primary font-medium relative transition-colors ${
+                  pathname === '/admin/dashboard'
+                    ? "after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary after:rounded-full text-primary"
+                    : ''
+                }`}
+              >
+                Dashboard
+              </Link>
+            ))}
         </div>
 
         {/* Desktop Auth */}
