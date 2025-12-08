@@ -1,8 +1,11 @@
+import UnderTheConstruction from '@/components/modules/UnderTheConstruction/UnderTheConstruction';
 
 const EventsPage = () => {
   return (
-    <div>EventsPage</div>
-  )
-}
+    <div>
+      <UnderTheConstruction />
+    </div>
+  );
+};
 
-export default EventsPage
+export default EventsPage;
