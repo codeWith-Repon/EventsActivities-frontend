@@ -2,24 +2,28 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { X, ChevronDown } from 'lucide-react';
+import { X, ChevronDown, RefreshCcw } from 'lucide-react';
 import { navItems } from './NavbarItem';
+import { useUser } from '@/hook/useUser';
 
 interface SidebarProps {
   open: boolean;
   onClose: () => void;
   navItems: typeof navItems;
+  handleLogout: () => void;
 }
 
 export default function MobileSidebar({
   open,
   onClose,
   navItems,
+  handleLogout,
 }: SidebarProps) {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const { user, loading } = useUser();
 
   // close when click outside
   useEffect(() => {
@@ -107,6 +111,34 @@ export default function MobileSidebar({
                 {item.label}
               </button>
             )
+          )}
+          {loading ? (
+            <span className='animate-spin text-primary hidden md:block'>
+              <RefreshCcw />
+            </span>
+          ) : user ? (
+            <button
+              className='border border-red-500 text-red-400 px-4 py-2 rounded-full hover:bg-gray-100 transition-colors font-medium'
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          ) : (
+            <div className='flex items-center gap-3'>
+              <button
+                className='btn-primary bg-gradient-coral text-left px-4 py-2 rounded-full hover:bg-gray-100 transition-colors font-medium'
+                onClick={() => handleNavigate('/login')}
+              >
+                Login
+              </button>
+
+              <button
+                className='border-primary border text-black/70 text-left px-4 py-2 rounded-full hover:bg-gray-100 transition-colors font-medium'
+                onClick={() => handleNavigate('/register')}
+              >
+                Register
+              </button>
+            </div>
           )}
         </nav>
       </div>

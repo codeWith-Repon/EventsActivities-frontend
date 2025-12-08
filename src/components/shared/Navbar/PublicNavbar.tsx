@@ -95,11 +95,13 @@ export default function Navbar() {
         {/* Desktop Auth */}
 
         {loading ? (
-          <span className='animate-spin text-primary'>
+          <span className='animate-spin text-primary hidden md:block'>
             <RefreshCcw />
           </span>
         ) : user ? (
-          <UserDropdown user={user} icon onLogout={handleLogout} />
+          <div className='hidden md:block'>
+            <UserDropdown user={user} icon onLogout={handleLogout} />
+          </div>
         ) : (
           <div className='hidden md:flex items-center gap-4'>
             <Link
@@ -131,6 +133,7 @@ export default function Navbar() {
           open={mobileOpen}
           onClose={() => setMobileOpen(false)}
           navItems={navItems}
+          handleLogout={handleLogout}
         />
       </div>
     </nav>

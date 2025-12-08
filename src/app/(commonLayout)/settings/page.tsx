@@ -1,6 +1,6 @@
 'use client';
 
-import UnderTheConstruction from '@/components/modules/UserTheConstruction/UnderTheConstruction';
+import UnderTheConstruction from '@/components/modules/UnderTheConstruction/UnderTheConstruction';
 
 const SettingsPage = () => {
   return <UnderTheConstruction />;
