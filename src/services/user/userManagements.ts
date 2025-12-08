@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+"use server"
 import { serverFetch } from "@/lib/server-fetch";
 import { zodValidator } from "@/lib/zodValidator";
 import { updateUserSchema } from "@/zod/user.validation";
+import { revalidateTag } from "next/cache";
 
 export async function getUserById(id: string) {
     try {
@@ -33,20 +34,13 @@ export async function getUsers(queryString?: string) {
     }
 }
 
-export async function updateUser(_prevState: any, formData: any) {
+export async function updateUser(formData: any) {
 
-    const validationPayload = {
-        name: formData.get("name") || undefined,
-        email: formData.get("email") || undefined,
-        role: formData.get("role") || undefined,
-        gender: formData.get("gender") || undefined,
-        dob: formData.get("dob") || undefined,
-        address: formData.get("address") || undefined,
-        contactNumber: formData.get("contactNumber") || undefined,
-        bio: formData.get("bio") || undefined,
-        profileImage: formData.get("file") as File || undefined,
-    };
+    const validationPayload: any = {};
 
+    formData.forEach((value: any, key: any) => {
+        if (value) validationPayload[key] = value;
+    });
     const validatedPayload = zodValidator(validationPayload, updateUserSchema);
 
     if (!validatedPayload.success && validatedPayload.errors) {
@@ -66,22 +60,19 @@ export async function updateUser(_prevState: any, formData: any) {
         }
     }
 
+    const uploadFormData = new FormData();
+    uploadFormData.append("data", JSON.stringify(validatedPayload.data));
+
+    const file = formData.get("file");
+    if (file && file instanceof File && file.size > 0) {
+        uploadFormData.append("file", file);
+    }
+
     try {
-        const newFormData = new FormData();
-
-        if (formData.get("file")) {
-            newFormData.append("file", formData.get("file") as File);
-        }
-        newFormData.append("data", JSON.stringify(validatedPayload.data));
-
-        const response = await serverFetch.patch("/users", {
-
-            body: newFormData,
-        })
-
-        const result = await response.json()
-
-        return result
+        const response = await serverFetch.patch("/users", { body: uploadFormData });
+        const result = await response.json();
+        revalidateTag("user-info", { expire: 0 });
+        return result;
     } catch (error: any) {
         return {
             success: false,
