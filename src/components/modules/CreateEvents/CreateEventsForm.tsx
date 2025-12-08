@@ -1,7 +1,13 @@
+import CreateEventsFormContent from './CreateEventsFormContent';
 import CreateEventsPageHeaders from './CreateEventsPageHeaders';
 
 const CreateEventsForm = () => {
-  return <CreateEventsPageHeaders />;
+  return (
+    <>
+      <CreateEventsPageHeaders />
+      <CreateEventsFormContent />
+    </>
+  );
 };
 
 export default CreateEventsForm;
