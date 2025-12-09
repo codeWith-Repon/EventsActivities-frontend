@@ -18,6 +18,24 @@ export function formatDateTime(date: string | Date): string {
     });
 }
 
+export function formatDate(date: string | Date) {
+    return new Date(date).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+    })
+}
+
+export function formatTimeTo12Hour(time: string) {
+    const [hour, minute] = time.split(":");
+    const h = Number(hour);
+    const suffix = h >= 12 ? "PM" : "AM";
+    const formattedHour = (h % 12) || 12;
+
+    return `${formattedHour}:${minute} ${suffix}`;
+}
+
+
 export function queryStringFormatter(searchParamsObj: { [key: string]: string | string[] | undefined }): string {
     let queryString = "";
 

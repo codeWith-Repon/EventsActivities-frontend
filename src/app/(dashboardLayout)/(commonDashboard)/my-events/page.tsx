@@ -1,4 +1,4 @@
-import EventsDashboard from '@/components/modules/my-events/DashboardHeader';
+import EventsDashboard from '@/components/modules/my-events/EventsDashboard';
 
 const MyEventsPage = () => {
   return (

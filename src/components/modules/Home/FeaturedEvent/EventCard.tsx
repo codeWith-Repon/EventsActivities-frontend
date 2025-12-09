@@ -1,85 +1,153 @@
-import { Calendar, Clock, Heart, MapPin, Star } from 'lucide-react';
+'use client';
+
+import {
+  Calendar,
+  Clock,
+  Heart,
+  MapPin,
+  Star,
+  MoreHorizontal,
+  Edit,
+  Trash2,
+} from 'lucide-react';
+
 import Image from 'next/image';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+
+import { cn } from '@/lib/utils';
+import { formatDate, formatTimeTo12Hour } from '@/lib/formatter';
+
+import { IEvent } from '@/types/events.interface';
+import Link from 'next/link';
 
 interface EventCardProps {
-  index: number;
-  event: {
-    id: number;
-    title: string;
-    image: string;
-    date: string;
-    time: string;
-    location: string;
-    price: string;
-    host: {
-      name: string;
-      avatar: string;
-      rating: number;
-    };
-    category: string;
-  };
+  event: IEvent;
+  index?: number;
+  onEdit?: (event: IEvent) => void;
+  onDelete?: (event: IEvent) => void;
 }
 
-const EventCard = ({ event, index }: EventCardProps) => {
+const EventCard = ({ event, index = 0, onEdit, onDelete }: EventCardProps) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+  const formattedPrice =
+    typeof event.fee === 'number'
+      ? event.fee === 0
+        ? 'Free'
+        : `$${event.fee}`
+      : event.fee;
+
+  const isFree = formattedPrice === 'Free' || formattedPrice === '$0';
+
+  const handleConfirmDelete = () => {
+    if (onDelete) onDelete(event);
+    setIsDeleteDialogOpen(false);
+  };
+
   return (
-    <div>
+    <>
       <motion.div
-        key={event.id}
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.08 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
       >
-        <div className='bg-white rounded-3xl overflow-hidden shadow-card hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 h-full flex flex-col'>
+        <Card className='group h-full overflow-hidden border-border/50 bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-3xl flex flex-col p-0 gap-2'>
+          {/* Image Section */}
           <div className='relative h-48 overflow-hidden'>
             <Image
-              src={event.image}
+              src={event.images[0]}
               alt={event.title}
-              className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
               fill
+              className='object-cover transition-transform duration-700 group-hover:scale-110'
             />
-            <div className='absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-foreground uppercase tracking-wide'>
-              {event.category}
+
+            {/* Category badge */}
+            <div className='absolute top-4 left-4'>
+              <Badge
+                variant='secondary'
+                className='bg-white/90 backdrop-blur-sm text-foreground font-semibold uppercase shadow-sm'
+              >
+                {event.category}
+              </Badge>
             </div>
-            <button className='absolute top-4 right-4 p-2 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white hover:text-red-500 transition-all'>
-              <Heart size={16} />
+
+            {/* Like Button */}
+            <button
+              onClick={() => setIsLiked(!isLiked)}
+              className={cn(
+                'absolute top-4 right-4 p-2 rounded-full backdrop-blur-md transition-all duration-300',
+                isLiked
+                  ? 'bg-white text-red-500 shadow-md'
+                  : 'bg-white/20 text-white hover:bg-white hover:text-red-500'
+              )}
+            >
+              <Heart size={16} className={cn(isLiked && 'fill-current')} />
             </button>
           </div>
 
-          <div className='p-6 flex flex-col grow'>
+          {/* Content */}
+          <CardContent className='p-4 flex flex-col grow'>
+            {/* Date + Time */}
             <div className='flex items-center gap-4 text-sm text-muted-foreground mb-3'>
               <div className='flex items-center gap-1'>
                 <Calendar size={14} className='text-primary' />
-                <span>{event.date}</span>
+                <span>{formatDate(event.date)}</span>
               </div>
-              <div className='flex items-center gap-1'>
+
+              <div className='flex items-center gap-1.5'>
                 <Clock size={14} className='text-primary' />
-                <span>{event.time}</span>
+                <span>{formatTimeTo12Hour(event.time)}</span>
               </div>
             </div>
 
-            <h3 className='text-xl font-bold text-muted-foreground mb-2 group-hover:text-primary transition-colors line-clamp-1'>
+            {/* Title */}
+            <h3 className='text-xl font-bold text-foreground mb-2 group-hover:text-primary line-clamp-1'>
               {event.title}
             </h3>
 
-            <div className='flex items-center gap-1 text-muted-foreground text-sm mb-4'>
+            {/* Location */}
+            <div className='flex items-center gap-1 text-sm text-muted-foreground mb-4'>
               <MapPin size={14} />
               <span className='truncate'>{event.location}</span>
             </div>
 
-            <div className='flex items-center justify-between pt-4 border-t border-gray-100 mt-auto'>
+            {/* Host + Price */}
+            <div className='flex items-center justify-between pt-4 border-t border-border/50 mt-auto'>
               <div className='flex items-center gap-2'>
                 <Image
-                  src={event.host.avatar}
-                  alt={event.host.name}
-                  className=' rounded-full object-cover border border-gray-200'
+                  src={event?.host?.user?.profileImage}
+                  alt={event?.host?.user?.name}
                   width={32}
                   height={32}
+                  className='rounded-full object-cover border border-border'
                 />
                 <div className='flex flex-col'>
-                  <span className='text-xs font-medium text-text-dark'>
-                    {event.host.name}
+                  <span className='text-xs font-medium text-foreground'>
+                    {event?.host?.user?.name}
                   </span>
                   <div className='flex items-center gap-0.5'>
                     <Star
@@ -92,18 +160,88 @@ const EventCard = ({ event, index }: EventCardProps) => {
                   </div>
                 </div>
               </div>
+
               <span
-                className={`font-bold ${
-                  event.price === 'Free' ? 'text-green-600' : 'text-primary'
-                }`}
+                className={cn(
+                  'font-bold text-lg',
+                  isFree ? 'text-green-600' : 'text-primary'
+                )}
               >
-                {event.price}
+                {formattedPrice}
               </span>
             </div>
-          </div>
-        </div>
+
+            <Button
+              variant='secondary'
+              className='w-full cursor-pointer mt-3'
+              size='lg'
+            >
+              <Link href={`/events/${event.slug}`}>View Details</Link>
+            </Button>
+          </CardContent>
+
+          {/* Action Footer */}
+          {(onEdit || onDelete) && (
+            <CardFooter className='p-2 px-4 bg-muted/30 border-t border-border/50 flex justify-end'>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    className='h-8 w-8 p-0 rounded-full hover:bg-background'
+                  >
+                    <MoreHorizontal className='h-4 w-4 text-muted-foreground' />
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent align='end' className='w-40'>
+                  {onEdit && (
+                    <DropdownMenuItem onClick={() => onEdit(event)}>
+                      <Edit className='mr-2 h-4 w-4' /> Edit
+                    </DropdownMenuItem>
+                  )}
+
+                  {onDelete && (
+                    <DropdownMenuItem
+                      onClick={() => setIsDeleteDialogOpen(true)}
+                      className='text-destructive focus:text-destructive'
+                    >
+                      <Trash2 className='mr-2 h-4 w-4' /> Delete
+                    </DropdownMenuItem>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </CardFooter>
+          )}
+        </Card>
       </motion.div>
-    </div>
+
+      {/* Delete Dialog */}
+      <AlertDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the
+              event &quot;{event.title}&quot;.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmDelete}
+              className='bg-destructive text-destructive-foreground hover:bg-destructive/90'
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };
 

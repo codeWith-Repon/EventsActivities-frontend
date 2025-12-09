@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import createEvent from '@/services/events/createEvent';
 import { useRouter } from 'next/navigation';
+import { CreateEventFormData } from '@/types/events.interface';
 
 const formSchema = z.object({
   title: z.string().min(3, 'Event title must be at least 3 characters'),
@@ -39,25 +40,6 @@ const formSchema = z.object({
   images: z.array(z.any()).optional().default([]),
   status: z.enum(['open', 'cancelled']).default('open'),
 });
-
-export interface CreateEventFormData {
-  title: string;
-  slug: string;
-  category: string;
-  description: string;
-  date: string;
-  time: string;
-  location: string;
-  minParticipants: number;
-  maxParticipants: number;
-  isFree: boolean;
-  fee?: number;
-  images: Array<{
-    file?: File;
-    preview?: string;
-  }>;
-  status: 'open' | 'cancelled';
-}
 
 const CreateEventsFormContent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
