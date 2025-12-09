@@ -67,30 +67,6 @@ export function BasicInfoForm({ form }: BasicInfoFormProps) {
 
         <FormField
           control={form.control}
-          name='slug'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className='text-neutral-700 font-medium'>
-                Event Slug
-              </FormLabel>
-              <FormControl>
-                <Input
-                  disabled
-                  placeholder='auto-generated'
-                  {...field}
-                  className='bg-neutral-50 border-neutral-200 text-neutral-500 rounded-lg cursor-not-allowed'
-                />
-              </FormControl>
-              <FormDescription className='text-xs text-neutral-500'>
-                Auto-generated from event title
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name='category'
           render={({ field }) => (
             <FormItem>

@@ -123,7 +123,7 @@ export function DateLocationForm({ form }: DateLocationFormProps) {
         )}
       />
 
-      <div className='mt-6 p-4 bg-neutral-50 rounded-lg border border-neutral-200'>
+      {/* <div className='mt-6 p-4 bg-neutral-50 rounded-lg border border-neutral-200'>
         <p className='text-sm font-medium text-neutral-700 mb-3'>Map Preview</p>
         <div className='w-full h-48 bg-neutral-200 rounded-lg flex items-center justify-center'>
           <div className='text-center'>
@@ -133,7 +133,7 @@ export function DateLocationForm({ form }: DateLocationFormProps) {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -10,11 +10,12 @@ import { DateLocationForm } from './form/DateLocationForm';
 import { PricingForm } from './form/PricingForm';
 import { ParticipantsForm } from './form/ParticipantsForm';
 import { ImagesForm } from './form/ImagesForm';
-import { VisibilityForm } from './form/VisibilityForm';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import createEvent from '@/services/events/createEvent';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   title: z.string().min(3, 'Event title must be at least 3 characters'),
@@ -60,6 +61,7 @@ export interface CreateEventFormData {
 
 const CreateEventsFormContent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const form = useForm<any>({
     resolver: zodResolver(formSchema),
@@ -72,7 +74,7 @@ const CreateEventsFormContent = () => {
       time: '',
       location: '',
       minParticipants: 1,
-      maxParticipants: 50,
+      maxParticipants: 5,
       isFree: true,
       fee: 0,
       images: [],
@@ -82,13 +84,46 @@ const CreateEventsFormContent = () => {
 
   const onSubmit = async (data: CreateEventFormData) => {
     setIsSubmitting(true);
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log('Event created:', data);
-      toast.success('Event created successfully 🎉', {
-        description: `"${data.title}" has been published and is now visible to participants`,
+      // Create FormData
+      const formData = new FormData();
+
+      // Append all normal fields
+      Object.entries(data).forEach(([key, value]) => {
+        if (key !== 'images') {
+          if (key === 'status') {
+            formData.append(key, String(value).toUpperCase());
+          } else {
+            formData.append(key, String(value));
+          }
+        }
       });
-      form.reset();
+
+      // Append images (files only)
+      if (data.images && data.images.length > 0) {
+        data.images.forEach((img) => {
+          if (img.file) {
+            formData.append('files', img.file);
+          }
+        });
+      }
+
+      // Send to server function
+      const result = await createEvent(formData);
+
+      if (result.success) {
+        toast.success('Event created successfully 🎉', {
+          description: `"${data.title}" has been published and is now visible to participants`,
+        });
+        router.push('/my-events');
+        form.reset();
+      } else {
+        toast.error('Failed to create event', {
+          description: 'Please try again or contact support',
+        });
+        return;
+      }
     } catch (error: any) {
       console.log(error);
       toast.error('Failed to create event', {
@@ -119,10 +154,10 @@ const CreateEventsFormContent = () => {
           <ImagesForm form={form} />
 
           {/* Visibility */}
-          <VisibilityForm form={form} />
+          {/* <VisibilityForm form={form} /> */}
           <Button
             type='submit'
-            disabled={isSubmitting || !form.formState.isValid}
+            disabled={isSubmitting}
             size='lg'
             className='rounded-lg bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold px-8 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
           >

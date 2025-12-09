@@ -20,6 +20,7 @@ import { CreateEventFormData } from '../CreateEventsFormContent';
 const STATUS_OPTIONS = [
   { value: 'open', label: 'Open (Visible to users)' },
   { value: 'cancelled', label: 'Cancelled' },
+  { value: 'completed', label: 'Completed' },
 ];
 
 interface VisibilityFormProps {
