@@ -3,7 +3,13 @@ import { ArrowRight, Award } from 'lucide-react';
 import EventCard from '../Home/FeaturedEvent/EventCard';
 import { IEvent } from '@/types/events.interface';
 
-const JoinedEvents = ({ events }: { events: IEvent[] }) => {
+const JoinedEvents = ({
+  events,
+  loading,
+}: {
+  events: IEvent[];
+  loading?: boolean;
+}) => {
   return (
     <section className='space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700'>
       <div className='flex items-center justify-between'>
@@ -20,7 +26,11 @@ const JoinedEvents = ({ events }: { events: IEvent[] }) => {
         </Button>
       </div>
 
-      {events.length === 0 ? (
+      {loading ? (
+        <p className='text-muted-foreground text-center'>
+          <span className='animate-pulse '>Loading...</span>
+        </p>
+      ) : events.length === 0 ? (
         <p className='text-muted-foreground text-center'>
           You are not joined to any events
         </p>

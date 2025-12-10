@@ -12,7 +12,7 @@ import { Upload, X, Image as ImageIcon } from 'lucide-react';
 import { UseFormReturn } from 'react-hook-form';
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { CreateEventFormData } from '../CreateEventsFormContent';
+import { CreateEventFormData } from '@/types/events.interface';
 
 interface ImagesFormProps {
   form: UseFormReturn<CreateEventFormData>;
@@ -142,11 +142,11 @@ export function ImagesForm({ form }: ImagesFormProps) {
                 <div className='relative w-full aspect-square rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200'>
                   {image.preview ? (
                     <Image
-                      src={image.preview} // ✅ Blob URL
+                      src={image.preview}
                       alt={`Preview ${index + 1}`}
-                      width={300} // ✅ Required
-                      height={300} // ✅ Required
-                      unoptimized // ✅ Important for local preview
+                      width={300}
+                      height={300}
+                      unoptimized
                       className='w-full h-full object-cover'
                     />
                   ) : (

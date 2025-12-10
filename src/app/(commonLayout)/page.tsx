@@ -1,3 +1,5 @@
+"use server"
+
 import AIWidget from '@/components/modules/AIWidget';
 import CallToAction from '@/components/modules/Home/CallToAction';
 import EventCategory from '@/components/modules/Home/EventCategory';
@@ -7,13 +9,22 @@ import HowItWork from '@/components/modules/Home/HowItWork';
 // import LatestArticles from '@/components/modules/Home/LatestArticles';
 import Testimonials from '@/components/modules/Home/Testimonials';
 import TopHosts from '@/components/modules/Home/TopHosts';
+import { queryStringFormatter } from '@/lib/formatter';
+import { getAllEvent } from '@/services/events/getAllEvent';
 
-const Home = () => {
+const Home = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+  const searchParamsObj = await searchParams;
+  const queryString = queryStringFormatter(searchParamsObj);
+  const events = await getAllEvent(queryString);
   return (
     <div className='bg-primary/5'>
       <Hero />
       <EventCategory />
-      <FeaturedEvents />
+      <FeaturedEvents events={events?.data?.data} />
       <HowItWork />
       <TopHosts />
       {/* <LatestArticles /> */}

@@ -41,8 +41,9 @@ const HeroCollage: React.FC<HeroCollageProps> = ({ cards, delay = 0 }) => {
           <Image
             src={card.image}
             alt={card.title}
+            width={600}
+            height={400}
             className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
-            fill
           />
           <div className='absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-80' />
           <div className='absolute bottom-4 left-4 text-white'>

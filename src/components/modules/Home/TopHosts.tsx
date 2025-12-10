@@ -80,7 +80,8 @@ const TopHosts = () => {
                       src={host.image}
                       alt={host.name}
                       className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
-                      fill
+                      width={200}
+                      height={200}
                     />
                   </div>
                   <div className='absolute bottom-1 right-1 bg-white rounded-full p-1.5 shadow-md border border-gray-100 z-20'>

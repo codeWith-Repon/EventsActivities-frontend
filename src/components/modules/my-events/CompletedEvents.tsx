@@ -5,8 +5,9 @@ import { IEvent } from '@/types/events.interface';
 
 interface IActiveEventsProps {
   events: IEvent[];
+  loading?: boolean;
 }
-const CompletedEvents = ({ events }: IActiveEventsProps) => {
+const CompletedEvents = ({ events, loading }: IActiveEventsProps) => {
   return (
     <section className='space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100'>
       <div className='flex items-center justify-between'>
@@ -23,7 +24,11 @@ const CompletedEvents = ({ events }: IActiveEventsProps) => {
         </Button>
       </div>
 
-      {events.length === 0 ? (
+      {loading ? (
+        <p className='text-muted-foreground text-center'>
+          <span className='animate-pulse '>Loading...</span>
+        </p>
+      ) : events.length === 0 ? (
         <p className='text-muted-foreground text-center'>
           You have no completed events
         </p>

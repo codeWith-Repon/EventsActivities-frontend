@@ -10,6 +10,7 @@ import aboutThumbnail1 from './images/aboutThumb1.jpg';
 import aboutThumbnail2 from './images/aboutThumb2.jpg';
 import aboutThumbnail3 from './images/aboutThumb3.jpg';
 import aboutThumbnail4 from './images/aboutThumb4.jpg';
+import userPlaceholder from './images/userPlaceholder.jpg';
 
 
 export const HeroCollageImage = {
@@ -33,3 +34,5 @@ export const aboutThumbnail = {
     aboutThumbnail3,
     aboutThumbnail4,
 }
+
+export const userPlaceholderImage = userPlaceholder

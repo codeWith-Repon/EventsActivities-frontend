@@ -1,18 +1,69 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 'use client';
 
 import { Calendar, DollarSign, LayoutDashboard, Users } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import StatCard from './StateCard';
 import EventsDashboardHeader from './EventsDashboardHeader';
 import ActiveEvents from './ActiveEvents';
-import { events } from '../Home/FeaturedEvent/FeaturedEvents';
 import CompletedEvents from './CompletedEvents';
+import { IEvent, IParticipant, Meta } from '@/types/events.interface';
+import { IUserInfo } from '@/types/user.interface';
 import JoinedEvents from './JoinedEvents';
-import { useUser } from '@/hook/useUser';
 
-export default function EventsDashboard() {
+export default function EventsDashboard({
+  participants,
+  user,
+}: {
+  participants: {
+    data: IParticipant[];
+    meta: Meta;
+  };
+  user?: IUserInfo | null;
+}) {
   const [userRole, setUserRole] = useState<'HOST' | 'USER'>('HOST');
-  const { user } = useUser();
+  const [activeEvents, setActiveEvents] = useState<IEvent[]>([]);
+  const [activeLoading, setActiveLoading] = useState(true);
+  const [JoinEvents, setJoinEvents] = useState<IEvent[]>([]);
+  const [joinLoading, setJoinLoading] = useState(true);
+  const [completedEvents, setCompletedEvents] = useState<IEvent[]>([]);
+  const [completedLoading, setCompletedLoading] = useState(true);
+
+  const events = participants?.data.map(
+    (participant: IParticipant) => participant.event as IEvent
+  );
+  console.log(participants);
+  useEffect(() => {
+    setActiveLoading(true);
+    const yourEvents = events.filter(
+      (event) => event.hostId === user?.hosts?.id
+    );
+    setActiveEvents(yourEvents);
+    setActiveLoading(false);
+  }, [events, user]);
+
+  useEffect(() => {
+    setJoinLoading(true);
+    const yourEvents = events.filter(
+      (event) => event.hostId !== user?.hosts?.id
+    );
+    setJoinEvents(yourEvents);
+    setJoinLoading(false);
+  }, [events, user]);
+
+  useEffect(() => {
+    setCompletedLoading(true);
+    const yourEvents = participants.data
+      .filter((p) => {
+        const participant = p.userId === user?.id;
+        const isComplete = p.event.status === 'COMPLETED';
+        if (participant && isComplete) return p.event;
+      })
+      .map((p) => p.event);
+
+    setCompletedEvents(yourEvents);
+    setCompletedLoading(false);
+  }, [participants.data, user]);
 
   return (
     <div className='min-h-[90vh] bg-gray-50/50  pb-20 mt-4'>
@@ -54,14 +105,18 @@ export default function EventsDashboard() {
             </div>
           </div>
         )}
-        
+
         {(user?.role === 'HOST' ||
           user?.role === 'ADMIN' ||
           user?.role === 'SUPER_ADMIN') && (
-          <ActiveEvents events={events} userRole={userRole} />
+          <ActiveEvents
+            events={activeEvents}
+            userRole={userRole}
+            loading={activeLoading}
+          />
         )}
-        <JoinedEvents events={events} />
-        <CompletedEvents events={events} />
+        <JoinedEvents events={JoinEvents} loading={joinLoading} />
+        <CompletedEvents events={completedEvents} loading={completedLoading} />
       </div>
     </div>
   );

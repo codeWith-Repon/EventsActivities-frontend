@@ -17,6 +17,25 @@ export interface CreateEventFormData {
     status: 'open' | 'cancelled';
 }
 
+export interface IParticipant {
+    id: string
+    eventId: string
+    hostId: string
+    userId: string
+    joinStatus: string
+    paymentStatus: string
+    createdAt: string
+    updatedAt: string
+    user: User,
+    event: IEvent
+}
+export interface Meta {
+    limit: number
+    page: number
+    total: number
+    totalPage: number
+}
+
 export interface IEvent {
     id: string
     title: string
@@ -34,7 +53,7 @@ export interface IEvent {
     status: string
     createdAt: string
     updatedAt: string
-    hostId: string
+    hostId?: string
     host: Host
 }
 

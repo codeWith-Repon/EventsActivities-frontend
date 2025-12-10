@@ -6,8 +6,9 @@ import { IEvent } from '@/types/events.interface';
 interface IActiveEventsProps {
   userRole: 'HOST' | 'USER';
   events: IEvent[];
+  loading?: boolean;
 }
-const ActiveEvents = ({ userRole, events }: IActiveEventsProps) => {
+const ActiveEvents = ({ userRole, events, loading }: IActiveEventsProps) => {
   const handleEditEvent = (event: IEvent) => {
     console.log(event);
   };
@@ -30,7 +31,11 @@ const ActiveEvents = ({ userRole, events }: IActiveEventsProps) => {
         </Button>
       </div>
 
-      {events.length === 0 ? (
+      {loading ? (
+        <p className='text-muted-foreground text-center'>
+          <span className='animate-pulse '>Loading...</span>
+        </p>
+      ) : events.length === 0 ? (
         <p className='text-muted-foreground text-center'>You have no events</p>
       ) : (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>

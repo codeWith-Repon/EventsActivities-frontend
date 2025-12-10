@@ -20,7 +20,7 @@ const AdminsManagementPage = async ({
 
   const queryString = queryStringFormatter(searchParamsObj);
   const user = await getUsers(queryString);
-console.log(user);
+
   return (
     <div className='space-y-6'>
       <ManagementPageHeader

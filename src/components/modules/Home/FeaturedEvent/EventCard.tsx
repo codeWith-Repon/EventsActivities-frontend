@@ -41,6 +41,7 @@ import { formatDate, formatTimeTo12Hour } from '@/lib/formatter';
 
 import { IEvent } from '@/types/events.interface';
 import Link from 'next/link';
+import { userPlaceholderImage } from '@/assets';
 
 interface EventCardProps {
   event: IEvent;
@@ -79,9 +80,10 @@ const EventCard = ({ event, index = 0, onEdit, onDelete }: EventCardProps) => {
           {/* Image Section */}
           <div className='relative h-48 overflow-hidden'>
             <Image
-              src={event.images[0]}
+              src={event.images[0] ?? userPlaceholderImage}
               alt={event.title}
-              fill
+              width={600}
+              height={400}
               className='object-cover transition-transform duration-700 group-hover:scale-110'
             />
 
@@ -139,7 +141,7 @@ const EventCard = ({ event, index = 0, onEdit, onDelete }: EventCardProps) => {
             <div className='flex items-center justify-between pt-4 border-t border-border/50 mt-auto'>
               <div className='flex items-center gap-2'>
                 <Image
-                  src={event?.host?.user?.profileImage}
+                  src={event?.host?.user?.profileImage ?? userPlaceholderImage}
                   alt={event?.host?.user?.name}
                   width={32}
                   height={32}
