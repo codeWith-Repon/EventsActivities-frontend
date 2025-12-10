@@ -3,8 +3,10 @@
 import { ArrowRight } from 'lucide-react';
 import { IEvent } from '@/types/events.interface';
 import EventCard from './EventCard';
+import { useRouter } from 'next/navigation';
 
 const FeaturedEvents = ({ events }: { events: IEvent[] }) => {
+  const router = useRouter();
   return (
     <section className='py-20 bg-linear-to-r from-gray-50 to-gray-100'>
       <div className='container-custom'>
@@ -37,7 +39,10 @@ const FeaturedEvents = ({ events }: { events: IEvent[] }) => {
         </div>
 
         <div className='mt-12 text-center'>
-          <button className='btn-secondary inline-flex items-center gap-2'>
+          <button
+            className='btn-secondary inline-flex items-center gap-2 cursor-pointer'
+            onClick={() => router.push('/events')}
+          >
             See More Events <ArrowRight size={18} />
           </button>
         </div>
