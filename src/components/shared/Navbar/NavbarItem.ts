@@ -6,9 +6,9 @@ export const navItems = [
     {
         label: 'Communities',
         submenu: [
-            { label: 'Hiking & Outdoors', href: '/community/hiking-outdoors' },
-            { label: 'Music & Concerts', href: '/community/music-concerts' },
-            { label: 'Food & Dining', href: '/community/food-dining' },
+            { label: 'Hiking', href: '/community/hiking' },
+            { label: 'Music ', href: '/community/music' },
+            { label: 'Dining', href: '/community/dining' },
         ],
     },
     { label: 'About', href: '/about' },

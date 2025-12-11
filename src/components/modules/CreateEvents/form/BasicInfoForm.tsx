@@ -16,11 +16,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { UseFormReturn } from 'react-hook-form';
-import { CreateEventFormData } from '../CreateEventsFormContent';
+import { CreateEventFormData } from '@/types/events.interface';
 
 const CATEGORIES = [
   'Concert',
   'Hiking',
+  'Music',
+  'Dining',
   'Sports',
   'Gaming',
   'Meetup',

@@ -173,13 +173,15 @@ const EventCard = ({ event, index = 0, onEdit, onDelete }: EventCardProps) => {
               </span>
             </div>
 
-            <Button
-              variant='secondary'
-              className='w-full cursor-pointer mt-3'
-              size='lg'
-            >
-              <Link href={`/events/${event.slug}`}>View Details</Link>
-            </Button>
+            <Link href={`/events/${event.slug}`}>
+              <Button
+                variant='secondary'
+                className='w-full cursor-pointer mt-3'
+                size='lg'
+              >
+                View Details
+              </Button>
+            </Link>
           </CardContent>
 
           {/* Action Footer */}

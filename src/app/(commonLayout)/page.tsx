@@ -1,4 +1,4 @@
-"use server"
+'use server';
 
 import AIWidget from '@/components/modules/AIWidget';
 import CallToAction from '@/components/modules/Home/CallToAction';
@@ -24,7 +24,7 @@ const Home = async ({
     <div className='bg-primary/5'>
       <Hero />
       <EventCategory />
-      <FeaturedEvents events={events?.data?.data} />
+      <FeaturedEvents events={events?.data?.data || []} />
       <HowItWork />
       <TopHosts />
       {/* <LatestArticles /> */}

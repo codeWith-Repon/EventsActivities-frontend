@@ -4,7 +4,6 @@
 import { serverFetch } from "@/lib/server-fetch"
 import { zodValidator } from "@/lib/zodValidator"
 import { loginValidationZodSchema } from "@/zod/auth.validation"
-import jwt from "jsonwebtoken"
 import { parse } from "cookie"
 import { setCookie } from "./tokenHandlers"
 import { redirect } from "next/navigation"
@@ -87,17 +86,17 @@ export const loginUser = async (_currentState: any, formData: any) => {
         await setCookie("accessToken", accessTokenObj.accessToken, {
             secure: true,
             httpOnly: true,
-            maxAge: parseInt(accessTokenObj.maxAge) || 24 * 60 * 60 * 1000,
-            path: accessTokenObj.Path || "/",
-            sameSite: accessTokenObj.SameSite || "none"
+            maxAge: parseInt(accessTokenObj["Max-Age"]),
+            path: accessTokenObj["Path"] || "/",
+            sameSite: accessTokenObj["SameSite"] || "none",
         })
 
         await setCookie("refreshToken", refreshTokenObj.refreshToken, {
             secure: true,
             httpOnly: true,
-            maxAge: parseInt(refreshTokenObj.maxAge) || 2 * 24 * 60 * 60 * 1000,
-            path: refreshTokenObj.Path || "/",
-            sameSite: refreshTokenObj.SameSite || "none"
+            maxAge: parseInt(accessTokenObj["Max-Age"]),
+            path: accessTokenObj["Path"] || "/",
+            sameSite: accessTokenObj["SameSite"] || "none",
         })
 
         if (redirectTo) {
