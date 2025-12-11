@@ -2,6 +2,7 @@
 'use server';
 
 import { serverFetch } from '@/lib/server-fetch';
+import { throwError } from '@/lib/throwError';
 
 export const getAllEvent = async (query?: string) => {
   try {
@@ -12,13 +13,7 @@ export const getAllEvent = async (query?: string) => {
 
     return result;
   } catch (error: any) {
-    return {
-      success: false,
-      message: `${process.env.NODE_ENV === 'development'
-          ? error.message
-          : 'Something went wrong'
-        }`,
-    };
+    throwError(error)
   }
 };
 

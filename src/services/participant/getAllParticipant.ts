@@ -2,8 +2,9 @@
 "use server"
 
 import { serverFetch } from "@/lib/server-fetch";
+import { throwError } from "@/lib/throwError";
 
-const getAllParticipant = async (queryString: string) => {
+const getAllParticipant = async (queryString?: string) => {
     try {
         const response = await serverFetch.get(
             `/event-participants${queryString ? `?${queryString}` : ''}`
@@ -12,13 +13,7 @@ const getAllParticipant = async (queryString: string) => {
 
         return result;
     } catch (error: any) {
-        return {
-            success: false,
-            message: `${process.env.NODE_ENV === 'development'
-                ? error.message
-                : 'Something went wrong'
-                }`,
-        };
+        throwError(error)
     }
 }
 

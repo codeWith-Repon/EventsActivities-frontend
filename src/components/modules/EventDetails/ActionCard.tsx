@@ -1,8 +1,14 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useUser } from '@/hook/useUser';
+import { joinEvent } from '@/services/participant/participant.service';
 import { IEvent, IParticipant } from '@/types/events.interface';
 import { Loader } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface ActionCardProps {
   event: IEvent;
@@ -10,12 +16,41 @@ interface ActionCardProps {
 }
 const ActionCard = ({ event, participants }: ActionCardProps) => {
   const { user, loading } = useUser();
+  const [joining, setJoining] = useState(false);
+  const router = useRouter();
+
   const isFull = event.totalParticipants === event.maxParticipants;
   const isCompleted = event.status === 'COMPLETED';
   const isCancelled = event.status === 'CANCELLED';
   const canJoin = event.status === 'OPEN' && !isFull;
+  const isFree = event.fee === 0;
 
   const hasJoined = participants.some((p) => p.userId === user?.id);
+  const eventOwner = event.host.userId === user?.id;
+
+  const handleJoin = async () => {
+    try {
+      setJoining(true);
+      const result = await joinEvent(event.id!);
+      if (!result.success) {
+        toast.error(result.message || 'Failed to join event');
+        return;
+      }
+
+      if (isFree && result.success) {
+        toast.success("You've successfully joined the event");
+        router.push(`/events`);
+      }
+      const eventParticipantId = result.data.eventParticipant.id;
+
+      router.push(`/payment?slug=${event.slug}&id=${eventParticipantId}`);
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to join event');
+    } finally {
+      setJoining(false);
+    }
+  };
 
   return (
     <div>
@@ -47,16 +82,28 @@ const ActionCard = ({ event, participants }: ActionCardProps) => {
             </div>
           ) : (
             <Button
-              className='w-full bg-emerald-600 hover:bg-emerald-700 text-lg h-12'
-              disabled={!canJoin}
-              //   onClick={handleJoin}
+              className='w-full bg-emerald-600 hover:bg-emerald-700 text-lg h-12 cursor-pointer'
+              disabled={
+                !canJoin ||
+                isFull ||
+                isCompleted ||
+                isCancelled ||
+                eventOwner ||
+                joining
+              }
+              onClick={handleJoin}
             >
-              {isFull
+              {joining && <Loader className='animate-spin w-4 h-4 mr-2' />}
+              {eventOwner
+                ? 'You are hosting this event'
+                : isFull
                 ? 'Event Full'
                 : isCompleted
                 ? 'Event Completed'
                 : isCancelled
                 ? 'Event Cancelled'
+                : isFree
+                ? 'Join Free'
                 : 'Join & Pay'}
             </Button>
           )}
