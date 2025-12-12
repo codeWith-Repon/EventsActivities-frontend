@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Info } from 'lucide-react';
 import { UseFormReturn } from 'react-hook-form';
-import { CreateEventFormData } from '../CreateEventsFormContent';
+import { CreateEventFormData } from '@/types/events.interface';
 
 
 interface ParticipantsFormProps {

@@ -2,6 +2,8 @@ import Profile from '@/components/modules/Profile';
 import { getUserInfo } from '@/services/auth/getUserInfo';
 import { IUserInfo } from '@/types/user.interface';
 
+export const dynamic = 'force-dynamic';
+
 const ProfilePage = async () => {
   const userInfo = await getUserInfo();
 

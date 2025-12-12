@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/popover';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { format } from 'date-fns';
-import { CreateEventFormData } from '../CreateEventsFormContent';
+import { CreateEventFormData } from '@/types/events.interface';
 
 interface DateLocationFormProps {
   form: UseFormReturn<CreateEventFormData>;

@@ -10,7 +10,7 @@ import { Switch } from '@/components/ui/switch';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Info } from 'lucide-react';
 import { UseFormReturn, useWatch } from 'react-hook-form';
-import { CreateEventFormData } from '../CreateEventsFormContent';
+import { CreateEventFormData } from '@/types/events.interface';
 
 interface PricingFormProps {
   form: UseFormReturn<CreateEventFormData>;

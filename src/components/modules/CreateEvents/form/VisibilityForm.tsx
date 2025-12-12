@@ -15,7 +15,7 @@ import {
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Info } from 'lucide-react';
 import { UseFormReturn } from 'react-hook-form';
-import { CreateEventFormData } from '../CreateEventsFormContent';
+import { CreateEventFormData } from '@/types/events.interface';
 
 const STATUS_OPTIONS = [
   { value: 'open', label: 'Open (Visible to users)' },
