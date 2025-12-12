@@ -26,7 +26,7 @@ const EventDetailsMainContent = ({
   event,
   participants,
 }: EventDetailsProps) => {
-  console.log(participants);
+  // console.log(participants);
 
   const [isLiked, setIsLiked] = useState(false);
 

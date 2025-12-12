@@ -57,7 +57,7 @@ const Profile = ({ userInfo }: profileProps) => {
     startTransition(async () => {
       const result = await updateUser(formData);
       setResult(result);
-      console.log(result);
+      // console.log(result);
       if (result.success) {
         toast.success(result.message);
 

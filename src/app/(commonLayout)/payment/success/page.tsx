@@ -4,17 +4,22 @@ import { getAllEvent } from '@/services/events/getAllEvent';
 const PaymentSuccessPage = async ({
   searchParams,
 }: {
-  searchParams: { transactionId: string; amount: string; eventId: string };
+  searchParams: { transactionId: string; amount: string; event: string };
 }) => {
-  const { transactionId, eventId } = await searchParams;
+  const { transactionId, event } = await searchParams;
 
-  const result = await getAllEvent(`id=${eventId}`);
+  const result = await getAllEvent(`id=${event}`);
 
-  const event = result?.data?.data[0] || {};
+  const eventInfo = result?.data?.data[0] || {};
+
+  console.log('===================', result);
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-slate-50 p-4'>
-      <PaymentSuccessCard event={event} transactionId={transactionId || ''} />
+      <PaymentSuccessCard
+        event={eventInfo}
+        transactionId={transactionId || ''}
+      />
     </div>
   );
 };

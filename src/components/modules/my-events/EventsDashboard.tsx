@@ -32,7 +32,7 @@ export default function EventsDashboard({
   const events = participants?.data.map(
     (participant: IParticipant) => participant.event as IEvent
   );
-  console.log(participants);
+  // console.log(participants);
   useEffect(() => {
     setActiveLoading(true);
     const yourEvents = events.filter(

@@ -34,6 +34,8 @@ const ShowEventDetails = ({ participant }: IShowEventDetails) => {
       const response = await paymentInit(participant.id);
       if (response.success) {
         window.location.href = response.data.paymentUrl;
+      } else {
+        toast.error(response.message || 'Something went wrong');
       }
     } catch (error) {
       toast.error('Something went wrong');
