@@ -3,6 +3,8 @@ import { queryStringFormatter } from '@/lib/formatter';
 import { getUserInfo } from '@/services/auth/getUserInfo';
 import getAllParticipant from '@/services/participant/getAllParticipant';
 
+export const dynamic = 'force-dynamic';
+
 const MyEventsPage = async ({
   searchParams,
 }: {
