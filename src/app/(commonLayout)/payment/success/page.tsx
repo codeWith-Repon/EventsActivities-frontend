@@ -12,7 +12,6 @@ const PaymentSuccessPage = async ({
 
   const eventInfo = result?.data?.data[0] || {};
 
-  console.log('===================', result);
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-slate-50 p-4'>
