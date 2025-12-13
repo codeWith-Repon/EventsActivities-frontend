@@ -32,14 +32,14 @@ const ActionCard = ({ event, participants }: ActionCardProps) => {
     try {
       setJoining(true);
       const result = await joinEvent(event.id!);
-
+console.log(result);
       if (!result.success && result.message === 'No Token Received') {
         router.push(`/login?redirect=/events/${event.slug}`);
       }
-      if (!result.success) {
-        toast.error(result.message || 'Failed to join event');
-        return;
-      }
+      // if (!result.success) {
+      //   toast.error(result.message || 'Failed to join event');
+      //   return;
+      // }
 
       if (isFree && result.success) {
         toast.success("You've successfully joined the event");

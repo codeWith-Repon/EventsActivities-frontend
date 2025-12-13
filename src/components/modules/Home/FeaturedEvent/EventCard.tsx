@@ -82,8 +82,9 @@ const EventCard = ({ event, index = 0, onEdit, onDelete }: EventCardProps) => {
             <Image
               src={event.images[0] ?? userPlaceholderImage}
               alt={event.title}
-              width={600}
-              height={400}
+              // width={600}
+              // height={400}
+              fill
               className='object-cover transition-transform duration-700 group-hover:scale-110'
             />
 
