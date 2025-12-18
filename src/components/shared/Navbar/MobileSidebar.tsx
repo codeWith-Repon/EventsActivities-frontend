@@ -56,7 +56,7 @@ export default function MobileSidebar({
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className='flex items-center justify-between p-4 border-b'>
+        <div className='flex items-center justify-between p-4 border-b mt-3'>
           <h2 className='text-xl font-bold'>Menu</h2>
           <button onClick={onClose}>
             <X size={24} />
