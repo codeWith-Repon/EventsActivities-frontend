@@ -7,15 +7,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { IUserInfo } from '@/types/user.interface';
 import { ArrowLeft, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 interface EventsDashboardHeaderProps {
-  userRole: string;
+  user: IUserInfo;
+  userRole: 'HOST' | 'USER';
   setUserRole: (role: 'HOST' | 'USER') => void;
 }
 
 const EventsDashboardHeader = ({
+  user,
   userRole,
   setUserRole,
 }: EventsDashboardHeaderProps) => {
@@ -34,16 +37,20 @@ const EventsDashboardHeader = ({
             </p>
           </div>
           <div className='flex items-center gap-3'>
-            <Select value={userRole} onValueChange={(v: any) => setUserRole(v)}>
-              <SelectTrigger className='w-[140px] cursor-pointer'>
-                <SelectValue placeholder='Select Role' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='HOST'>Host View</SelectItem>
-                <SelectItem value='USER'>Attendee View</SelectItem>
-              </SelectContent>
-            </Select>
-
+            {(user.role === 'HOST' || user.isHost) && (
+              <Select
+                value={userRole}
+                onValueChange={(v: any) => setUserRole(v)}
+              >
+                <SelectTrigger className='w-[140px] cursor-pointer'>
+                  <SelectValue placeholder='Select Role' />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value='HOST'>Host View</SelectItem>
+                  <SelectItem value='USER'>Attendee View</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
             <Button
               className='gap-2 shadow-lg shadow-primary/20 cursor-pointer'
               onClick={() => router.push('/create-event')}

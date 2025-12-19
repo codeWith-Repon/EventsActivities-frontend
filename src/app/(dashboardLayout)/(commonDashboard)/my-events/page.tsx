@@ -13,11 +13,13 @@ const MyEventsPage = async ({
   const user = await getUserInfo();
 
   const searchParamsObj = await searchParams;
-  searchParamsObj.userId = user?.data?.id;
 
-  const queryString = queryStringFormatter(searchParamsObj);
+  const queryString = queryStringFormatter({
+    ...searchParamsObj,
+    userId: user?.data?.id,
+  });
   const { data } = await getAllParticipant(queryString);
-  console.log(data);
+ 
 
   return (
     <div>

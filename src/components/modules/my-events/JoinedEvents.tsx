@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Award } from 'lucide-react';
-import EventCard from '../Home/FeaturedEvent/EventCard';
 import { IEvent } from '@/types/events.interface';
+import DashboardCard from '../Dashboard/DashboardCard';
 
 const JoinedEvents = ({
   events,
@@ -36,8 +36,8 @@ const JoinedEvents = ({
         </p>
       ) : (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
-          {events.slice(0, 4).map((event, index) => (
-            <EventCard key={event.id} event={event} index={index} />
+          {events.slice(0, 4).map((event) => (
+            <DashboardCard key={event.id} event={event} />
           ))}
         </div>
       )}

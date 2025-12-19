@@ -69,9 +69,13 @@ export default function EventsDashboard({
     <div className='min-h-[90vh] bg-gray-50/50  pb-20 mt-4'>
       {/* Header Section */}
       <div className='max-w-7xl mx-auto space-y-9'>
-        <EventsDashboardHeader userRole={userRole} setUserRole={setUserRole} />
+        <EventsDashboardHeader
+          userRole={userRole}
+          user={user!}
+          setUserRole={setUserRole}
+        />
 
-        {userRole === 'HOST' && (
+        {user?.role !== 'USER' && (
           <div className='max-w-7xl mx-auto px-4 pb-6 sm:px-6 lg:px-8 mt-6 border-b'>
             <div className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
               <StatCard
@@ -106,9 +110,7 @@ export default function EventsDashboard({
           </div>
         )}
 
-        {(user?.role === 'HOST' ||
-          user?.role === 'ADMIN' ||
-          user?.role === 'SUPER_ADMIN') && (
+        {user?.role !== 'USER' && userRole === 'HOST' && (
           <ActiveEvents
             events={activeEvents}
             userRole={userRole}
