@@ -5,7 +5,6 @@ import { HeroCollageImage } from '@/assets';
 import HeroBadge from './HeroBadge';
 import HeroText from './HeroText';
 import HeroCTA from './HeroCTA';
-import HeroSearch from './HeroSection';
 import HeroCollage from './HeroCollage';
 import { motion } from 'framer-motion';
 
@@ -78,7 +77,7 @@ const Hero: React.FC = () => {
           </motion.p>
 
           {/* Search Bar */}
-          <HeroSearch delay={0.5} />
+          {/* <HeroSearch delay={0.5} /> */}
 
           <HeroCTA
             primaryText='Explore Events'

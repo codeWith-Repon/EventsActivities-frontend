@@ -54,6 +54,7 @@ const TablePagination = ({ currentPage, totalPages }: TablePaginationProps) => {
         size='sm'
         onClick={() => navigateToPage(currentPage - 1)}
         disabled={currentPage <= 1 || isPending}
+        className='cursor-pointer disabled:cursor-none'
       >
         <ChevronLeft className='h-4 w-4 mr-1' />
         Previous
@@ -80,7 +81,7 @@ const TablePagination = ({ currentPage, totalPages }: TablePaginationProps) => {
               size='sm'
               onClick={() => navigateToPage(pageNumber)}
               disabled={isPending}
-              className='w-10'
+              className='w-10 cursor-pointer disabled:cursor-none'
             >
               {pageNumber}
             </Button>
@@ -93,6 +94,7 @@ const TablePagination = ({ currentPage, totalPages }: TablePaginationProps) => {
         size='sm'
         onClick={() => navigateToPage(currentPage + 1)}
         disabled={currentPage === totalPages || isPending}
+        className='cursor-pointer disabled:cursor-none'
       >
         Next
         <ChevronRight className='h-4 w-4 ml-1' />
