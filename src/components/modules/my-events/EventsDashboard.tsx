@@ -35,7 +35,7 @@ export default function EventsDashboard({
   const [userRole, setUserRole] = useState<'HOST' | 'USER'>('HOST');
 
   return (
-    <div className='min-h-[90vh] bg-gray-50/50  pb-20 mt-4'>
+    <div className='min-h-[90vh] bg-gray-50/50  pb-20 mt-4 px-4'>
       {/* Header Section */}
       <div className='max-w-7xl mx-auto space-y-9'>
         <EventsDashboardHeader
@@ -46,7 +46,7 @@ export default function EventsDashboard({
 
         {user?.role !== 'USER' && userRole === 'HOST' && (
           <div className='max-w-7xl mx-auto px-4 pb-6 sm:px-6 lg:px-8 mt-6 border-b'>
-            <div className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               <StatCard
                 title='Total Events'
                 value='12'
@@ -85,7 +85,7 @@ export default function EventsDashboard({
 
         <JoinedEvents participants={participants.data} />
 
-        {completedEvents && completedEvents.data.length > 0 && (
+        {completedEvents && completedEvents?.data?.length > 0 && (
           <CompletedEvents events={completedEvents.data.map((p) => p.event)} />
         )}
       </div>
