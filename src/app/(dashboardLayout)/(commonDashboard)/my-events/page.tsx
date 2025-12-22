@@ -1,27 +1,38 @@
 import EventsDashboard from '@/components/modules/my-events/EventsDashboard';
 import { queryStringFormatter } from '@/lib/formatter';
 import { getUserInfo } from '@/services/auth/getUserInfo';
+import { getAllEvent } from '@/services/events/getAllEvent';
 import getAllParticipant from '@/services/participant/getAllParticipant';
 
 export const dynamic = 'force-dynamic';
 
-const MyEventsPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+const MyEventsPage = async () => {
   const user = await getUserInfo();
 
-  const searchParamsObj = await searchParams;
-  searchParamsObj.userId = user?.data?.id;
+  const userId = user?.data?.id;
+  const hostId = user?.data?.hosts?.id;
 
-  const queryString = queryStringFormatter(searchParamsObj);
-  const { data } = await getAllParticipant(queryString);
-  console.log(data);
+  const participantQuery = queryStringFormatter({ userId });
+  const completedEventsQuery = queryStringFormatter({
+    userId,
+    'event.status': 'COMPLETED',
+  });
+  const eventQuery = queryStringFormatter({ hostId });
+
+  const [participantData, completedEvents, myEvents] = await Promise.all([
+    getAllParticipant(participantQuery),
+    getAllParticipant(completedEventsQuery),
+    getAllEvent(eventQuery),
+  ]);
 
   return (
     <div>
-      <EventsDashboard participants={data} user={user!.data} />
+      <EventsDashboard
+        participants={participantData.data || []}
+        completedEvents={completedEvents?.data || []}
+        myEvents={myEvents.data || []}
+        user={user!.data}
+      />
     </div>
   );
 };

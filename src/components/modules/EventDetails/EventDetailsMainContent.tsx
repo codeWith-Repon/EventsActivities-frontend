@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import ActionCard from './ActionCard';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface EventDetailsProps {
   event: IEvent;
@@ -110,47 +111,49 @@ const EventDetailsMainContent = ({
             </div>
 
             {event.totalParticipants > 0 ? (
-              <div className='grid gap-4 sm:grid-cols-2'>
-                {participants.map((participant) => (
-                  <Card
-                    key={participant.id}
-                    className='overflow-hidden transition-shadow hover:shadow-md py-0'
-                  >
-                    <div className='flex items-center gap-4 p-4'>
-                      <Avatar>
-                        <AvatarImage src={participant.user.profileImage} />
-                        <AvatarFallback>
-                          {participant?.user?.name?.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className='flex-1 overflow-hidden'>
-                        <p className='truncate font-medium text-slate-900'>
-                          {participant.user.name}
-                        </p>
-                        <div className='mt-1 flex gap-2'>
-                          <Badge
-                            variant='secondary'
-                            className='text-[10px] h-5'
-                          >
-                            {participant.joinStatus}
-                          </Badge>
-                          <Badge
-                            className={` text-[10px] h-5 ${
-                              participant.paymentStatus === 'PAID'
-                                ? 'bg-green-500/20 text-black border border-green-500'
-                                : participant.paymentStatus === 'PENDING'
-                                ? 'bg-red-500/20 text-red-900 border border-red-500'
-                                : 'text-[10px] h-5'
-                            }`}
-                          >
-                            {participant.paymentStatus}
-                          </Badge>
+              <ScrollArea className='h-72 rounded-md border p-2'>
+                <div className='grid gap-4 sm:grid-cols-2'>
+                  {participants.map((participant) => (
+                    <Card
+                      key={participant.id}
+                      className='overflow-hidden transition-shadow hover:shadow-md py-0'
+                    >
+                      <div className='flex items-center gap-4 p-4'>
+                        <Avatar>
+                          <AvatarImage src={participant.user.profileImage} />
+                          <AvatarFallback>
+                            {participant?.user?.name?.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className='flex-1 overflow-hidden'>
+                          <p className='truncate font-medium text-slate-900'>
+                            {participant.user.name}
+                          </p>
+                          <div className='mt-1 flex gap-2'>
+                            <Badge
+                              variant='secondary'
+                              className='text-[10px] h-5'
+                            >
+                              {participant.joinStatus}
+                            </Badge>
+                            <Badge
+                              className={` text-[10px] h-5 ${
+                                participant.paymentStatus === 'PAID'
+                                  ? 'bg-green-500/20 text-black border border-green-500'
+                                  : participant.paymentStatus === 'PENDING'
+                                  ? 'bg-red-500/20 text-red-900 border border-red-500'
+                                  : 'text-[10px] h-5'
+                              }`}
+                            >
+                              {participant.paymentStatus}
+                            </Badge>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+                    </Card>
+                  ))}
+                </div>
+              </ScrollArea>
             ) : (
               <div className='flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50 py-12 text-center'>
                 <Users className='mb-4 h-12 w-12 text-slate-300' />
