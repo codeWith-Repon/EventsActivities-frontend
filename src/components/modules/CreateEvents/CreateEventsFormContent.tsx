@@ -141,7 +141,7 @@ const CreateEventsFormContent = () => {
             type='submit'
             disabled={isSubmitting}
             size='lg'
-            className='rounded-lg bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold px-8 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+            className='rounded-lg bg-primary/70 text-white font-semibold px-8 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
           >
             {isSubmitting ? (
               <div className='flex items-center gap-2'>

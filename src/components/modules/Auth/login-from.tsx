@@ -105,12 +105,12 @@ export function LoginForm({ redirect }: { redirect?: string }) {
             </Link>
           </FieldDescription>
         </Field>
-        <div className='flex items-center justify-center gap-2'>
+        <div className='grid grid-cols-2 gap-2 border p-2 rounded-sm'>
           <Button
             type='button'
             size='sm'
             variant='outline'
-            className='hover:bg-gray-50'
+            className='hover:bg-gray-50 '
             onClick={() => handleQuickLogin('admin@gmail.com', '123456')}
             disabled={isPending}
           >

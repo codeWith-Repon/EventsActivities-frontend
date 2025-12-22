@@ -46,8 +46,20 @@ const EventsDashboardHeader = ({
                   <SelectValue placeholder='Select Role' />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value='HOST'>Host View</SelectItem>
-                  <SelectItem value='USER'>Attendee View</SelectItem>
+                  <SelectContent>
+                    <SelectItem
+                      value='HOST'
+                      className='focus:bg-slate-300/20 focus:text-slate-800 cursor-pointer'
+                    >
+                      Host View
+                    </SelectItem>
+                    <SelectItem
+                      value='USER'
+                      className='focus:bg-slate-300/20 focus:text-slate-800 cursor-pointer'
+                    >
+                      Attendee View
+                    </SelectItem>
+                  </SelectContent>
                 </SelectContent>
               </Select>
             )}

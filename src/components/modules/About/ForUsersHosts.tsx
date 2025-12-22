@@ -13,9 +13,9 @@ export function ForUsersHosts() {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           {/* For Users */}
           <Card className='relative bg-white border-slate-200 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group'>
-            <div className='absolute top-0 left-0 h-2 bg-teal-500 w-full'></div>
+            <div className='absolute top-0 left-0 h-2 bg-primary/20  w-full'></div>
             <CardHeader>
-              <div className='w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4 text-teal-600'>
+              <div className='w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mb-4 text-gray-600'>
                 <User className='h-6 w-6' />
               </div>
               <CardTitle className='text-2xl'>For Attendees</CardTitle>
@@ -36,7 +36,7 @@ export function ForUsersHosts() {
                 </li>
               </ul>
               <Button
-                className='w-full bg-slate-900 text-white hover:bg-slate-800'
+                className='w-full bg-slate-900 text-white hover:bg-slate-800 cursor-pointer'
                 onClick={() => router.push('/events')}
               >
                 Find an Event
@@ -46,9 +46,9 @@ export function ForUsersHosts() {
 
           {/* For Hosts */}
           <Card className=' relative bg-white border-slate-200 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group'>
-            <div className='absolute top-0 left-0 h-2 bg-emerald-500 w-full'></div>
+            <div className='absolute top-0 left-0 h-2 bg-primary/20  w-full'></div>
             <CardHeader>
-              <div className='w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 text-emerald-600'>
+              <div className='w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mb-4 text-gray-600'>
                 <Calendar className='h-6 w-6' />
               </div>
               <CardTitle className='text-2xl'>For Hosts</CardTitle>
@@ -71,7 +71,7 @@ export function ForUsersHosts() {
               </ul>
               <Button
                 variant='outline'
-                className='w-full border-slate-300 hover:bg-slate-50'
+                className='w-full border-slate-300 hover:bg-slate-50 cursor-pointer'
                 onClick={() => router.push('/my-events')}
               >
                 Create an Event
