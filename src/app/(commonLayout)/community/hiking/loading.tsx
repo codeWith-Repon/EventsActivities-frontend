@@ -9,7 +9,7 @@ const loading = () => {
       size='md'
       icon={Mountain}
       text='Exploring the best trails and summits...'
-      primaryColor='green-600'
+      // primaryColor='green-600'
       fullScreen={true}
     />
   );

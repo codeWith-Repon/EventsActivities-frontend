@@ -12,13 +12,32 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import PasswordInput from '@/components/ui/passwordInput';
 import InputFieldError from '@/components/shared/InputFieldError';
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
 import { loginUser } from '@/services/auth/loginUser';
 import { toast } from 'sonner';
 import { Loader } from 'lucide-react';
 
 export function LoginForm({ redirect }: { redirect?: string }) {
+  const formRef = useRef<HTMLFormElement>(null);
   const [state, fromAction, isPending] = useActionState(loginUser, null);
+
+  const handleQuickLogin = (email: string, password: string) => {
+    if (formRef.current) {
+      const emailInput = formRef.current.querySelector(
+        'input[name="email"]'
+      ) as HTMLInputElement;
+      const passwordInput = formRef.current.querySelector(
+        'input[name="password"]'
+      ) as HTMLInputElement;
+
+      if (emailInput && passwordInput) {
+        emailInput.value = email;
+        passwordInput.value = password;
+
+        formRef.current.requestSubmit();
+      }
+    }
+  };
 
   useEffect(() => {
     if (state && !state.success && state.message) {
@@ -28,8 +47,9 @@ export function LoginForm({ redirect }: { redirect?: string }) {
       toast.success(state?.message);
     }
   }, [state]);
+
   return (
-    <form action={fromAction}>
+    <form action={fromAction} ref={formRef}>
       <FieldGroup className='gap-4'>
         <div className='flex flex-col items-center gap-1 text-center'>
           <h1 className='text-2xl font-bold'>Login to your account</h1>
@@ -85,6 +105,29 @@ export function LoginForm({ redirect }: { redirect?: string }) {
             </Link>
           </FieldDescription>
         </Field>
+        <div className='flex items-center justify-center gap-2'>
+          <Button
+            type='button'
+            size='sm'
+            variant='outline'
+            className='hover:bg-gray-50'
+            onClick={() => handleQuickLogin('admin@gmail.com', '123456')}
+            disabled={isPending}
+          >
+            Login As Admin
+          </Button>
+
+          <Button
+            type='button'
+            size='sm'
+            variant='outline'
+            className='hover:bg-gray-50'
+            onClick={() => handleQuickLogin('evanbest@mailinator.com', '123456')}
+            disabled={isPending}
+          >
+            Login As User
+          </Button>
+        </div>
       </FieldGroup>
     </form>
   );

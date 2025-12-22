@@ -9,7 +9,7 @@ const loading = () => {
       size='md'
       icon={Utensils}
       text='Finding the best spots for your next meal...'
-      primaryColor='orange-500'
+      // primaryColor='orange-500'
       fullScreen={true}
     />
   );

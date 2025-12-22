@@ -9,7 +9,7 @@ const loading = () => {
       size='md'
       icon={Music}
       text='Tuning into upcoming live performances...'
-      primaryColor='purple-600'
+      // primaryColor='purple-600'
       fullScreen={true}
     />
   );
