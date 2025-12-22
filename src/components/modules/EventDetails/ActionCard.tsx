@@ -32,7 +32,7 @@ const ActionCard = ({ event, participants }: ActionCardProps) => {
     try {
       setJoining(true);
       const result = await joinEvent(event.id!);
-console.log(result);
+// console.log(result);
       if (!result.success && result.message === 'No Token Received') {
         router.push(`/login?redirect=/events/${event.slug}`);
       }
