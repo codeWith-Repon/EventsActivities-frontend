@@ -5,6 +5,8 @@ import StatCards from '@/components/modules/AdminDashboard/StatCards';
 import { UserGrowthChart } from '@/components/modules/AdminDashboard/UserGrowth';
 import { getDashboardMeta } from '@/services/meta/meta.service';
 
+export const dynamic = 'force-dynamic';
+
 const DashboardPage = async () => {
   const metaData = await getDashboardMeta();
   const stateCardData = metaData?.data?.summary;
