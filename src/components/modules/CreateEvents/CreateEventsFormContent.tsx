@@ -15,7 +15,6 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import createEvent from '@/services/events/createEvent';
-import { useRouter } from 'next/navigation';
 import { CreateEventFormData } from '@/types/events.interface';
 
 const formSchema = z.object({
@@ -41,9 +40,11 @@ const formSchema = z.object({
   status: z.enum(['open', 'cancelled']).default('open'),
 });
 
-const CreateEventsFormContent = () => {
+interface Props {
+  onSuccess?: () => void;
+}
+const CreateEventsFormContent = ({ onSuccess }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
   const form = useForm<any>({
     resolver: zodResolver(formSchema),
@@ -98,8 +99,10 @@ const CreateEventsFormContent = () => {
         toast.success('Event created successfully 🎉', {
           description: `"${data.title}" has been published and is now visible to participants`,
         });
-        router.push('/my-events');
+
         form.reset();
+
+        if (onSuccess) onSuccess();
       } else {
         toast.error('Failed to create event', {
           description: 'Please try again or contact support',
@@ -117,7 +120,7 @@ const CreateEventsFormContent = () => {
   };
 
   return (
-    <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+    <div className='w-full mx-auto px-2 py-4'>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
           {/* Basic Information */}

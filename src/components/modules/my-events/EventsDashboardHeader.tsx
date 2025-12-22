@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from '@/components/ui/button';
 import {
@@ -8,8 +10,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { IUserInfo } from '@/types/user.interface';
-import { ArrowLeft, Plus } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import CreateEventFormDialog from '../CreateEvents/CreateEventFormDialog';
+import { useState } from 'react';
 
 interface EventsDashboardHeaderProps {
   user: IUserInfo;
@@ -23,6 +27,7 @@ const EventsDashboardHeader = ({
   setUserRole,
 }: EventsDashboardHeaderProps) => {
   const router = useRouter();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <div className='bg-white border-b sticky top-0 z-30'>
@@ -63,14 +68,10 @@ const EventsDashboardHeader = ({
                 </SelectContent>
               </Select>
             )}
-            <Button
-              className='gap-2 shadow-lg shadow-primary/20 cursor-pointer'
-              onClick={() => router.push('/create-event')}
-            >
-              <Plus className='w-4 h-4' />
-              <span className='hidden sm:inline'>Create Event</span>
-              <span className='sm:hidden'>Create</span>
-            </Button>
+            <CreateEventFormDialog
+              open={isDialogOpen}
+              setOpen={setIsDialogOpen}
+            />
           </div>
         </div>
 
