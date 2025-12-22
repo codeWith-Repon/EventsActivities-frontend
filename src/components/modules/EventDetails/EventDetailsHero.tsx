@@ -48,20 +48,24 @@ const EventDetailsHero = ({ event, participants }: EventDetailsProps) => {
         </div>
 
         {/* Image Navigation */}
-        <button
-          onClick={prevImage}
-          className='absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white backdrop-blur-sm hover:bg-black/50 cursor-pointer disabled:bg-gray-200/20 disabled:text-gray-200'
-          disabled={event.images.length === 1}
-        >
-          <ChevronLeft className='h-6 w-6' />
-        </button>
-        <button
-          onClick={nextImage}
-          className='absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white backdrop-blur-sm  hover:bg-black/50 cursor-pointer disabled:bg-gray-200/20 disabled:text-gray-200'
-          disabled={event.images.length === 1}
-        >
-          <ChevronRight className='h-6 w-6' />
-        </button>
+        {event.images.length > 1 && (
+          <>
+            <button
+              onClick={prevImage}
+              className='absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white backdrop-blur-sm hover:bg-black/50 cursor-pointer disabled:bg-gray-200/20 disabled:text-gray-200'
+              disabled={event.images.length === 1}
+            >
+              <ChevronLeft className='h-6 w-6' />
+            </button>
+            <button
+              onClick={nextImage}
+              className='absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white backdrop-blur-sm  hover:bg-black/50 cursor-pointer disabled:bg-gray-200/20 disabled:text-gray-200'
+              disabled={event.images.length === 1}
+            >
+              <ChevronRight className='h-6 w-6' />
+            </button>
+          </>
+        )}
 
         {/* Hero Content */}
         <div className='absolute bottom-0 left-0 right-0 p-6 md:p-12'>

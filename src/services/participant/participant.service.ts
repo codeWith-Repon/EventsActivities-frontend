@@ -13,8 +13,15 @@ export const joinEvent = async (eventId: string) => {
                 eventId
             })
         })
-        const result = await response.json()
-        return result
+        const joinResult = await response.json()
+
+        if (!joinResult.success) {
+            return {
+                success: false,
+                message: joinResult.message
+            }
+        }
+        return joinResult
     } catch (error) {
         throwError(error)
     }
