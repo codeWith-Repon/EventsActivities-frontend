@@ -117,7 +117,10 @@ const EventDetailsHero = ({ event, participants }: EventDetailsProps) => {
       </div>
 
       {/* Event Details Section */}
-      <EventDetailsMainContent event={event} participants={participants.data} />
+      <EventDetailsMainContent
+        event={event}
+        participants={participants?.data || []}
+      />
     </div>
   );
 };

@@ -6,6 +6,13 @@ import getAllCategory from '@/services/events/getAllCategory';
 import { getAllEvent } from '@/services/events/getAllEvent';
 import { IEvent } from '@/types/events.interface';
 import { CalendarX2 } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'All Events',
+  description:
+    'Browse all upcoming events, activities, and community gatherings. Find events by category, location, and date to join with like-minded people.',
+};
 
 const EventsPage = async ({
   searchParams,

@@ -1,7 +1,18 @@
 import { AuthImages } from '@/assets';
 import { LoginForm } from '@/components/modules/Auth/login-from';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Login',
+  description:
+    'Login to EventsHub to join local events, find activity partners and participate in meetups.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function LoginPage({
   searchParams,
