@@ -125,12 +125,23 @@ export default function Navbar() {
           )}
 
           {/* Mobile Menu Button */}
-          <button
-            className='md:hidden'
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className='md:hidden flex items-center justify-center gap-3'>
+            {loading ? (
+              <div className=''>
+                <span className=''>
+                  <RefreshCcw className='animate-spin text-primary' />
+                </span>
+              </div>
+            ) : user ? (
+              <div className=''>
+                <UserDropdown user={user} icon onLogout={handleLogout} />
+              </div>
+            ) : null}
+
+            <button onClick={() => setMobileOpen(!mobileOpen)}>
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
       <MobileSidebar

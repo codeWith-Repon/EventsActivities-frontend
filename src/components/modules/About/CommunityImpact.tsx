@@ -1,7 +1,7 @@
 export function CommunityImpact() {
   const stats = [
-    { label: 'Events Hosted', value: '10,000+' },
-    { label: 'Active Users', value: '50,000+' },
+    { label: 'Events Hosted', value: '100K+' },
+    { label: 'Active Users', value: '50K+' },
     { label: 'Cities Covered', value: '120+' },
     { label: 'Successful Meetups', value: '98%' },
   ];

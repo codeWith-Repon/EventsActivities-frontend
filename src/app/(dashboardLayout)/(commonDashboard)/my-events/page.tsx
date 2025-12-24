@@ -28,9 +28,9 @@ const MyEventsPage = async () => {
   return (
     <div>
       <EventsDashboard
-        participants={participantData.data || []}
+        participants={participantData?.data || []}
         completedEvents={completedEvents?.data || []}
-        myEvents={myEvents.data || []}
+        myEvents={myEvents?.data || []}
         user={user!.data}
       />
     </div>
