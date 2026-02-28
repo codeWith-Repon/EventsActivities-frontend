@@ -28,6 +28,21 @@ export function EventCreationChart({
 }: {
   eventCreationData: { date: string; count: number }[];
 }) {
+  const generatePlaceholderData = () => {
+    return Array.from({ length: 7 }).map((_, i) => ({
+      date: new Date(Date.now() - (6 - i) * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split('T')[0],
+      count: Math.floor(Math.random() * 6),
+    }));
+  };
+
+  const isEmpty =
+    !eventCreationData ||
+    eventCreationData.length === 0 ||
+    eventCreationData.every((d) => d.count === 0);
+  const displayData = isEmpty ? generatePlaceholderData() : eventCreationData;
+
   return (
     <Card className='col-span-1'>
       <CardHeader>
@@ -41,7 +56,7 @@ export function EventCreationChart({
         >
           <AreaChart
             accessibilityLayer
-            data={eventCreationData}
+            data={displayData}
             margin={{
               left: 12,
               right: 12,

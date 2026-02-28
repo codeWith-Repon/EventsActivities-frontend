@@ -1,7 +1,12 @@
 'use client';
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
-
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from 'recharts';
 import {
   Card,
   CardContent,
@@ -23,47 +28,78 @@ const revenueConfig = {
   },
 } satisfies ChartConfig;
 
+const generatePlaceholderData = () => {
+  return Array.from({ length: 7 }).map((_, i) => ({
+    date: new Date(Date.now() - (6 - i) * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split('T')[0],
+    total: Math.floor(Math.random() * 500) + 100,
+  }));
+};
+
 export function RevenueChart({
   revenueData,
 }: {
   revenueData: { date: string; total: number }[];
 }) {
+  const isEmpty =
+    !revenueData ||
+    revenueData.length === 0 ||
+    revenueData.every((d) => d.total === 0);
+  const displayData = isEmpty ? generatePlaceholderData() : revenueData;
+
   return (
-    <Card className='h-full'>
+    <Card className='h-full relative overflow-hidden'>
       <CardHeader>
-        <CardTitle className=' text-lg md:text-2xl'>
-          Revenue Over Time
-        </CardTitle>
-        <CardDescription className='text-sm'>Daily revenue performance</CardDescription>
+        <div className='flex justify-between items-start'>
+          <div>
+            <CardTitle className='text-lg md:text-2xl'>
+              Revenue Over Time
+            </CardTitle>
+            <CardDescription className='text-sm'>
+              {isEmpty ? 'Sample data preview' : 'Daily revenue performance'}
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
+
       <CardContent>
         <ChartContainer config={revenueConfig} className='min-h-[300px] w-full'>
           <LineChart
             accessibilityLayer
-            data={revenueData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
+            data={displayData}
+            margin={{ left: 12, right: 12, top: 10 }}
           >
-            <CartesianGrid vertical={false} />
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray='3 3'
+              opacity={0.5}
+            />
             <XAxis
               dataKey='date'
-              tickLine={true}
-              axisLine={true}
+              tickLine={false}
+              axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => String(value).slice(5)}
+              tickFormatter={(value) => {
+                const date = new Date(value);
+                return date.toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                });
+              }}
             />
             <YAxis
               tickLine={false}
               axisLine={false}
               tickFormatter={(value) => `৳${value}`}
-              width={40}
+              width={50}
             />
+
             <ChartTooltip
-              cursor={false}
+              cursor={{ stroke: 'var(--color-total)', strokeWidth: 1 }}
               content={<ChartTooltipContent indicator='line' />}
             />
+
             <Line
               dataKey='total'
               type='monotone'
@@ -74,6 +110,9 @@ export function RevenueChart({
               }}
               activeDot={{
                 r: 6,
+                fill: 'var(--color-total)',
+                strokeWidth: 2,
+                stroke: '#fff',
               }}
             />
           </LineChart>

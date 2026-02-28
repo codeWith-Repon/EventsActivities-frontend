@@ -31,7 +31,21 @@ export function UserGrowthChart({
     count: number;
   }[];
 }) {
-  
+  const generatePlaceholderData = () => {
+    return Array.from({ length: 7 }).map((_, i) => ({
+      date: new Date(Date.now() - (6 - i) * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split('T')[0],
+      count: Math.floor(Math.random() * 10),
+    }));
+  };
+
+  const isEmpty =
+    !userGrowthData ||
+    userGrowthData.length === 0 ||
+    userGrowthData.every((d) => d.count === 0);
+  const displayData = isEmpty ? generatePlaceholderData() : userGrowthData;
+
   return (
     <Card className='col-span-1'>
       <CardHeader>
@@ -45,7 +59,7 @@ export function UserGrowthChart({
           config={userGrowthConfig}
           className='min-h-[300px] w-full'
         >
-          <BarChart accessibilityLayer data={userGrowthData}>
+          <BarChart accessibilityLayer data={displayData}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey='date'

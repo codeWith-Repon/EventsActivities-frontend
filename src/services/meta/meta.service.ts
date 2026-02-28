@@ -6,7 +6,7 @@ import { throwError } from "@/lib/throwError"
 
 export const getDashboardMeta = async (query?: Record<string, any>) => {
     try {
-        console.log(query, "before")
+
         const queryString = query ? new URLSearchParams(query).toString() : '';
 
         const url = `/dashboard/meta-data${queryString ? `?${queryString}` : ''}`;
