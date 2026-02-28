@@ -3,6 +3,18 @@ import CommunityEvents from '@/components/modules/community/CommunityEvents';
 import CommunityHero from '@/components/modules/community/CommunityHero';
 import CommunitySideBar from '@/components/modules/community/CommunitySideBar';
 import { getAllEvent } from '@/services/events/getAllEvent';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Hiking Enthusiasts | EventHub',
+  description:
+    'Join our community of outdoor lovers. Participate in weekly hikes, camping trips, and nature walks with like-minded people.',
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 const CommunityHikingPage = async () => {
   const data = {

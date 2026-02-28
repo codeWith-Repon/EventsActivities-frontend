@@ -1,7 +1,18 @@
 import { AuthImages } from '@/assets';
 import { RegisterForm } from '@/components/modules/Auth/register-form';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Register | EventHub',
+  description:
+    'Create your EventHub account to join local events, find activity partners, and participate in meetups.',
+  robots: {
+    index: false, 
+    follow: false, 
+  },
+};
 
 const RegisterPage = () => {
   return (

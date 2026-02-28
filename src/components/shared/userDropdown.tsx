@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { LogOut, User, Settings, Calendar, ChevronDown } from 'lucide-react';
+import { LogOut, User, Calendar, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { IUserInfo } from '@/types/user.interface';
@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { getInitials } from '@/lib/formatter';
 
 interface IUserDropdownProps {
-  user: IUserInfo;
+  user: IUserInfo | null;
   icon?: boolean;
   onLogout: () => void;
 }
@@ -94,14 +94,14 @@ const UserDropdown = ({ user, icon, onLogout }: IUserDropdownProps) => {
                 <Calendar size={18} />
                 My Events
               </Link>
-              <Link
+              {/* <Link
                 href='/settings'
                 className='flex items-center gap-3 px-4 py-2.5 text-sm  hover:bg-primary/5 hover:text-primary transition-colors'
                 onClick={() => setIsOpen(false)}
               >
                 <Settings size={18} />
                 Settings
-              </Link>
+              </Link> */}
             </div>
 
             <div className='py-2 border-t border-gray-50'>

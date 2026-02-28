@@ -36,7 +36,7 @@ const HeroCollage: React.FC<HeroCollageProps> = ({ cards, delay = 0 }) => {
             delay: delay + 0.2 + index * 0.1,
             ease: 'easeOut',
           }}
-          className={`absolute ${card.position} ${card.size} rounded-3xl overflow-hidden shadow-xs border-4 border-white transform hover:-translate-y-2 transition-transform duration-500 group`}
+          className={`absolute z-20 ${card.position} ${card.size} rounded-3xl overflow-hidden shadow-xs border-4 border-white transform hover:-translate-y-2 transition-transform duration-500 group `}
         >
           <Image
             src={card.image}

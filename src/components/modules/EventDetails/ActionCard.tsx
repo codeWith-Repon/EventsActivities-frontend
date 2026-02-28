@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -16,7 +17,7 @@ interface ActionCardProps {
 }
 const ActionCard = ({ event, participants }: ActionCardProps) => {
   const { user, loading } = useUser();
-  const [joining, setJoining] = useState(false);
+  const [paying, setPaying] = useState(false);
   const router = useRouter();
 
   const isFull = event.totalParticipants === event.maxParticipants;
@@ -28,31 +29,38 @@ const ActionCard = ({ event, participants }: ActionCardProps) => {
   const hasJoined = participants.some((p) => p.userId === user?.id);
   const eventOwner = event.host.userId === user?.id;
 
-  const handleJoin = async () => {
+  const handleJoinAndPay = async () => {
     try {
-      setJoining(true);
+      setPaying(true);
       const result = await joinEvent(event.id!);
-console.log(result);
+
       if (!result.success && result.message === 'No Token Received') {
         router.push(`/login?redirect=/events/${event.slug}`);
       }
-      // if (!result.success) {
-      //   toast.error(result.message || 'Failed to join event');
-      //   return;
-      // }
 
-      if (isFree && result.success) {
-        toast.success("You've successfully joined the event");
-        router.push(`/events`);
+      if (!result.success && result.message === 'Already joined this event') {
+        toast.error(
+          'You have already joined this event. Now pay from your dashboard.'
+        );
+        router.push('/my-events');
+        return;
       }
-      const eventParticipantId = result.data.eventParticipant.id;
 
-      router.push(`/payment?slug=${event.slug}&id=${eventParticipantId}`);
-    } catch (error) {
+      if (!isFree) {
+        const eventParticipantId = result.data.id;
+        router.push(`/payment?slug=${event.slug}&id=${eventParticipantId}`);
+        return;
+      }
+
+      if (result.success) {
+        toast.success(result.message);
+        router.refresh();
+      }
+    } catch (error: any) {
       console.log(error);
-      toast.error('Failed to join event');
+      toast.error(error.message || 'Something went wrong');
     } finally {
-      setJoining(false);
+      setPaying(false);
     }
   };
 
@@ -85,31 +93,33 @@ console.log(result);
               </Button> */}
             </div>
           ) : (
-            <Button
-              className='w-full bg-emerald-600 hover:bg-emerald-700 text-lg h-12 cursor-pointer'
-              disabled={
-                !canJoin ||
-                isFull ||
-                isCompleted ||
-                isCancelled ||
-                eventOwner ||
-                joining
-              }
-              onClick={handleJoin}
-            >
-              {joining && <Loader className='animate-spin w-4 h-4 mr-2' />}
-              {eventOwner
-                ? 'You are hosting this event'
-                : isFull
-                ? 'Event Full'
-                : isCompleted
-                ? 'Event Completed'
-                : isCancelled
-                ? 'Event Cancelled'
-                : isFree
-                ? 'Join Free'
-                : 'Join & Pay'}
-            </Button>
+            <div className='flex flex-col items-center justify-center gap-4'>
+              <Button
+                className='w-full bg-emerald-600 hover:bg-emerald-700 text-lg h-12 cursor-pointer'
+                disabled={
+                  !canJoin ||
+                  isFull ||
+                  isCompleted ||
+                  isCancelled ||
+                  eventOwner ||
+                  paying
+                }
+                onClick={handleJoinAndPay}
+              >
+                {paying && <Loader className='animate-spin w-4 h-4 mr-2' />}
+                {eventOwner
+                  ? 'You are hosting this event'
+                  : isFull
+                  ? 'Event Full'
+                  : isCompleted
+                  ? 'Event Completed'
+                  : isCancelled
+                  ? 'Event Cancelled'
+                  : isFree
+                  ? 'Join Free'
+                  : 'Join & Pay'}
+              </Button>
+            </div>
           )}
 
           <p className='mt-4 text-center text-xs text-slate-400'>

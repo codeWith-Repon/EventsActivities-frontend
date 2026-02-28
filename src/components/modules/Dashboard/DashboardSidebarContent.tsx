@@ -7,9 +7,9 @@ import { getIconComponent } from '@/lib/icon-mapper';
 import { cn } from '@/lib/utils';
 import { NavSection } from '@/types/dashboard.interface';
 import { IUserInfo } from '@/types/user.interface';
-import { Loader } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import SidebarSkeleton from './SideBarLoader';
 
 interface DashboardSidebarContentProps {
   userInfo: IUserInfo;
@@ -39,11 +39,9 @@ const DashboardSidebarContent = ({
 
       <>
         {loading && (
-          <div className='flex-1 flex items-center justify-center'>
-            <span className='text-sm text-muted-foreground animate-spin'>
-              <Loader />
-            </span>
-          </div>
+          <>
+            <SidebarSkeleton />
+          </>
         )}
         {!loading && (
           <>
@@ -70,7 +68,7 @@ const DashboardSidebarContent = ({
                               'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                               isActive
                                 ? 'bg-primary text-primary-foreground'
-                                : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                                : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
                             )}
                           >
                             <Icon className='h-4 w-4' />

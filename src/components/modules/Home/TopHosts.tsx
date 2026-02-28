@@ -1,4 +1,5 @@
 'use client';
+import { Host } from '@/assets';
 import { motion } from 'framer-motion';
 import { Award, ShieldCheck, Star } from 'lucide-react';
 import Image from 'next/image';
@@ -11,7 +12,7 @@ const TopHosts = () => {
       role: 'Hiking Enthusiast',
       events: 42,
       rating: 4.9,
-      image: 'https://randomuser.me/api/portraits/women/63.jpg',
+      image: Host.host1,
       badges: ['Super Host', 'Verified'],
     },
     {
@@ -20,7 +21,7 @@ const TopHosts = () => {
       role: 'Board Game Master',
       events: 38,
       rating: 5.0,
-      image: 'https://randomuser.me/api/portraits/men/22.jpg',
+      image: Host.host2,
       badges: ['Community Leader'],
     },
     {
@@ -29,7 +30,7 @@ const TopHosts = () => {
       role: 'Foodie & Chef',
       events: 56,
       rating: 4.8,
-      image: 'https://randomuser.me/api/portraits/women/33.jpg',
+      image: Host.host3,
       badges: ['Expert'],
     },
     {
@@ -38,7 +39,7 @@ const TopHosts = () => {
       role: 'Music Producer',
       events: 29,
       rating: 4.9,
-      image: 'https://randomuser.me/api/portraits/men/54.jpg',
+      image: Host.host4,
       badges: ['Rising Star'],
     },
   ];

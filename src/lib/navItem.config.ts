@@ -3,6 +3,16 @@ import { UserRole } from "./auth-utils";
 
 export const superAdminNavItems: NavSection[] = [
     {
+        items: [
+            {
+                title: "Dashboard",
+                href: "/admin/dashboard",
+                icon: "LayoutDashboard",
+                roles: ["SUPER_ADMIN", "ADMIN"]
+            }
+        ]
+    },
+    {
         title: "User management",
         items: [
             {

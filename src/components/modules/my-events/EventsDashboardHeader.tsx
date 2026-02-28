@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from '@/components/ui/button';
 import {
@@ -7,19 +9,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ArrowLeft, Plus } from 'lucide-react';
+import { IUserInfo } from '@/types/user.interface';
+import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import CreateEventFormDialog from '../CreateEvents/CreateEventFormDialog';
+import { useState } from 'react';
 
 interface EventsDashboardHeaderProps {
-  userRole: string;
+  user: IUserInfo;
+  userRole: 'HOST' | 'USER';
   setUserRole: (role: 'HOST' | 'USER') => void;
 }
 
 const EventsDashboardHeader = ({
+  user,
   userRole,
   setUserRole,
 }: EventsDashboardHeaderProps) => {
   const router = useRouter();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <div className='bg-white border-b sticky top-0 z-30'>
@@ -34,24 +42,36 @@ const EventsDashboardHeader = ({
             </p>
           </div>
           <div className='flex items-center gap-3'>
-            <Select value={userRole} onValueChange={(v: any) => setUserRole(v)}>
-              <SelectTrigger className='w-[140px] cursor-pointer'>
-                <SelectValue placeholder='Select Role' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='HOST'>Host View</SelectItem>
-                <SelectItem value='USER'>Attendee View</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Button
-              className='gap-2 shadow-lg shadow-primary/20 cursor-pointer'
-              onClick={() => router.push('/create-event')}
-            >
-              <Plus className='w-4 h-4' />
-              <span className='hidden sm:inline'>Create Event</span>
-              <span className='sm:hidden'>Create</span>
-            </Button>
+            {(user.role === 'HOST' || user.isHost) && (
+              <Select
+                value={userRole}
+                onValueChange={(v: any) => setUserRole(v)}
+              >
+                <SelectTrigger className='w-[140px] cursor-pointer'>
+                  <SelectValue placeholder='Select Role' />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectContent>
+                    <SelectItem
+                      value='HOST'
+                      className='focus:bg-slate-300/20 focus:text-slate-800 cursor-pointer'
+                    >
+                      Host View
+                    </SelectItem>
+                    <SelectItem
+                      value='USER'
+                      className='focus:bg-slate-300/20 focus:text-slate-800 cursor-pointer'
+                    >
+                      Attendee View
+                    </SelectItem>
+                  </SelectContent>
+                </SelectContent>
+              </Select>
+            )}
+            <CreateEventFormDialog
+              open={isDialogOpen}
+              setOpen={setIsDialogOpen}
+            />
           </div>
         </div>
 

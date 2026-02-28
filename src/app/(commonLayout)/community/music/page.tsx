@@ -2,6 +2,13 @@ import CommunityEvents from '@/components/modules/community/CommunityEvents';
 import CommunityHero from '@/components/modules/community/CommunityHero';
 import CommunitySideBar from '@/components/modules/community/CommunitySideBar';
 import { getAllEvent } from '@/services/events/getAllEvent';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Music Lovers | EventHub',
+  description:
+    'Connect with fellow audiophiles, discover local bands, and attend concerts together.',
+};
 
 const CommunityMusicPage = async () => {
   const data = {

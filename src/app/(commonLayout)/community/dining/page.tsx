@@ -2,6 +2,18 @@ import CommunityEvents from '@/components/modules/community/CommunityEvents';
 import CommunityHero from '@/components/modules/community/CommunityHero';
 import CommunitySideBar from '@/components/modules/community/CommunitySideBar';
 import { getAllEvent } from '@/services/events/getAllEvent';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Foodie Community | EventHub',
+  description:
+    "Explore the city's culinary scene, join tasting events, and share your favorite recipes with fellow food enthusiasts.",
+  
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 const CommunityDiningPage = async () => {
   const data = {

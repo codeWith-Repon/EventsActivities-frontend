@@ -7,10 +7,11 @@ import { useRouter } from 'next/navigation';
 const Hero = () => {
   const router = useRouter();
   return (
-    <div className='relative overflow-hidden pt-20 pb-20 lg:pt-24 lg:pb-28 bg-primary/10'>
+    <div className='relative overflow-hidden pt-20 pb-20 lg:pt-24 lg:pb-28 bg-primary/3'>
+
       <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-        <div className='absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/20  blur-[80px] -z-10' />
-        <div className='absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] rounded-full blur-[60px] bg-red-600/10 -z-10' />
+        <div className='absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/2 blur-[80px] -z-10' />
+        <div className='absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] rounded-full blur-[60px] bg-red-600/3 -z-10' />
         <div className='absolute top-[40%] left-[30%] w-[20%] h-[20%] rounded-full bg-blue-400/8  blur-[50px] -z-10' />
       </div>
 
@@ -55,9 +56,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Decorative blobs */}
-      <div className='absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 '></div>
-      <div className='absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30  animation-delay-2000'></div>
+    
     </div>
   );
 };

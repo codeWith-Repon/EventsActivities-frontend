@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { X, ChevronDown, RefreshCcw } from 'lucide-react';
 import { navItems } from './NavbarItem';
 import { useUser } from '@/hook/useUser';
+import Link from 'next/link';
 
 interface SidebarProps {
   open: boolean;
@@ -56,7 +57,7 @@ export default function MobileSidebar({
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className='flex items-center justify-between p-4 border-b'>
+        <div className='flex items-center justify-between p-4 border-b mt-3'>
           <h2 className='text-xl font-bold'>Menu</h2>
           <button onClick={onClose}>
             <X size={24} />
@@ -111,6 +112,19 @@ export default function MobileSidebar({
                 {item.label}
               </button>
             )
+          )}
+          {((user && user.role === 'ADMIN') ||
+            user?.role === 'SUPER_ADMIN') && (
+            <Link
+              href='/admin/dashboard'
+              className={`text-left px-2 py-2 rounded hover:bg-gray-100 hover:text-primary font-medium relative transition-colors ${
+                pathname === '/admin/dashboard'
+                  ? "after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary after:rounded-full text-primary"
+                  : ''
+              }`}
+            >
+              Dashboard
+            </Link>
           )}
           {loading ? (
             <span className='animate-spin text-primary hidden md:block'>

@@ -1,3 +1,4 @@
+import { testimonialImage } from '@/assets';
 import { Quote } from 'lucide-react';
 import Image from 'next/image';
 
@@ -9,7 +10,7 @@ const Testimonials = () => {
         "I moved to a new city and didn't know anyone. Through Eventure, I found a hiking group that meets every weekend. Now I have a solid group of friends!",
       author: 'Sarah Jenkins',
       location: 'Portland, OR',
-      image: 'https://randomuser.me/api/portraits/women/65.jpg',
+      image: testimonialImage.testimonial_1,
     },
     {
       id: 2,
@@ -17,7 +18,7 @@ const Testimonials = () => {
         "The quality of events here is unmatched. I've attended three cooking workshops and they were all professional, fun, and incredibly well-organized.",
       author: 'Michael Chang',
       location: 'San Francisco, CA',
-      image: 'https://randomuser.me/api/portraits/men/32.jpg',
+      image: testimonialImage.testimonial_2,
     },
     {
       id: 3,
@@ -25,7 +26,7 @@ const Testimonials = () => {
         'As a host, this platform makes it so easy to manage attendees and payments. The community is respectful and engaged. Highly recommended!',
       author: 'Emma Wilson',
       location: 'Austin, TX',
-      image: 'https://randomuser.me/api/portraits/women/44.jpg',
+      image: testimonialImage.testimonial_3,
     },
   ];
 

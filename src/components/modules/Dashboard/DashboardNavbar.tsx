@@ -20,7 +20,7 @@ const DashboardNavbar = () => {
     <DashboardNavbarContent
       userInfo={user as IUserInfo}
       navItems={navItems}
-      dashboardHome='/admin/dashboard'
+      dashboardHome='/'
       onLogout={handleLogout}
       loading={loading}
     />

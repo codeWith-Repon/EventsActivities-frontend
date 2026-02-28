@@ -6,9 +6,6 @@ import {
   Heart,
   MapPin,
   Star,
-  MoreHorizontal,
-  Edit,
-  Trash2,
 } from 'lucide-react';
 
 import Image from 'next/image';
@@ -16,26 +13,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
-
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-
+import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { formatDate, formatTimeTo12Hour } from '@/lib/formatter';
 
@@ -50,9 +28,8 @@ interface EventCardProps {
   onDelete?: (event: IEvent) => void;
 }
 
-const EventCard = ({ event, index = 0, onEdit, onDelete }: EventCardProps) => {
+const EventCard = ({ event, index = 0}: EventCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const formattedPrice =
     typeof event.fee === 'number'
@@ -63,10 +40,6 @@ const EventCard = ({ event, index = 0, onEdit, onDelete }: EventCardProps) => {
 
   const isFree = formattedPrice === 'Free' || formattedPrice === '$0';
 
-  const handleConfirmDelete = () => {
-    if (onDelete) onDelete(event);
-    setIsDeleteDialogOpen(false);
-  };
 
   return (
     <>
@@ -185,67 +158,10 @@ const EventCard = ({ event, index = 0, onEdit, onDelete }: EventCardProps) => {
             </Link>
           </CardContent>
 
-          {/* Action Footer */}
-          {(onEdit || onDelete) && (
-            <CardFooter className='p-2 px-4 bg-muted/30 border-t border-border/50 flex justify-end'>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    className='h-8 w-8 p-0 rounded-full hover:bg-background'
-                  >
-                    <MoreHorizontal className='h-4 w-4 text-muted-foreground' />
-                  </Button>
-                </DropdownMenuTrigger>
-
-                <DropdownMenuContent align='end' className='w-40'>
-                  {onEdit && (
-                    <DropdownMenuItem onClick={() => onEdit(event)}>
-                      <Edit className='mr-2 h-4 w-4' /> Edit
-                    </DropdownMenuItem>
-                  )}
-
-                  {onDelete && (
-                    <DropdownMenuItem
-                      onClick={() => setIsDeleteDialogOpen(true)}
-                      className='text-destructive focus:text-destructive'
-                    >
-                      <Trash2 className='mr-2 h-4 w-4' /> Delete
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </CardFooter>
-          )}
         </Card>
       </motion.div>
 
-      {/* Delete Dialog */}
-      <AlertDialog
-        open={isDeleteDialogOpen}
-        onOpenChange={setIsDeleteDialogOpen}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the
-              event &quot;{event.title}&quot;.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleConfirmDelete}
-              className='bg-destructive text-destructive-foreground hover:bg-destructive/90'
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      
     </>
   );
 };

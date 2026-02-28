@@ -1,4 +1,4 @@
-"use client';";
+'use client';
 import ClearFiltersButton from '@/components/shared/ClearFiltersButtons';
 import RefreshButton from '@/components/shared/RefreshButton';
 import SearchFilter from '@/components/shared/SearchFilter';
