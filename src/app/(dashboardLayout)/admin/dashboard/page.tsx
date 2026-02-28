@@ -3,12 +3,22 @@ import { EventDistributionChart } from '@/components/modules/AdminDashboard/Even
 import { RevenueChart } from '@/components/modules/AdminDashboard/RevenueChart';
 import StatCards from '@/components/modules/AdminDashboard/StatCards';
 import { UserGrowthChart } from '@/components/modules/AdminDashboard/UserGrowth';
+import { DashboardFilter } from '@/components/modules/AdminDashboard/DashboardFilter'; // [NEW]
 import { getDashboardMeta } from '@/services/meta/meta.service';
 
 export const dynamic = 'force-dynamic';
 
-const DashboardPage = async () => {
-  const metaData = await getDashboardMeta();
+// Added searchParams to the page props
+const DashboardPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
+  const query = await searchParams;
+
+  // Pass query to your service (startDate, endDate, duration)
+  const metaData = await getDashboardMeta(query);
+
   const stateCardData = metaData?.data?.summary;
   const revenueData = metaData?.data?.charts?.revenue;
   const eventDistributionData = metaData?.data?.eventDistribution;
@@ -16,14 +26,16 @@ const DashboardPage = async () => {
   const eventCreationData = metaData?.data?.charts?.events;
 
   return (
-    <div className='space-y-5 animate-in fade-in duration-500'>
+    <div className='p-6 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700'>
+      <DashboardFilter />
+
       <StatCards stateCardData={stateCardData} />
 
-      <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-6 items-stretch'>
-        <div className=' col-span-1 lg:col-span-3 h-full'>
+      <div className='grid gap-6 grid-cols-1 lg:grid-cols-6 items-stretch'>
+        <div className='lg:col-span-4'>
           <RevenueChart revenueData={revenueData} />
         </div>
-        <div className='col-span-1 lg:col-span-3 h-full'>
+        <div className='lg:col-span-2'>
           <EventDistributionChart
             eventDistributionData={eventDistributionData}
           />
