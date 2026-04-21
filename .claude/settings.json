@@ -9,7 +9,10 @@
       "Bash(pkill -f \"next dev\")",
       "Bash(npm run *)",
       "Bash(git commit -m 'feat\\(images\\): add file size validation with toast notifications *)",
-      "Bash(git commit -m 'feat\\(dashboard\\): refresh events after creation to show immediately *)"
+      "Bash(git commit -m 'feat\\(dashboard\\): refresh events after creation to show immediately *)",
+      "Bash(git commit -m 'fix: increase serverActions bodySizeLimit to 50mb with experimental config *)",
+      "Bash(git commit -m 'debug: add validation error logging in edit form *)",
+      "Bash(git commit -m 'fix: add min/max participants validation to event forms *)"
     ]
   }
 }

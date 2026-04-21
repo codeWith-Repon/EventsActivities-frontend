@@ -29,7 +29,7 @@ const formSchema = z.object({
   minParticipants: z.coerce
     .number()
     .int()
-    .positive('Minimum participants must be greater than 0')
+    .nonnegative('Minimum participants must be 0 or greater')
     .optional(),
   maxParticipants: z.coerce
     .number()
@@ -39,6 +39,13 @@ const formSchema = z.object({
   fee: z.coerce.number().optional(),
   images: z.array(z.any()).optional().default([]),
   status: z.enum(['open', 'cancelled', 'full', 'completed']).default('open'),
+}).refine((data) => {
+  const min = data.minParticipants || 0;
+  const max = data.maxParticipants || 0;
+  return min <= max;
+}, {
+  message: 'Minimum participants cannot be greater than maximum participants',
+  path: ['minParticipants'],
 });
 
 interface Props {

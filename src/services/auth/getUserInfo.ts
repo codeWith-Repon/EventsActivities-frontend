@@ -14,7 +14,7 @@ export const getUserInfo = async (): Promise<UserInfoResponse | null> => {
             cache: "no-store",
         })
         const result: UserInfoResponse = await response.json()
-console.log(result)
+// console.log(result)
         return result
     } catch (error: any) {
         console.log(error)
