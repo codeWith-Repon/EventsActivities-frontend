@@ -31,7 +31,7 @@ const SettingsPage = () => {
         <div className='flex gap-2 mb-6 border-b border-gray-200'>
           {tabs.map((tab) => {
             const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
+            const isActive = activeTab === (tab.id as SettingsTab);
             return (
               <button
                 key={tab.id}
