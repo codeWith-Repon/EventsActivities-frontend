@@ -88,6 +88,7 @@ const EditEventsFormContent = ({ event, onSuccess }: Props) => {
     setIsSubmitting(true);
 
     try {
+      console.log('Form data:', data);
       const formData = new FormData();
 
       Object.entries(data).forEach(([key, value]) => {
@@ -144,7 +145,18 @@ const EditEventsFormContent = ({ event, onSuccess }: Props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit, (errors) => {
+          console.error('Form validation errors:', errors);
+          const errorMessages = Object.entries(errors)
+            .map(([field, error]: any) => `${field}: ${error?.message}`)
+            .join('\n');
+          toast.error('Form validation failed', {
+            description: errorMessages || 'Please check all fields',
+          });
+        })}
+        className='space-y-6'
+      >
         <BasicInfoForm form={form} />
         <DateLocationForm form={form} />
         <ParticipantsForm form={form} />
