@@ -1,10 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { IEvent } from '@/types/events.interface';
 import DashboardCard from '../Dashboard/DashboardCard';
 import deleteEvent from '@/services/events/deleteEvents';
+import EditEventFormDialog from '../EditEvent/EditEventFormDialog';
 import { toast } from 'sonner';
 
 interface IActiveEventsProps {
@@ -14,21 +17,26 @@ interface IActiveEventsProps {
 }
 
 const ActiveEvents = ({ userRole, events, loading }: IActiveEventsProps) => {
+  const [selectedEvent, setSelectedEvent] = useState<IEvent | null>(null);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const router = useRouter();
+
   const handleEditEvent = (event: IEvent) => {
-    console.log(event);
+    setSelectedEvent(event);
+    setEditDialogOpen(true);
   };
+
   const handleDeleteEvent = async (event: IEvent) => {
     try {
       const result = await deleteEvent(event.slug);
-      console.log('deleted event result is 😒😒😒', result);
       if (result!.success) {
         toast.success('Event deleted successfully');
+        router.refresh();
       } else {
         toast.error(result!.message || 'Failed to delete event');
       }
     } catch (error) {
       toast.error('Failed to delete event');
-      console.log(error);
     }
   };
   return (
@@ -64,6 +72,14 @@ const ActiveEvents = ({ userRole, events, loading }: IActiveEventsProps) => {
             />
           ))}
         </div>
+      )}
+
+      {selectedEvent && (
+        <EditEventFormDialog
+          event={selectedEvent}
+          open={editDialogOpen}
+          setOpen={setEditDialogOpen}
+        />
       )}
     </section>
   );

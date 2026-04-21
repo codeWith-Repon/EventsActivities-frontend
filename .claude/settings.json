@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit -m 'feat\\(shared\\): add reusable SubmitButton, ConfirmActionDialog, SelectActionDialog *)",
+      "Bash(git commit -m 'refactor\\(settings\\): improve page layout with tabs for Security, Notifications, Privacy *)",
+      "Bash(git commit -m 'fix\\(settings\\): use Card + button tabs instead of missing Tabs component *)",
+      "Bash(git commit -m 'fix\\(settings\\): correct tab active state detection *)",
+      "Bash(git commit -m 'feat\\(admin\\): add user status and role management actions *)"
+    ]
+  }
+}
