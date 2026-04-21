@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { LogOut, User, Calendar, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { IUserInfo } from '@/types/user.interface';
 import Image from 'next/image';
@@ -61,15 +60,8 @@ const UserDropdown = ({ user, icon, onLogout }: IUserDropdownProps) => {
         )}
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className='absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden z-50'
-          >
+      {isOpen && (
+        <div className='absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden z-50'>
             <div className='p-4 border-b border-gray-100'>
               <p className='font-bold'>{user.name}</p>
               <p className='text-sm text-muted-foreground truncate'>
@@ -116,9 +108,8 @@ const UserDropdown = ({ user, icon, onLogout }: IUserDropdownProps) => {
                 Log Out
               </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 };

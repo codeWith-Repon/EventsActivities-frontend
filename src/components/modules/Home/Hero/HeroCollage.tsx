@@ -1,7 +1,4 @@
-'use client';
-
 import React from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 interface ActivityCard {
@@ -18,25 +15,13 @@ interface HeroCollageProps {
   delay?: number;
 }
 
-const HeroCollage: React.FC<HeroCollageProps> = ({ cards, delay = 0 }) => {
+const HeroCollage: React.FC<HeroCollageProps> = ({ cards }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, delay, ease: 'easeOut' }}
-      className='relative h-[600px] hidden lg:block'
-    >
-      {cards.map((card, index) => (
-        <motion.div
+    <div className='relative h-[600px] hidden lg:block'>
+      {cards.map((card) => (
+        <div
           key={card.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: delay + 0.2 + index * 0.1,
-            ease: 'easeOut',
-          }}
-          className={`absolute z-20 ${card.position} ${card.size} rounded-3xl overflow-hidden shadow-xs border-4 border-white transform hover:-translate-y-2 transition-transform duration-500 group `}
+          className={`absolute z-20 ${card.position} ${card.size} rounded-3xl overflow-hidden shadow-xs border-4 border-white transform hover:-translate-y-2 transition-transform duration-500 group`}
         >
           <Image
             src={card.image}
@@ -52,23 +37,12 @@ const HeroCollage: React.FC<HeroCollageProps> = ({ cards, delay = 0 }) => {
             </span>
             <p className='font-semibold text-lg'>{card.title}</p>
           </div>
-        </motion.div>
+        </div>
       ))}
 
-      {/* Decorative Elements */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: delay + 0.5 }}
-        className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-dashed border-primary/20 rounded-full animate-[spin_60s_linear_infinite]'
-      />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: delay + 0.7 }}
-        className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] border border-primary/10 rounded-full'
-      />
-    </motion.div>
+      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-dashed border-primary/20 rounded-full animate-[spin_60s_linear_infinite]' />
+      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] border border-primary/10 rounded-full' />
+    </div>
   );
 };
 

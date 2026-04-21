@@ -1,6 +1,4 @@
-'use client';
 import { Host } from '@/assets';
-import { motion } from 'framer-motion';
 import { Award, ShieldCheck, Star } from 'lucide-react';
 import Image from 'next/image';
 
@@ -47,30 +45,17 @@ const TopHosts = () => {
     <section className='py-20 bg-white'>
       <div className='container-custom'>
         <div className='text-center max-w-2xl mx-auto mb-16'>
-          <motion.div
-            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className='text-3xl md:text-4xl font-bold mb-4'>
-              Top Rated Hosts
-            </h2>
-            <p className='text-muted-foreground text-lg'>
-              Meet the community leaders creating amazing experiences
-            </p>
-          </motion.div>
+          <h2 className='text-3xl md:text-4xl font-bold mb-4'>
+            Top Rated Hosts
+          </h2>
+          <p className='text-muted-foreground text-lg'>
+            Meet the community leaders creating amazing experiences
+          </p>
         </div>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
-          {hosts.map((host, index) => (
-            <motion.div
-              key={host.id}
-              initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-            >
+          {hosts.map((host) => (
+            <div key={host.id}>
               <div className='bg-white rounded-3xl p-6 shadow-sm hover:shadow-md transition-all duration-500 border border-gray-50 flex flex-col items-center text-center group hover:-translate-y-2 relative overflow-hidden'>
                 {/* Background decoration */}
                 <div className='absolute top-0 left-0 w-full h-24 opacity-50 bg-primary/10' />
@@ -137,7 +122,7 @@ const TopHosts = () => {
                   View Profile
                 </button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

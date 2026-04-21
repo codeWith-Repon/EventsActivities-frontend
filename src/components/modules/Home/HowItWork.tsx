@@ -1,7 +1,4 @@
-'use client';
-
 import { CalendarCheck, MessageSquare, Search, UserPlus } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const HowItWork = () => {
   const steps = [
@@ -42,36 +39,22 @@ const HowItWork = () => {
     <section className='py-20 relative overflow-hidden'>
       <div className='container-custom relative z-10'>
         <div className='text-center max-w-2xl mx-auto mb-16'>
-          <motion.div
-            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className='text-primary font-semibold tracking-wider uppercase text-sm mb-2 block'>
-              Simple Process
-            </span>
-            <h2 className='text-3xl md:text-4xl font-bold  mb-4'>
-              How Eventure Works
-            </h2>
-            <p className='text-muted-foreground text-lg'>
-              Start your journey to meaningful connections in four simple steps
-            </p>
-          </motion.div>
+          <span className='text-primary font-semibold tracking-wider uppercase text-sm mb-2 block'>
+            Simple Process
+          </span>
+          <h2 className='text-3xl md:text-4xl font-bold  mb-4'>
+            How Eventure Works
+          </h2>
+          <p className='text-muted-foreground text-lg'>
+            Start your journey to meaningful connections in four simple steps
+          </p>
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative'>
-          {/* Connecting Line (Desktop only) */}
           <div className='hidden lg:block absolute top-12 left-[12%] right-[12%] h-0.5 bg-gray-200 -z-10' />
 
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.id}
-              initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-            >
+          {steps.map((step) => (
+            <div key={step.id}>
               <div className='flex flex-col items-center text-center group'>
                 <div
                   className={`w-24 h-24 rounded-2xl ${step.color} shadow-lg flex items-center justify-center mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 relative z-10`}
@@ -88,7 +71,7 @@ const HowItWork = () => {
                   {step.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

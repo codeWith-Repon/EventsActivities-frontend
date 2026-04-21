@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 interface HeroCTAProps {
@@ -17,15 +16,9 @@ const HeroCTA: React.FC<HeroCTAProps> = ({
   secondaryText,
   onPrimaryClick,
   onSecondaryClick,
-  delay = 0,
 }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
-      className='flex flex-wrap gap-4'
-    >
+    <div className='flex flex-wrap gap-4'>
       <button
         onClick={onPrimaryClick}
         className='btn-primary bg-gradient-coral flex items-center gap-2 group'
@@ -42,7 +35,7 @@ const HeroCTA: React.FC<HeroCTAProps> = ({
       >
         {secondaryText}
       </button>
-    </motion.div>
+    </div>
   );
 };
 

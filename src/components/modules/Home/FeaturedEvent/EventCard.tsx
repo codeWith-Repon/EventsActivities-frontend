@@ -10,7 +10,6 @@ import {
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,7 +27,7 @@ interface EventCardProps {
   onDelete?: (event: IEvent) => void;
 }
 
-const EventCard = ({ event, index = 0}: EventCardProps) => {
+const EventCard = ({ event }: EventCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const formattedPrice =
@@ -42,14 +41,7 @@ const EventCard = ({ event, index = 0}: EventCardProps) => {
 
 
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.08 }}
-        viewport={{ once: true }}
-      >
-        <Card className='group h-full overflow-hidden border-border/50 bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-3xl flex flex-col p-0 gap-2'>
+    <Card className='group h-full overflow-hidden border-border/50 bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-3xl flex flex-col p-0 gap-2'>
           {/* Image Section */}
           <div className='relative h-48 overflow-hidden'>
             <Image
@@ -158,11 +150,7 @@ const EventCard = ({ event, index = 0}: EventCardProps) => {
             </Link>
           </CardContent>
 
-        </Card>
-      </motion.div>
-
-      
-    </>
+    </Card>
   );
 };
 
