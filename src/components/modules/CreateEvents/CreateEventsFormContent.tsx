@@ -86,6 +86,9 @@ const CreateEventsFormContent = ({ onSuccess }: Props) => {
         if (key !== 'images') {
           if (key === 'status') {
             formData.append(key, String(value).toUpperCase());
+          } else if (['minParticipants', 'maxParticipants', 'fee'].includes(key)) {
+            // Send numeric fields as numbers, not strings
+            formData.append(key, value);
           } else {
             formData.append(key, String(value));
           }
