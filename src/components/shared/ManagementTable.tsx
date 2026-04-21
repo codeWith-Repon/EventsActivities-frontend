@@ -41,6 +41,7 @@ interface ManagementTableProps<T> {
   onView?: (row: T) => void;
   onEdit?: (row: T) => void;
   onDelete?: (row: T) => void;
+  customActions?: (row: T) => React.ReactNode;
   getRowKey: (row: T) => string;
   emptyMessage?: string;
   isRefreshing?: boolean;
@@ -52,11 +53,12 @@ function ManagementTable<T>({
   onView,
   onEdit,
   onDelete,
+  customActions,
   getRowKey,
   emptyMessage = 'No records found.',
   isRefreshing = false,
 }: ManagementTableProps<T>) {
-  const hasActions = onView || onEdit || onDelete;
+  const hasActions = onView || onEdit || onDelete || customActions;
   const router = useRouter();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
@@ -175,6 +177,7 @@ function ManagementTable<T>({
                               Edit
                             </DropdownMenuItem>
                           )}
+                          {customActions && customActions(item)}
                           {onDelete && (
                             <DropdownMenuItem
                               onClick={() => onDelete(item)}
