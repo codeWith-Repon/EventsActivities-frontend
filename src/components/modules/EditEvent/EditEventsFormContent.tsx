@@ -135,8 +135,11 @@ const EditEventsFormContent = ({ event, onSuccess }: Props) => {
         onSuccess?.();
       } else {
         console.error('Update failed:', result);
+        const errorDetails = (result as any).errors
+          ? JSON.stringify((result as any).errors, null, 2)
+          : result.message || 'Something went wrong';
         toast.error('Failed to update event', {
-          description: result.message || 'Something went wrong',
+          description: errorDetails,
         });
       }
     } catch (error: any) {

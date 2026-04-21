@@ -14,7 +14,12 @@ const updateEvent = async (slug: string, data: FormData) => {
             return { success: true, data: result }
         }
 
-        return { success: false, message: result.message }
+        console.error('Update event error response:', result);
+        return {
+            success: false,
+            message: result.message,
+            errors: result.errors || result.data, // Capture any detailed errors
+        }
     } catch (error) {
         return throwError(error)
     }
