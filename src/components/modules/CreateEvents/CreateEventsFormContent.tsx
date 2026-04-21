@@ -11,6 +11,7 @@ import { PricingForm } from './form/PricingForm';
 import { ParticipantsForm } from './form/ParticipantsForm';
 import { ImagesForm } from './form/ImagesForm';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
@@ -45,6 +46,7 @@ interface Props {
 }
 const CreateEventsFormContent = ({ onSuccess }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const form = useForm<any>({
     resolver: zodResolver(formSchema),
@@ -101,7 +103,7 @@ const CreateEventsFormContent = ({ onSuccess }: Props) => {
         });
 
         form.reset();
-
+        router.refresh();
         if (onSuccess) onSuccess();
       } else {
         toast.error('Failed to create event', {
