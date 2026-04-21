@@ -134,11 +134,13 @@ const EditEventsFormContent = ({ event, onSuccess }: Props) => {
         router.refresh();
         onSuccess?.();
       } else {
+        console.error('Update failed:', result);
         toast.error('Failed to update event', {
           description: result.message || 'Something went wrong',
         });
       }
     } catch (error: any) {
+      console.error('Update error:', error);
       toast.error('Error updating event', {
         description:
           process.env.NODE_ENV === 'development'
