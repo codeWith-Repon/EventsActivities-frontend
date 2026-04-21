@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const nextConfig: any = {
   /* config options here */
   reactCompiler: true,
   images: {
@@ -10,6 +9,9 @@ const nextConfig: NextConfig = {
         hostname: "**",
       },
     ],
+  },
+  serverActions: {
+    bodySizeLimit: '10mb',
   },
 };
 
