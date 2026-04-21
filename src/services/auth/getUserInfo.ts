@@ -11,13 +11,10 @@ export const getUserInfo = async (): Promise<UserInfoResponse | null> => {
 
     try {
         const response = await serverFetch.get("/users/me", {
-            cache: "force-cache",
-            next: {
-                tags: ["user-info"]
-            }
+            cache: "no-store",
         })
         const result: UserInfoResponse = await response.json()
-
+console.log(result)
         return result
     } catch (error: any) {
         console.log(error)

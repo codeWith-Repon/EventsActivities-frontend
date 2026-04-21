@@ -5,7 +5,11 @@
       "Bash(git commit -m 'refactor\\(settings\\): improve page layout with tabs for Security, Notifications, Privacy *)",
       "Bash(git commit -m 'fix\\(settings\\): use Card + button tabs instead of missing Tabs component *)",
       "Bash(git commit -m 'fix\\(settings\\): correct tab active state detection *)",
-      "Bash(git commit -m 'feat\\(admin\\): add user status and role management actions *)"
+      "Bash(git commit -m 'feat\\(admin\\): add user status and role management actions *)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(npm run *)",
+      "Bash(git commit -m 'feat\\(images\\): add file size validation with toast notifications *)",
+      "Bash(git commit -m 'feat\\(dashboard\\): refresh events after creation to show immediately *)"
     ]
   }
 }

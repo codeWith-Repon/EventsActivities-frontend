@@ -3,15 +3,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { serverFetch } from "@/lib/server-fetch";
+import { revalidatePath } from "next/cache";
 
 const createEvent = async (data: FormData) => {
-
-
     try {
         const res = await serverFetch.post("/events/create-event", {
             body: data
         })
         const result = await res.json()
+
+        if (result.success) {
+            revalidatePath('/my-events');
+        }
 
         return result
     } catch (error: any) {
