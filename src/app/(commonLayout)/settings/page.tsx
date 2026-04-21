@@ -17,7 +17,7 @@ const SettingsPage = () => {
   ];
 
   return (
-    <div className='container-custom py-10'>
+    <div className='container-custom py-20 md:mt-10'>
       <div className='max-w-3xl mx-auto'>
         {/* Header */}
         <div className='mb-8'>
