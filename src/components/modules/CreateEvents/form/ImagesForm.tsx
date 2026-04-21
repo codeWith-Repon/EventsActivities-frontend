@@ -13,10 +13,14 @@ import { UseFormReturn } from 'react-hook-form';
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { CreateEventFormData } from '@/types/events.interface';
+import { toast } from 'sonner';
 
 interface ImagesFormProps {
   form: UseFormReturn<CreateEventFormData>;
 }
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
+const MAX_IMAGES = 5;
 
 export function ImagesForm({ form }: ImagesFormProps) {
   const [dragActive, setDragActive] = useState(false);
@@ -48,11 +52,55 @@ export function ImagesForm({ form }: ImagesFormProps) {
   };
 
   const handleFiles = (files: FileList) => {
-    const fileArray = Array.from(files).slice(0, 5 - images.length);
-    const newImages = fileArray.map((file) => ({
+    const fileArray = Array.from(files);
+    const oversizedFiles: string[] = [];
+    const validFiles: File[] = [];
+
+    // Validate each file
+    fileArray.forEach((file) => {
+      if (file.size > MAX_FILE_SIZE) {
+        oversizedFiles.push(`${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    // Show error toast for oversized files
+    if (oversizedFiles.length > 0) {
+      toast.error('File size too large', {
+        description: `${oversizedFiles.length} file(s) exceeded 10MB limit: ${oversizedFiles.join(', ')}`,
+      });
+    }
+
+    // Check total image limit
+    const remainingSlots = MAX_IMAGES - images.length;
+    if (validFiles.length > remainingSlots) {
+      toast.warning(`Maximum ${MAX_IMAGES} images allowed`, {
+        description: `You can only upload ${remainingSlots} more image(s). ${validFiles.length - remainingSlots} file(s) were skipped.`,
+      });
+    }
+
+    const filesToAdd = validFiles.slice(0, remainingSlots);
+
+    if (filesToAdd.length === 0) {
+      if (validFiles.length === 0 && oversizedFiles.length === 0) {
+        // All files were oversized
+        return;
+      }
+      return;
+    }
+
+    const newImages = filesToAdd.map((file) => ({
       file,
       preview: URL.createObjectURL(file),
     }));
+
+    if (validFiles.length > 0) {
+      toast.success(`${filesToAdd.length} image(s) added`, {
+        description: `${images.length + filesToAdd.length}/${MAX_IMAGES} images`,
+      });
+    }
+
     form.setValue('images', [...images, ...newImages]);
   };
 
@@ -118,7 +166,7 @@ export function ImagesForm({ form }: ImagesFormProps) {
                     </button>
                   </p>
                   <p className='text-xs text-neutral-500 mt-3'>
-                    PNG, JPG, GIF up to 10MB each. Max 5 images.
+                    PNG, JPG up to 10MB each. Maximum 5 images.
                   </p>
                 </div>
               </div>
