@@ -1,11 +1,21 @@
 'use client';
 
 import { ChangePasswordForm } from '@/components/modules/Auth/change-password-form';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card } from '@/components/ui/card';
 import { Lock, Bell, Shield } from 'lucide-react';
-import { Metadata } from 'next';
+import { useState } from 'react';
+
+type SettingsTab = 'security' | 'notifications' | 'privacy';
 
 const SettingsPage = () => {
+  const [activeTab, setActiveTab] = useState<SettingsTab>('security');
+
+  const tabs = [
+    { id: 'security', label: 'Security', icon: Lock },
+    { id: 'notifications', label: 'Notifications', icon: Bell },
+    { id: 'privacy', label: 'Privacy', icon: Shield },
+  ];
+
   return (
     <div className='container-custom py-10'>
       <div className='max-w-3xl mx-auto'>
@@ -17,58 +27,65 @@ const SettingsPage = () => {
           </p>
         </div>
 
-        {/* Tabs */}
-        <Tabs defaultValue='security' className='w-full'>
-          <TabsList className='grid w-full grid-cols-3 mb-6'>
-            <TabsTrigger value='security' className='flex items-center gap-2'>
-              <Lock size={16} />
-              <span className='hidden sm:inline'>Security</span>
-            </TabsTrigger>
-            <TabsTrigger value='notifications' className='flex items-center gap-2'>
-              <Bell size={16} />
-              <span className='hidden sm:inline'>Notifications</span>
-            </TabsTrigger>
-            <TabsTrigger value='privacy' className='flex items-center gap-2'>
-              <Shield size={16} />
-              <span className='hidden sm:inline'>Privacy</span>
-            </TabsTrigger>
-          </TabsList>
+        {/* Tab Navigation */}
+        <div className='flex gap-2 mb-6 border-b border-gray-200'>
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as SettingsTab)}
+                className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors ${
+                  isActive
+                    ? 'border-primary text-primary font-medium'
+                    : 'border-transparent text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Icon size={18} />
+                <span className='hidden sm:inline'>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
 
+        {/* Tab Content */}
+        <div>
           {/* Security Tab */}
-          <TabsContent value='security' className='space-y-6'>
-            <div className='bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8'>
+          {activeTab === 'security' && (
+            <Card className='p-6 md:p-8 rounded-2xl'>
               <ChangePasswordForm />
-            </div>
-          </TabsContent>
+            </Card>
+          )}
 
           {/* Notifications Tab */}
-          <TabsContent value='notifications' className='space-y-6'>
-            <div className='bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8'>
+          {activeTab === 'notifications' && (
+            <Card className='p-6 md:p-8 rounded-2xl'>
               <div className='space-y-4'>
                 <div>
                   <h3 className='font-semibold mb-2'>Notification Preferences</h3>
-                  <p className='text-sm text-muted-foreground mb-4'>
+                  <p className='text-sm text-muted-foreground'>
                     Coming soon. Configure how you receive updates about events and messages.
                   </p>
                 </div>
               </div>
-            </div>
-          </TabsContent>
+            </Card>
+          )}
 
           {/* Privacy Tab */}
-          <TabsContent value='privacy' className='space-y-6'>
-            <div className='bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8'>
+          {activeTab === 'privacy' && (
+            <Card className='p-6 md:p-8 rounded-2xl'>
               <div className='space-y-4'>
                 <div>
                   <h3 className='font-semibold mb-2'>Privacy Settings</h3>
-                  <p className='text-sm text-muted-foreground mb-4'>
+                  <p className='text-sm text-muted-foreground'>
                     Coming soon. Control your profile visibility and data sharing preferences.
                   </p>
                 </div>
               </div>
-            </div>
-          </TabsContent>
-        </Tabs>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );
