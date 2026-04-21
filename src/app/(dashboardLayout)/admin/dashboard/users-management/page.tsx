@@ -29,7 +29,7 @@ const UserManagementPage = async ({
       />
       <UserFilter />
 
-      <Suspense fallback={<TableSkeleton columns={8} rows={10} />}>
+      <Suspense fallback={<TableSkeleton columns={9} rows={10} />}>
         <UserTable user={user.data.data} />
         <TablePagination
           currentPage={user.data.meta.page || 1}

@@ -1,9 +1,9 @@
 'use client';
 
 import { DateCell } from '@/components/shared/cell/DateCell';
-import { StatusBadgeCell } from '@/components/shared/cell/StatusBadgeCell';
 import { UserInfoCell } from '@/components/shared/cell/UserInfoCell';
 import { Column } from '@/components/shared/ManagementTable';
+import { Badge } from '@/components/ui/badge';
 import { IUserInfo } from '@/types/user.interface';
 
 export const userColumn: Column<IUserInfo>[] = [
@@ -30,7 +30,20 @@ export const userColumn: Column<IUserInfo>[] = [
   },
   {
     header: 'Status',
-    accessor: (user) => <StatusBadgeCell isDeleted={user.isDeleted} />,
+    accessor: (user) => {
+      const variant =
+        user.status === 'BLOCKED'
+          ? 'destructive'
+          : user.status === 'INACTIVE'
+          ? 'secondary'
+          : 'default';
+      return <Badge variant={variant}>{user.status}</Badge>;
+    },
+  },
+  {
+    header: 'Role',
+    accessor: (user) => <Badge variant='outline'>{user.role}</Badge>,
+    sortKey: 'role',
   },
   {
     header: 'Address',

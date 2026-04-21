@@ -81,6 +81,40 @@ export async function updateUser(formData: any) {
     }
 }
 
+export async function updateUserStatus(id: string, status: 'ACTIVE' | 'BLOCKED' | 'INACTIVE') {
+    try {
+        const response = await serverFetch.patch(`/users/${id}/status`, {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status }),
+        })
+        const result = await response.json()
+        return result
+    } catch (error: any) {
+        console.log(error)
+        return {
+            success: false,
+            message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`,
+        }
+    }
+}
+
+export async function updateUserRole(id: string, role: 'USER' | 'HOST' | 'ADMIN') {
+    try {
+        const response = await serverFetch.patch(`/users/${id}/role`, {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ role }),
+        })
+        const result = await response.json()
+        return result
+    } catch (error: any) {
+        console.log(error)
+        return {
+            success: false,
+            message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`,
+        }
+    }
+}
+
 export async function deleteUser(id: string) {
     try {
         const response = await serverFetch.delete(`/users/${id}`)
