@@ -1,11 +1,13 @@
 import UserFilter from '@/components/modules/User/UsersFilter';
 import UserTable from '@/components/modules/User/UsersTable';
-import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
+import PageHeader from '@/components/dashboard/PageHeader';
+import EmptyState from '@/components/dashboard/EmptyState';
 import TablePagination from '@/components/shared/TablePagination';
-import { TableSkeleton } from '@/components/shared/TableSkeleton';
 import { queryStringFormatter } from '@/lib/formatter';
 import { getUsers } from '@/services/user/userManagements';
-import { Suspense } from 'react';
+import { Shield } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 const AdminsManagementPage = async ({
   searchParams,
@@ -19,23 +21,45 @@ const AdminsManagementPage = async ({
   }
 
   const queryString = queryStringFormatter(searchParamsObj);
-  const user = await getUsers(queryString);
+  const res = await getUsers(queryString);
+  const rows = res?.data?.data ?? [];
+  const meta = res?.data?.meta;
 
   return (
     <div className='space-y-6'>
-      <ManagementPageHeader
-        title='Admins Management'
-        description='Manage admin accounts and permission'
+      <PageHeader
+        kicker='User management'
+        title='Admins'
+        description='Manage administrator accounts and platform roles.'
+        actions={
+          meta?.total != null ? (
+            <span className='inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 font-mono text-xs text-muted-foreground'>
+              <Shield className='size-3.5 text-[var(--aurora-violet)]' />
+              {meta.total} admins
+            </span>
+          ) : undefined
+        }
       />
+
       <UserFilter />
 
-      <Suspense fallback={<TableSkeleton columns={8} rows={10} />}>
-        <UserTable user={user?.data?.data} />
-        <TablePagination
-          currentPage={user?.data?.meta?.page || 1}
-          totalPages={user?.data?.meta?.totalPage || 1}
+      {!res?.success && rows.length === 0 ? (
+        <EmptyState
+          icon={Shield}
+          title='Couldn’t load admins'
+          description='The API didn’t respond. Make sure the backend is running and you’re signed in as an admin.'
         />
-      </Suspense>
+      ) : (
+        <>
+          <UserTable user={rows} />
+          {meta && (
+            <TablePagination
+              currentPage={meta.page || 1}
+              totalPages={meta.totalPage || 1}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };
