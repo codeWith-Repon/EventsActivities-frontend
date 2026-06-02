@@ -79,7 +79,7 @@ across every feature:
 - [x] **F01 — Overview (stats + charts)** · `feat/dashboard-overview` · `GET /dashboard/meta-data` · ✅ merged → `docs/dashboard-overview.md`
 - [x] **F02 — Users management** · `feat/dashboard-users` · list, search/filter, block/unblock, delete · ✅ merged → `docs/dashboard-users.md`
 - [x] **F03 — Admins management** · `feat/dashboard-admins` · promote/demote roles (SUPER_ADMIN), list · ✅ merged → `docs/dashboard-admins.md`
-- [ ] **F04 — Hosts management** · `feat/dashboard-hosts` · list, verify toggle, host stats drawer → `docs/dashboard-hosts.md`
+- [x] **F04 — Hosts management** · `feat/dashboard-hosts` · list, verify toggle, host stats drawer · ✅ merged → `docs/dashboard-hosts.md`
 - [ ] **F05 — Events management** · `feat/dashboard-events` · list, view, edit, delete, **force-cancel** → `docs/dashboard-events.md`
 
 ### Phase 2 — New admin pages (backend ready, no UI yet)
@@ -240,3 +240,4 @@ _(Each completed feature gets a one-line entry: date · feature · branch · mer
 - 2026-06-02 · **F01** Overview — stats + bespoke SVG charts · `feat/dashboard-overview` · merged ✓
 - 2026-06-02 · **F02** Users management — filters, block/unblock, delete · `feat/dashboard-users` · merged ✓
 - 2026-06-02 · **F03** Admins management — role promote/demote (SUPER_ADMIN) · `feat/dashboard-admins` · merged ✓
+- 2026-06-02 · **F04** Hosts management — verify toggle + stats dialog · `feat/dashboard-hosts` · merged ✓
