@@ -86,7 +86,7 @@ across every feature:
 
 - [x] **F06 — Event Participants management** · `feat/dashboard-participants` · nav already links here but the page is missing · ✅ merged → `docs/dashboard-participants.md`
 - [x] **F07 — Payments management** · `feat/dashboard-payments` · list, filters, **refund** · ✅ merged → `docs/dashboard-payments.md`
-- [ ] **F08 — Content reports / moderation** · `feat/dashboard-reports` · list, resolve/dismiss + admin note → `docs/dashboard-reports.md`
+- [x] **F08 — Content reports / moderation** · `feat/dashboard-reports` · list, resolve/dismiss + admin note · ✅ merged → `docs/dashboard-reports.md`
 - [ ] **F09 — Revenue & analytics report** · `feat/dashboard-revenue` · top events, top hosts, monthly revenue → `docs/dashboard-revenue.md`
 - [ ] **F10 — Notifications center** · `feat/dashboard-notifications` · bell + unread count, list, mark read/all, delete → `docs/dashboard-notifications.md`
 
@@ -244,3 +244,4 @@ _(Each completed feature gets a one-line entry: date · feature · branch · mer
 - 2026-06-02 · **F05** Events management — list, view, force-cancel · `feat/dashboard-events` · merged ✓ · **Phase 1 complete**
 - 2026-06-02 · **F06** Event participants — filters, view, delete · `feat/dashboard-participants` · merged ✓
 - 2026-06-02 · **F07** Payments — transactions + refund · `feat/dashboard-payments` · merged ✓
+- 2026-06-02 · **F08** Content reports — resolve/dismiss · `feat/dashboard-reports` · merged ✓

@@ -67,6 +67,17 @@ export const superAdminNavItems: NavSection[] = [
                 roles: ["SUPER_ADMIN", "ADMIN"]
             }
         ]
+    },
+    {
+        title: "Moderation",
+        items: [
+            {
+                title: "Reports",
+                href: "/admin/dashboard/reports-management",
+                icon: "Flag",
+                roles: ["SUPER_ADMIN", "ADMIN"]
+            }
+        ]
     }
 ]
 
