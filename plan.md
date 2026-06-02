@@ -84,7 +84,7 @@ across every feature:
 
 ### Phase 2 — New admin pages (backend ready, no UI yet)
 
-- [ ] **F06 — Event Participants management** · `feat/dashboard-participants` · nav already links here but the page is missing → `docs/dashboard-participants.md`
+- [x] **F06 — Event Participants management** · `feat/dashboard-participants` · nav already links here but the page is missing · ✅ merged → `docs/dashboard-participants.md`
 - [ ] **F07 — Payments management** · `feat/dashboard-payments` · list, filters, **refund** → `docs/dashboard-payments.md`
 - [ ] **F08 — Content reports / moderation** · `feat/dashboard-reports` · list, resolve/dismiss + admin note → `docs/dashboard-reports.md`
 - [ ] **F09 — Revenue & analytics report** · `feat/dashboard-revenue` · top events, top hosts, monthly revenue → `docs/dashboard-revenue.md`
@@ -242,3 +242,4 @@ _(Each completed feature gets a one-line entry: date · feature · branch · mer
 - 2026-06-02 · **F03** Admins management — role promote/demote (SUPER_ADMIN) · `feat/dashboard-admins` · merged ✓
 - 2026-06-02 · **F04** Hosts management — verify toggle + stats dialog · `feat/dashboard-hosts` · merged ✓
 - 2026-06-02 · **F05** Events management — list, view, force-cancel · `feat/dashboard-events` · merged ✓ · **Phase 1 complete**
+- 2026-06-02 · **F06** Event participants — filters, view, delete · `feat/dashboard-participants` · merged ✓
