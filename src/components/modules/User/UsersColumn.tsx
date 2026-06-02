@@ -1,9 +1,9 @@
 'use client';
 
 import { DateCell } from '@/components/shared/cell/DateCell';
-import { StatusBadgeCell } from '@/components/shared/cell/StatusBadgeCell';
 import { UserInfoCell } from '@/components/shared/cell/UserInfoCell';
 import { Column } from '@/components/shared/ManagementTable';
+import StatusBadge from '@/components/dashboard/StatusBadge';
 import { IUserInfo } from '@/types/user.interface';
 
 export const userColumn: Column<IUserInfo>[] = [
@@ -19,39 +19,28 @@ export const userColumn: Column<IUserInfo>[] = [
     sortKey: 'name',
   },
   {
-    header: 'Contact',
-    accessor: (user) => (
-      <div className='flex flex-col'>
-        <span className='text-sm'>
-          {user.contactNumber ? user.contactNumber : '-'}
-        </span>
-      </div>
-    ),
+    header: 'Role',
+    accessor: (user) => <StatusBadge status={user.role} />,
   },
   {
     header: 'Status',
-    accessor: (user) => <StatusBadgeCell isDeleted={user.isDeleted} />,
+    accessor: (user) => <StatusBadge status={user.status ?? 'ACTIVE'} />,
   },
   {
-    header: 'Address',
+    header: 'Contact',
     accessor: (user) => (
-      <span className='text-sm'>{user.address ? user.address : '-'}</span>
+      <span className='text-sm text-muted-foreground'>
+        {user.contactNumber || '—'}
+      </span>
     ),
   },
   {
-    header: 'DOB',
-    accessor: (user) => {
-      return user.dob ? (
-        <DateCell date={user.dob} />
-      ) : (
-        <span className='text-sm'>N/A</span>
-      );
-    },
-    sortKey: 'dob',
-  },
-  {
     header: 'Gender',
-    accessor: (user) => <span className='text-sm'>{user.gender}</span>,
+    accessor: (user) => (
+      <span className='text-sm capitalize text-muted-foreground'>
+        {user.gender ? user.gender.toLowerCase() : '—'}
+      </span>
+    ),
     sortKey: 'gender',
   },
   {

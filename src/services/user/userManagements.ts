@@ -94,3 +94,20 @@ export async function deleteUser(id: string) {
         }
     }
 }
+
+// PATCH /users/:userId/status  — block (BLOCKED) or unblock (ACTIVE) a user
+export async function updateUserStatus(id: string, status: "ACTIVE" | "BLOCKED") {
+    try {
+        const response = await serverFetch.patch(`/users/${id}/status`, {
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status }),
+        })
+        const result = await response.json()
+        return result
+    } catch (error: any) {
+        return {
+            success: false,
+            message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`,
+        }
+    }
+}
