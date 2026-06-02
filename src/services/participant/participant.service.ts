@@ -19,3 +19,17 @@ export const joinEvent = async (eventId: string) => {
         throwError(error)
     }
 }
+
+// DELETE /event-participants/:id  (ADMIN, SUPER_ADMIN)
+export const deleteParticipant = async (id: string) => {
+    try {
+        const response = await serverFetch.delete(`/event-participants/${id}`)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        return {
+            success: false,
+            message: `${process.env.NODE_ENV === 'development' ? (error as Error).message : 'Something went wrong'}`,
+        }
+    }
+}
