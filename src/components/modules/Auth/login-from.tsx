@@ -16,6 +16,7 @@ import { useActionState, useEffect } from 'react';
 import { loginUser } from '@/services/auth/loginUser';
 import { toast } from 'sonner';
 import { Loader } from 'lucide-react';
+import DemoLoginButtons from './DemoLoginButtons';
 
 export function LoginForm({ redirect }: { redirect?: string }) {
   const [state, fromAction, isPending] = useActionState(loginUser, null);
@@ -73,6 +74,8 @@ export function LoginForm({ redirect }: { redirect?: string }) {
             {isPending ? 'Logging in...' : 'Login'}
           </Button>
         </Field>
+        <FieldSeparator>Or quick login</FieldSeparator>
+        <DemoLoginButtons redirect={redirect} />
         <FieldSeparator>Or continue with</FieldSeparator>
         <Field>
           <Button variant='outline' className='cursor-pointer' type='button'>
