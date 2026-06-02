@@ -1,14 +1,16 @@
 'use client';
 
-import ManagementTable from '@/components/shared/ManagementTable';
+import ManagementTable, { RowAction } from '@/components/shared/ManagementTable';
 import { IUserInfo } from '@/types/user.interface';
 import { userColumn } from './UsersColumn';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import UserViewDialog from './UserViewDialog';
 import DeleteConfirmationDialog from '@/components/shared/DeleteConfirmationDialog';
+import ConfirmActionDialog from '@/components/dashboard/ConfirmActionDialog';
 import { toast } from 'sonner';
-import { deleteUser } from '@/services/user/userManagements';
+import { deleteUser, updateUserStatus } from '@/services/user/userManagements';
+import { Ban, ShieldCheck } from 'lucide-react';
 
 interface UserTableProps {
   user: IUserInfo[];
@@ -20,30 +22,21 @@ const UserTable = ({ user }: UserTableProps) => {
   const [deletingUser, setDeletingUser] = useState<IUserInfo | null>(null);
   const [viewingUser, setViewingUser] = useState<IUserInfo | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [statusTarget, setStatusTarget] = useState<{
+    user: IUserInfo;
+    next: 'ACTIVE' | 'BLOCKED';
+  } | null>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
-  const handleRefresh = () => {
-    startTransition(() => {
-      router.refresh();
-    });
-  };
-
-  const handleView = (user: IUserInfo) => {
-    setViewingUser(user);
-  };
-
-  const handleDelete = (user: IUserInfo) => {
-    setDeletingUser(user);
-  };
+  const handleRefresh = () => startTransition(() => router.refresh());
 
   const confirmDelete = async () => {
     if (!deletingUser) return;
-
     setIsDeleting(true);
     const result = await deleteUser(deletingUser.id!);
     setIsDeleting(false);
-
     if (result.success) {
-      toast.success(result.message || 'User deleted successfully');
+      toast.success(result.message || 'User deleted');
       setDeletingUser(null);
       handleRefresh();
     } else {
@@ -51,31 +44,80 @@ const UserTable = ({ user }: UserTableProps) => {
     }
   };
 
+  const confirmStatus = async () => {
+    if (!statusTarget) return;
+    setIsUpdating(true);
+    const result = await updateUserStatus(statusTarget.user.id!, statusTarget.next);
+    setIsUpdating(false);
+    if (result.success) {
+      toast.success(
+        statusTarget.next === 'BLOCKED' ? 'User blocked' : 'User unblocked'
+      );
+      setStatusTarget(null);
+      handleRefresh();
+    } else {
+      toast.error(result.message || 'Failed to update status');
+    }
+  };
+
+  const actions: RowAction<IUserInfo>[] = [
+    {
+      label: 'Block',
+      icon: Ban,
+      variant: 'destructive',
+      show: (u) => u.status !== 'BLOCKED',
+      onClick: (u) => setStatusTarget({ user: u, next: 'BLOCKED' }),
+    },
+    {
+      label: 'Unblock',
+      icon: ShieldCheck,
+      show: (u) => u.status === 'BLOCKED',
+      onClick: (u) => setStatusTarget({ user: u, next: 'ACTIVE' }),
+    },
+  ];
+
   return (
     <>
       <ManagementTable
         data={user}
         columns={userColumn}
-        getRowKey={(user) => user.id}
-        emptyMessage='No user found'
-        onView={handleView}
-        onDelete={handleDelete}
+        getRowKey={(u) => u.id}
+        emptyMessage='No users found'
+        onView={setViewingUser}
+        actions={actions}
+        onDelete={setDeletingUser}
       />
 
       <UserViewDialog
         open={!!viewingUser}
         onClose={() => setViewingUser(null)}
-        user={viewingUser!}
+        user={viewingUser}
       />
 
-      {/* Delete confirmation dialog */}
       <DeleteConfirmationDialog
         open={!!deletingUser}
         onOpenChange={(open) => !open && setDeletingUser(null)}
         onConfirm={confirmDelete}
-        title='Delete User'
-        description={`Are you sure you want to delete user "${deletingUser?.name}"? This action cannot be undone.`}
+        title='Delete user'
+        description={`Delete "${deletingUser?.name}"? This action cannot be undone.`}
         isDeleting={isDeleting}
+      />
+
+      <ConfirmActionDialog
+        open={!!statusTarget}
+        onOpenChange={(open) => !open && setStatusTarget(null)}
+        onConfirm={confirmStatus}
+        title={
+          statusTarget?.next === 'BLOCKED' ? 'Block user' : 'Unblock user'
+        }
+        description={
+          statusTarget?.next === 'BLOCKED'
+            ? `"${statusTarget?.user.name}" will no longer be able to sign in.`
+            : `"${statusTarget?.user.name}" will regain access to their account.`
+        }
+        confirmLabel={statusTarget?.next === 'BLOCKED' ? 'Block' : 'Unblock'}
+        variant={statusTarget?.next === 'BLOCKED' ? 'destructive' : 'default'}
+        loading={isUpdating}
       />
     </>
   );
