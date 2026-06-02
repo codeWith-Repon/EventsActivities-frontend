@@ -68,7 +68,7 @@ const ResolveReportDialog = ({
               />
               <StatusBadge status={report.status} />
             </div>
-            <p className='rounded-xl border border-white/5 bg-white/[0.02] p-3 text-sm text-muted-foreground'>
+            <p className='rounded-xl border border-border bg-muted/60 p-3 text-sm text-muted-foreground'>
               {report.reason}
             </p>
 
@@ -80,7 +80,7 @@ const ResolveReportDialog = ({
                 value={status}
                 onValueChange={(v) => setStatus(v as Resolution)}
               >
-                <SelectTrigger className='border-white/10 bg-white/5'>
+                <SelectTrigger className='border-border bg-muted'>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -99,7 +99,7 @@ const ResolveReportDialog = ({
                 onChange={(e) => setNote(e.target.value)}
                 rows={3}
                 placeholder='Add a note about the action taken…'
-                className='w-full resize-none rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--aurora-violet)]/50'
+                className='w-full resize-none rounded-xl border border-border bg-muted p-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--aurora-violet)]/50'
               />
             </div>
           </div>
@@ -109,7 +109,7 @@ const ResolveReportDialog = ({
           <button
             onClick={() => onOpenChange(false)}
             disabled={loading}
-            className='rounded-lg border border-white/10 px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-white/5 disabled:opacity-50'
+            className='rounded-lg border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted disabled:opacity-50'
           >
             Cancel
           </button>

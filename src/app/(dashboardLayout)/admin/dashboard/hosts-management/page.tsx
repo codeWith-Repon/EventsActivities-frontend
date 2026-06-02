@@ -32,13 +32,13 @@ const HostsManagementPage = async ({
         actions={
           <div className='flex items-center gap-2'>
             {meta?.total != null && (
-              <span className='inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 font-mono text-xs text-muted-foreground'>
+              <span className='inline-flex items-center gap-2 rounded-xl border border-border bg-muted px-3 py-2 font-mono text-xs text-muted-foreground'>
                 <Sparkles className='size-3.5 text-[var(--aurora-violet)]' />
                 {meta.total} hosts
               </span>
             )}
-            <span className='inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 font-mono text-xs text-muted-foreground'>
-              <BadgeCheck className='size-3.5 text-emerald-400' />
+            <span className='inline-flex items-center gap-2 rounded-xl border border-border bg-muted px-3 py-2 font-mono text-xs text-muted-foreground'>
+              <BadgeCheck className='size-3.5 text-emerald-600' />
               {verifiedCount} verified
             </span>
             <RefreshButton />

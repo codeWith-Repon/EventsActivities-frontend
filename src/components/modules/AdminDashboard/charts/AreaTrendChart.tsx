@@ -136,7 +136,7 @@ const AreaTrendChart = ({
       {/* tooltip */}
       {active !== null && (
         <div
-          className='pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-white/10 bg-[var(--popover)] px-2.5 py-1.5 text-xs shadow-lg'
+          className='pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-border bg-[var(--popover)] px-2.5 py-1.5 text-xs shadow-lg'
           style={{
             left: `${(x(active) / W) * 100}%`,
             top: `${(y(data[active].value) / H) * 100}%`,

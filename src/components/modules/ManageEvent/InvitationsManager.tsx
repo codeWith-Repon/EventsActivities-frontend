@@ -72,7 +72,7 @@ const InvitationsManager = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder='invitee@example.com'
-              className='border-white/10 bg-white/5 pl-9'
+              className='border-border bg-muted pl-9'
             />
           </div>
           <button
@@ -91,7 +91,7 @@ const InvitationsManager = ({
       </GlassCard>
 
       <GlassCard className='p-0'>
-        <div className='border-b border-white/10 px-5 py-3'>
+        <div className='border-b border-border px-5 py-3'>
           <h3 className='font-display text-base font-semibold text-foreground'>
             Invitations ({invitations.length})
           </h3>
@@ -101,7 +101,7 @@ const InvitationsManager = ({
             No invitations yet.
           </p>
         ) : (
-          <ul className='divide-y divide-white/5'>
+          <ul className='divide-y divide-border'>
             {invitations.map((inv) => (
               <li
                 key={inv.id}
@@ -119,7 +119,7 @@ const InvitationsManager = ({
                     <button
                       onClick={() => revoke(inv.id)}
                       disabled={revokingId === inv.id}
-                      className='inline-flex items-center gap-1 rounded-lg border border-white/10 px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-destructive/50 hover:text-destructive disabled:opacity-50'
+                      className='inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-destructive/50 hover:text-destructive disabled:opacity-50'
                     >
                       {revokingId === inv.id ? (
                         <Loader2 className='size-3 animate-spin' />

@@ -20,7 +20,7 @@ const Row = ({
   label: string;
   value?: React.ReactNode;
 }) => (
-  <div className='flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3'>
+  <div className='flex items-start gap-3 rounded-xl border border-border bg-muted/60 p-3'>
     <Icon className='mt-0.5 size-4 text-[var(--aurora-violet)]' />
     <div className='min-w-0'>
       <p className='font-mono text-[10px] uppercase tracking-wider text-muted-foreground'>

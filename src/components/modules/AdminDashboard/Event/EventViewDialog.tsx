@@ -29,7 +29,7 @@ const Row = ({
   label: string;
   value?: string | number | null;
 }) => (
-  <div className='flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3'>
+  <div className='flex items-start gap-3 rounded-xl border border-border bg-muted/60 p-3'>
     <Icon className='mt-0.5 size-4 text-[var(--aurora-violet)]' />
     <div className='min-w-0'>
       <p className='font-mono text-[10px] uppercase tracking-wider text-muted-foreground'>
@@ -54,12 +54,12 @@ const EventViewDialog = ({
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className='glass-strong flex max-h-[90vh] flex-col gap-0 p-0 sm:max-w-2xl'>
-        <DialogHeader className='border-b border-white/10 px-6 py-4'>
+        <DialogHeader className='border-b border-border px-6 py-4'>
           <DialogTitle className='font-display'>Event details</DialogTitle>
         </DialogHeader>
 
         <div className='flex-1 overflow-y-auto p-6'>
-          <div className='relative mb-5 h-44 overflow-hidden rounded-2xl border border-white/10'>
+          <div className='relative mb-5 h-44 overflow-hidden rounded-2xl border border-border'>
             <Image
               src={event.images?.[0] || userPlaceholderImage}
               alt={event.title}
@@ -82,7 +82,7 @@ const EventViewDialog = ({
           </div>
 
           {event.description && (
-            <p className='mb-5 rounded-xl border border-white/5 bg-white/[0.02] p-4 text-sm text-muted-foreground'>
+            <p className='mb-5 rounded-xl border border-border bg-muted/60 p-4 text-sm text-muted-foreground'>
               {event.description}
             </p>
           )}

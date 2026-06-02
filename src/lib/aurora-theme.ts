@@ -20,9 +20,9 @@ export function applyTheme(theme: DashTheme) {
 
 export function getStoredTheme(): DashTheme {
   try {
-    return (localStorage.getItem(THEME_KEY) as DashTheme) || 'dark';
+    return (localStorage.getItem(THEME_KEY) as DashTheme) || 'light';
   } catch {
-    return 'dark';
+    return 'light';
   }
 }
 
@@ -34,7 +34,7 @@ export function setTheme(theme: DashTheme) {
 }
 
 export function currentTheme(): DashTheme {
-  if (typeof document === 'undefined') return 'dark';
+  if (typeof document === 'undefined') return 'light';
   return document.getElementById('aurora-root')?.classList.contains('aurora-light')
     ? 'light'
     : 'dark';

@@ -84,7 +84,7 @@ const NotificationBell = () => {
       <PopoverTrigger asChild>
         <button
           aria-label='Notifications'
-          className='relative grid size-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10'
+          className='relative grid size-9 place-items-center rounded-lg border border-border bg-muted text-foreground transition-colors hover:bg-muted'
         >
           <Bell className='size-4.5' />
           {unread > 0 && (
@@ -100,7 +100,7 @@ const NotificationBell = () => {
         className='glass-strong w-80 p-0'
         sideOffset={10}
       >
-        <div className='flex items-center justify-between border-b border-white/10 px-4 py-3'>
+        <div className='flex items-center justify-between border-b border-border px-4 py-3'>
           <h4 className='font-display text-sm font-semibold text-foreground'>
             Notifications
           </h4>
@@ -126,12 +126,12 @@ const NotificationBell = () => {
               You’re all caught up.
             </p>
           ) : (
-            <ul className='divide-y divide-white/5'>
+            <ul className='divide-y divide-border'>
               {items.slice(0, 8).map((n) => (
                 <li key={n.id}>
                   <button
                     onClick={() => onItem(n)}
-                    className='flex w-full items-start gap-2.5 px-4 py-3 text-left transition-colors hover:bg-white/5'
+                    className='flex w-full items-start gap-2.5 px-4 py-3 text-left transition-colors hover:bg-muted'
                   >
                     <span
                       className={`mt-1.5 size-2 shrink-0 rounded-full ${
@@ -156,11 +156,11 @@ const NotificationBell = () => {
           )}
         </ScrollArea>
 
-        <div className='border-t border-white/10 p-2'>
+        <div className='border-t border-border p-2'>
           <Link
             href='/admin/dashboard/notifications'
             onClick={() => setOpen(false)}
-            className='block rounded-lg px-3 py-2 text-center text-xs font-medium text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground'
+            className='block rounded-lg px-3 py-2 text-center text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground'
           >
             View all notifications
           </Link>

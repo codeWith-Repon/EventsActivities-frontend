@@ -53,7 +53,7 @@ const SelectFilter = ({
   return (
     <Select value={current} onValueChange={onChange} disabled={isPending}>
       <SelectTrigger
-        className={`h-10 min-w-[9rem] border-white/10 bg-white/5 ${className ?? ''}`}
+        className={`h-10 min-w-[9rem] border-border bg-muted ${className ?? ''}`}
       >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

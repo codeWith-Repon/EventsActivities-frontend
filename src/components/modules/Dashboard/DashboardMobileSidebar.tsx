@@ -58,8 +58,8 @@ const DashboardMobileSidebar = ({
                       className={cn(
                         'group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all',
                         isActive
-                          ? 'bg-white/[0.08] text-foreground'
-                          : 'text-muted-foreground hover:bg-white/[0.05] hover:text-foreground'
+                          ? 'bg-muted text-foreground'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       )}
                     >
                       <span

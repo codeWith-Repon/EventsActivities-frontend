@@ -5,6 +5,7 @@ import ManageEventTabNav, {
 } from '@/components/modules/ManageEvent/ManageEventTabNav';
 import getEvent from '@/services/events/getEvent';
 import { IEvent } from '@/types/events.interface';
+import { dashboardFontVars } from '@/lib/dashboard-fonts';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
@@ -30,7 +31,9 @@ const ManageEventLayout = async ({
   ];
 
   return (
-    <div className='aurora min-h-screen bg-background p-4 md:p-6'>
+    <div
+      className={`aurora aurora-light aurora-canvas ${dashboardFontVars} min-h-screen bg-background font-sans text-foreground p-4 md:p-6`}
+    >
       <div className='mx-auto max-w-6xl space-y-6'>
         <Link
           href='/manage-events'

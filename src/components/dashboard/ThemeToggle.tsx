@@ -4,7 +4,7 @@ import { useSyncExternalStore } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { currentTheme, setTheme, subscribe } from '@/lib/aurora-theme';
 
-const getServerSnapshot = (): 'dark' | 'light' => 'dark';
+const getServerSnapshot = (): 'dark' | 'light' => 'light';
 
 const ThemeToggle = ({ className = '' }: { className?: string }) => {
   const theme = useSyncExternalStore(subscribe, currentTheme, getServerSnapshot);
@@ -15,7 +15,7 @@ const ThemeToggle = ({ className = '' }: { className?: string }) => {
       type='button'
       aria-label='Toggle dashboard theme'
       onClick={() => setTheme(dark ? 'light' : 'dark')}
-      className={`relative grid size-9 place-items-center rounded-xl border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10 cursor-pointer ${className}`}
+      className={`relative grid size-9 place-items-center rounded-xl border border-border bg-muted text-foreground transition-colors hover:bg-muted cursor-pointer ${className}`}
     >
       <Sun
         size={16}

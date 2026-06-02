@@ -14,7 +14,7 @@ const money = (n: number) => `৳ ${new Intl.NumberFormat('en-US').format(Math.r
 const pct = (n: number) => `${Math.round((n ?? 0) * 100)}%`;
 
 const Stat = ({ label, value }: { label: string; value: React.ReactNode }) => (
-  <div className='rounded-xl border border-white/5 bg-white/[0.02] p-3'>
+  <div className='rounded-xl border border-border bg-muted/60 p-3'>
     <p className='font-mono text-[10px] uppercase tracking-wider text-muted-foreground'>
       {label}
     </p>

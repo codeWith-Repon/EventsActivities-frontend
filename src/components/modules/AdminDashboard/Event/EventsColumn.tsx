@@ -14,7 +14,7 @@ export const eventColumn: Column<IEvent>[] = [
     header: 'Event',
     accessor: (e) => (
       <div className='flex items-center gap-3'>
-        <div className='relative size-10 shrink-0 overflow-hidden rounded-lg border border-white/10'>
+        <div className='relative size-10 shrink-0 overflow-hidden rounded-lg border border-border'>
           <Image
             src={e.images?.[0] || userPlaceholderImage}
             alt={e.title}

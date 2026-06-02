@@ -10,7 +10,7 @@ const AdminDashboardLayout = ({ children }: { children: React.ReactNode }) => {
     <UserContextProvider>
       <div
         id='aurora-root'
-        className={`aurora dark ${dashboardFontVars} aurora-canvas flex h-screen overflow-hidden bg-background font-sans text-foreground`}
+        className={`aurora aurora-light ${dashboardFontVars} aurora-canvas flex h-screen overflow-hidden bg-background font-sans text-foreground`}
       >
         <AuroraThemeScript />
         <DashboardSidebar />

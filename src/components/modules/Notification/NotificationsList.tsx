@@ -53,7 +53,7 @@ const NotificationsList = ({ initial }: { initial: INotification[] }) => {
         <div className='flex justify-end'>
           <button
             onClick={onMarkAll}
-            className='inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-white/10'
+            className='inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted'
           >
             <CheckCheck className='size-3.5 text-[var(--aurora-violet)]' />
             Mark all as read ({unread})
@@ -61,11 +61,11 @@ const NotificationsList = ({ initial }: { initial: INotification[] }) => {
         </div>
       )}
 
-      <GlassCard className='divide-y divide-white/5 p-0'>
+      <GlassCard className='divide-y divide-border p-0'>
         {items.map((n) => (
           <div
             key={n.id}
-            className='group flex items-start gap-3 px-5 py-4 transition-colors hover:bg-white/[0.02]'
+            className='group flex items-start gap-3 px-5 py-4 transition-colors hover:bg-muted/60'
           >
             <button
               onClick={() => onRead(n)}
