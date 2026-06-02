@@ -44,3 +44,29 @@ export interface DashboardMeta {
         events: ChartPoint[];
     };
 }
+
+/* ---- Revenue report (GET /dashboard/revenue-report) ---- */
+
+export interface RevenueTopEvent {
+    id: string;
+    title: string;
+    slug: string;
+    revenue: number;
+}
+
+export interface RevenueTopHost {
+    hostId: string;
+    name: string;
+    revenue: number;
+}
+
+export interface MonthlyRevenuePoint {
+    month: string;
+    revenue: number;
+}
+
+export interface RevenueReport {
+    topEvents: RevenueTopEvent[];
+    topHosts: RevenueTopHost[];
+    monthlyRevenue: MonthlyRevenuePoint[];
+}

@@ -65,6 +65,12 @@ export const superAdminNavItems: NavSection[] = [
                 href: "/admin/dashboard/payments-management",
                 icon: "CreditCard",
                 roles: ["SUPER_ADMIN", "ADMIN"]
+            },
+            {
+                title: "Revenue",
+                href: "/admin/dashboard/revenue-report",
+                icon: "TrendingUp",
+                roles: ["SUPER_ADMIN", "ADMIN"]
             }
         ]
     },
