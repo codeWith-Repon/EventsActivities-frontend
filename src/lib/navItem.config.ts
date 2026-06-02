@@ -84,6 +84,17 @@ export const superAdminNavItems: NavSection[] = [
                 roles: ["SUPER_ADMIN", "ADMIN"]
             }
         ]
+    },
+    {
+        title: "Account",
+        items: [
+            {
+                title: "Notifications",
+                href: "/admin/dashboard/notifications",
+                icon: "Bell",
+                roles: ["SUPER_ADMIN", "ADMIN"]
+            }
+        ]
     }
 ]
 

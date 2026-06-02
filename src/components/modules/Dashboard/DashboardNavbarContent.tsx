@@ -1,7 +1,8 @@
 'use client';
 
-import { Bell, Loader2, Menu, Search } from 'lucide-react';
+import { Loader2, Menu, Search } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import NotificationBell from '@/components/modules/Notification/NotificationBell';
 import { NavSection } from '@/types/dashboard.interface';
 import { useEffect, useState } from 'react';
 import { IUserInfo } from '@/types/user.interface';
@@ -71,14 +72,8 @@ const DashboardNavbarContent = ({
         <div className='flex flex-1 items-center justify-end gap-2'>
           <ThemeToggle />
 
-          {/* notifications (wired in F10) */}
-          <button
-            aria-label='Notifications'
-            className='relative grid size-9 place-items-center rounded-xl border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10'
-          >
-            <Bell className='size-[18px]' />
-            <span className='absolute right-2 top-2 size-2 rounded-full bg-gradient-aurora ring-2 ring-[var(--card)]' />
-          </button>
+          {/* notifications */}
+          <NotificationBell />
 
           {loading ? (
             <Loader2 className='size-5 animate-spin text-muted-foreground' />
