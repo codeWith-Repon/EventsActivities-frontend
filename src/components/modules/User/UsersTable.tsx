@@ -8,9 +8,17 @@ import { useState, useTransition } from 'react';
 import UserViewDialog from './UserViewDialog';
 import DeleteConfirmationDialog from '@/components/shared/DeleteConfirmationDialog';
 import ConfirmActionDialog from '@/components/dashboard/ConfirmActionDialog';
+import ChangeRoleDialog, {
+  AssignableRole,
+} from '@/components/dashboard/ChangeRoleDialog';
 import { toast } from 'sonner';
-import { deleteUser, updateUserStatus } from '@/services/user/userManagements';
-import { Ban, ShieldCheck } from 'lucide-react';
+import {
+  deleteUser,
+  updateUserRole,
+  updateUserStatus,
+} from '@/services/user/userManagements';
+import { useUser } from '@/hook/useUser';
+import { Ban, ShieldCheck, UserCog } from 'lucide-react';
 
 interface UserTableProps {
   user: IUserInfo[];
@@ -18,6 +26,7 @@ interface UserTableProps {
 
 const UserTable = ({ user }: UserTableProps) => {
   const router = useRouter();
+  const { user: currentUser } = useUser();
   const [, startTransition] = useTransition();
   const [deletingUser, setDeletingUser] = useState<IUserInfo | null>(null);
   const [viewingUser, setViewingUser] = useState<IUserInfo | null>(null);
@@ -27,6 +36,10 @@ const UserTable = ({ user }: UserTableProps) => {
     next: 'ACTIVE' | 'BLOCKED';
   } | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [roleTarget, setRoleTarget] = useState<IUserInfo | null>(null);
+  const [isRoleUpdating, setIsRoleUpdating] = useState(false);
+
+  const isSuperAdmin = currentUser?.role === 'SUPER_ADMIN';
 
   const handleRefresh = () => startTransition(() => router.refresh());
 
@@ -60,6 +73,20 @@ const UserTable = ({ user }: UserTableProps) => {
     }
   };
 
+  const confirmRole = async (role: AssignableRole) => {
+    if (!roleTarget) return;
+    setIsRoleUpdating(true);
+    const result = await updateUserRole(roleTarget.id!, role);
+    setIsRoleUpdating(false);
+    if (result.success) {
+      toast.success(`Role updated to ${role.toLowerCase()}`);
+      setRoleTarget(null);
+      handleRefresh();
+    } else {
+      toast.error(result.message || 'Failed to update role');
+    }
+  };
+
   const actions: RowAction<IUserInfo>[] = [
     {
       label: 'Block',
@@ -75,6 +102,16 @@ const UserTable = ({ user }: UserTableProps) => {
       onClick: (u) => setStatusTarget({ user: u, next: 'ACTIVE' }),
     },
   ];
+
+  // role change is SUPER_ADMIN-only and never on yourself / other super admins
+  if (isSuperAdmin) {
+    actions.unshift({
+      label: 'Change role',
+      icon: UserCog,
+      show: (u) => u.id !== currentUser?.id && u.role !== 'SUPER_ADMIN',
+      onClick: (u) => setRoleTarget(u),
+    });
+  }
 
   return (
     <>
@@ -107,9 +144,7 @@ const UserTable = ({ user }: UserTableProps) => {
         open={!!statusTarget}
         onOpenChange={(open) => !open && setStatusTarget(null)}
         onConfirm={confirmStatus}
-        title={
-          statusTarget?.next === 'BLOCKED' ? 'Block user' : 'Unblock user'
-        }
+        title={statusTarget?.next === 'BLOCKED' ? 'Block user' : 'Unblock user'}
         description={
           statusTarget?.next === 'BLOCKED'
             ? `"${statusTarget?.user.name}" will no longer be able to sign in.`
@@ -118,6 +153,15 @@ const UserTable = ({ user }: UserTableProps) => {
         confirmLabel={statusTarget?.next === 'BLOCKED' ? 'Block' : 'Unblock'}
         variant={statusTarget?.next === 'BLOCKED' ? 'destructive' : 'default'}
         loading={isUpdating}
+      />
+
+      <ChangeRoleDialog
+        open={!!roleTarget}
+        onOpenChange={(open) => !open && setRoleTarget(null)}
+        userName={roleTarget?.name}
+        currentRole={roleTarget?.role}
+        onConfirm={confirmRole}
+        loading={isRoleUpdating}
       />
     </>
   );

@@ -111,3 +111,20 @@ export async function updateUserStatus(id: string, status: "ACTIVE" | "BLOCKED")
         }
     }
 }
+
+// PATCH /users/:userId/role  — promote / demote a user (SUPER_ADMIN only)
+export async function updateUserRole(id: string, role: "USER" | "HOST" | "ADMIN") {
+    try {
+        const response = await serverFetch.patch(`/users/${id}/role`, {
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ role }),
+        })
+        const result = await response.json()
+        return result
+    } catch (error: any) {
+        return {
+            success: false,
+            message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`,
+        }
+    }
+}
