@@ -29,3 +29,18 @@ export const getDashboardMeta = async (query?: Record<string, any>) => {
     return null;
   }
 };
+
+/**
+ * GET /dashboard/revenue-report  (ADMIN, SUPER_ADMIN)
+ * → { topEvents: [{id,title,slug,revenue}], topHosts: [{hostId,name,revenue}],
+ *     monthlyRevenue: [{month:'YYYY-MM', revenue}] }
+ */
+export const getRevenueReport = async () => {
+  try {
+    const response = await serverFetch.get('/dashboard/revenue-report');
+    return await response.json();
+  } catch (error) {
+    throwError(error);
+    return null;
+  }
+};
