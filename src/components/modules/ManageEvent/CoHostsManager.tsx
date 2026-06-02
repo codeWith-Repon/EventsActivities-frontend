@@ -67,7 +67,7 @@ const CoHostsManager = ({
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
             placeholder='Target user ID (UUID)…'
-            className='flex-1 border-white/10 bg-white/5 font-mono'
+            className='flex-1 border-border bg-muted font-mono'
           />
           <button
             type='submit'
@@ -85,7 +85,7 @@ const CoHostsManager = ({
       </GlassCard>
 
       <GlassCard className='p-0'>
-        <div className='border-b border-white/10 px-5 py-3'>
+        <div className='border-b border-border px-5 py-3'>
           <h3 className='font-display text-base font-semibold text-foreground'>
             Co-hosts ({coHosts.length})
           </h3>
@@ -95,7 +95,7 @@ const CoHostsManager = ({
             No co-hosts assigned.
           </p>
         ) : (
-          <ul className='divide-y divide-white/5'>
+          <ul className='divide-y divide-border'>
             {coHosts.map((c) => (
               <li
                 key={c.id}
@@ -111,7 +111,7 @@ const CoHostsManager = ({
                       className='size-9 rounded-full object-cover'
                     />
                   ) : (
-                    <span className='grid size-9 place-items-center rounded-full bg-white/5 text-xs font-semibold text-foreground'>
+                    <span className='grid size-9 place-items-center rounded-full bg-muted text-xs font-semibold text-foreground'>
                       {getInitials(c.host?.user?.name ?? '?')}
                     </span>
                   )}
@@ -127,7 +127,7 @@ const CoHostsManager = ({
                 <button
                   onClick={() => remove(c.hostId)}
                   disabled={removingId === c.hostId}
-                  className='inline-flex items-center gap-1 rounded-lg border border-white/10 px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-destructive/50 hover:text-destructive disabled:opacity-50'
+                  className='inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-destructive/50 hover:text-destructive disabled:opacity-50'
                 >
                   {removingId === c.hostId ? (
                     <Loader2 className='size-3 animate-spin' />

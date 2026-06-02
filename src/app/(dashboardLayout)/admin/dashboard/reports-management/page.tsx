@@ -30,8 +30,8 @@ const ReportsManagementPage = async ({
         title='Content reports'
         description='Review and resolve reports submitted against events and ratings.'
         actions={
-          <span className='inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 font-mono text-xs text-muted-foreground'>
-            <Flag className='size-3.5 text-amber-400' />
+          <span className='inline-flex items-center gap-2 rounded-xl border border-border bg-muted px-3 py-2 font-mono text-xs text-muted-foreground'>
+            <Flag className='size-3.5 text-amber-600' />
             {pending} pending on page
           </span>
         }

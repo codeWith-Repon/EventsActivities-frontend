@@ -69,7 +69,7 @@ const CheckInManager = ({
             value={token}
             onChange={(e) => setToken(e.target.value)}
             placeholder='Check-in token…'
-            className='flex-1 border-white/10 bg-white/5 font-mono'
+            className='flex-1 border-border bg-muted font-mono'
           />
           <button
             type='submit'
@@ -87,7 +87,7 @@ const CheckInManager = ({
       </GlassCard>
 
       <GlassCard className='p-0'>
-        <div className='border-b border-white/10 px-5 py-3'>
+        <div className='border-b border-border px-5 py-3'>
           <h3 className='font-display text-base font-semibold text-foreground'>
             Attendance
           </h3>
@@ -97,7 +97,7 @@ const CheckInManager = ({
             No approved participants yet.
           </p>
         ) : (
-          <ul className='divide-y divide-white/5'>
+          <ul className='divide-y divide-border'>
             {attendance.participants.map((p) => (
               <li
                 key={p.id}
@@ -113,7 +113,7 @@ const CheckInManager = ({
                       className='size-9 rounded-full object-cover'
                     />
                   ) : (
-                    <span className='grid size-9 place-items-center rounded-full bg-white/5 text-xs font-semibold text-foreground'>
+                    <span className='grid size-9 place-items-center rounded-full bg-muted text-xs font-semibold text-foreground'>
                       {getInitials(p.user.name)}
                     </span>
                   )}
@@ -125,12 +125,12 @@ const CheckInManager = ({
                   </div>
                 </div>
                 {p.checkedIn ? (
-                  <span className='inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-400'>
+                  <span className='inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-600'>
                     <CheckCircle2 className='size-3.5' />
                     Checked in
                   </span>
                 ) : (
-                  <span className='inline-flex items-center gap-1.5 rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-muted-foreground'>
+                  <span className='inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground'>
                     Absent
                   </span>
                 )}

@@ -75,7 +75,7 @@ const ChangeRoleDialog = ({
             New role
           </label>
           <Select value={role} onValueChange={(v) => setRole(v as AssignableRole)}>
-            <SelectTrigger className='border-white/10 bg-white/5'>
+            <SelectTrigger className='border-border bg-muted'>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -92,7 +92,7 @@ const ChangeRoleDialog = ({
           <button
             onClick={() => onOpenChange(false)}
             disabled={loading}
-            className='rounded-lg border border-white/10 px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-white/5 disabled:opacity-50'
+            className='rounded-lg border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted disabled:opacity-50'
           >
             Cancel
           </button>

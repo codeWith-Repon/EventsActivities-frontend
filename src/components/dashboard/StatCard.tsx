@@ -66,8 +66,8 @@ const StatCard = ({
             className={cn(
               'mb-1 inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-xs font-medium',
               up
-                ? 'bg-emerald-500/12 text-emerald-400'
-                : 'bg-rose-500/12 text-rose-400'
+                ? 'bg-emerald-500/12 text-emerald-600'
+                : 'bg-rose-500/12 text-rose-600'
             )}
           >
             {up ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}

@@ -1,5 +1,5 @@
 const Block = ({ className = '' }: { className?: string }) => (
-  <div className={`animate-pulse rounded-xl bg-white/5 ${className}`} />
+  <div className={`animate-pulse rounded-xl bg-muted ${className}`} />
 );
 
 const HostsLoading = () => (

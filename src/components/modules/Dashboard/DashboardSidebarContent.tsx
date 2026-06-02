@@ -26,7 +26,7 @@ const DashboardSidebarContent = ({
   const pathname = usePathname();
 
   return (
-    <aside className='glass relative z-20 hidden h-full w-72 flex-col border-y-0 border-l-0 border-r border-r-white/10 md:flex'>
+    <aside className='glass relative z-20 hidden h-full w-72 flex-col border-y-0 border-l-0 border-r border-r-border md:flex'>
       {/* Brand */}
       <div className='flex h-16 items-center gap-2.5 px-6'>
         <Link href={dashboardHome ?? '/'} className='flex items-center gap-2.5'>
@@ -66,8 +66,8 @@ const DashboardSidebarContent = ({
                           className={cn(
                             'group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
                             isActive
-                              ? 'bg-white/[0.08] text-foreground'
-                              : 'text-muted-foreground hover:bg-white/[0.05] hover:text-foreground'
+                              ? 'bg-muted text-foreground'
+                              : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                           )}
                         >
                           {/* active accent bar */}

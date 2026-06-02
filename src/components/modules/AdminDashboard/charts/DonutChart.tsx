@@ -108,7 +108,7 @@ const DonutChart = ({ segments, centerLabel = 'Total' }: DonutChartProps) => {
             key={seg.label}
             className={cn(
               'flex items-center justify-between gap-3 rounded-lg px-2 py-1 text-sm transition-colors',
-              active === i && 'bg-white/5'
+              active === i && 'bg-muted'
             )}
             onMouseEnter={() => setActive(i)}
             onMouseLeave={() => setActive(null)}

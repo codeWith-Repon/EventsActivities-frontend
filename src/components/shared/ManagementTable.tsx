@@ -114,7 +114,7 @@ function ManagementTable<T>({
 
       <Table>
         <TableHeader>
-          <TableRow className='border-white/10 hover:bg-transparent'>
+          <TableRow className='border-border hover:bg-transparent'>
             {columns.map((column, colIndex) => (
               <TableHead
                 key={colIndex}
@@ -158,7 +158,7 @@ function ManagementTable<T>({
             data.map((item) => (
               <TableRow
                 key={getRowKey(item)}
-                className='border-white/[0.06] transition-colors hover:bg-white/[0.03]'
+                className='border-border transition-colors hover:bg-muted/60'
               >
                 {columns.map((col, idx) => (
                   <TableCell key={idx} className={cn('py-3', col.className)}>
@@ -173,7 +173,7 @@ function ManagementTable<T>({
                       <DropdownMenuTrigger asChild>
                         <button
                           aria-label='Row actions'
-                          className='grid size-8 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-white/10 hover:text-foreground'
+                          className='grid size-8 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground'
                         >
                           <MoreHorizontal className='size-4' />
                         </button>

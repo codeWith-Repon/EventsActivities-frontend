@@ -25,7 +25,7 @@ const RankedBarList = ({ items }: { items: RankedItem[] }) => {
         <li key={item.id} className='group'>
           <div className='mb-1.5 flex items-center justify-between gap-3'>
             <span className='flex min-w-0 items-center gap-2.5'>
-              <span className='grid size-5 shrink-0 place-items-center rounded-md bg-white/5 font-mono text-[10px] text-muted-foreground'>
+              <span className='grid size-5 shrink-0 place-items-center rounded-md bg-muted font-mono text-[10px] text-muted-foreground'>
                 {i + 1}
               </span>
               <span className='truncate text-sm text-foreground'>
@@ -36,7 +36,7 @@ const RankedBarList = ({ items }: { items: RankedItem[] }) => {
               {money(item.value)}
             </span>
           </div>
-          <div className='h-1.5 w-full overflow-hidden rounded-full bg-white/5'>
+          <div className='h-1.5 w-full overflow-hidden rounded-full bg-muted'>
             <div
               className='h-full rounded-full bg-gradient-aurora transition-all duration-500'
               style={{ width: `${Math.max((item.value / max) * 100, 2)}%` }}

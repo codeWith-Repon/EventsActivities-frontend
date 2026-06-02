@@ -1,7 +1,7 @@
 'use client';
 
 import { loginUser } from '@/services/auth/loginUser';
-import { Loader, Shield, ShieldCheck, Sparkles, User } from 'lucide-react';
+import { Loader, Shield, Sparkles, User } from 'lucide-react';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
@@ -11,7 +11,6 @@ const ACCOUNTS = [
   { label: 'User', email: 'user@eventshub.test', icon: User },
   { label: 'Host', email: 'host@eventshub.test', icon: Sparkles },
   { label: 'Admin', email: 'admin@eventshub.test', icon: Shield },
-  { label: 'Super Admin', email: 'superadmin@eventshub.test', icon: ShieldCheck },
 ];
 
 export default function DemoLoginButtons({ redirect }: { redirect?: string }) {

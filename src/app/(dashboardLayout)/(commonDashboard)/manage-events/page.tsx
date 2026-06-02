@@ -5,6 +5,7 @@ import StatusBadge from '@/components/dashboard/StatusBadge';
 import { getUserInfo } from '@/services/auth/getUserInfo';
 import { getMyHostedEvents } from '@/services/events/hostEvents';
 import { formatDate } from '@/lib/formatter';
+import { dashboardFontVars } from '@/lib/dashboard-fonts';
 import { userPlaceholderImage } from '@/assets';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,7 +19,9 @@ const ManageEventsHub = async () => {
   const events = userId ? await getMyHostedEvents(userId) : [];
 
   return (
-    <div className='aurora min-h-screen bg-background p-4 md:p-6'>
+    <div
+      className={`aurora aurora-light aurora-canvas ${dashboardFontVars} min-h-screen bg-background font-sans text-foreground p-4 md:p-6`}
+    >
       <div className='mx-auto max-w-6xl space-y-6'>
         <PageHeader
           kicker='Host tools'
@@ -36,7 +39,7 @@ const ManageEventsHub = async () => {
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
             {events.map((e) => (
               <GlassCard key={e.id} className='overflow-hidden p-0'>
-                <div className='relative h-28 overflow-hidden border-b border-white/10'>
+                <div className='relative h-28 overflow-hidden border-b border-border'>
                   <Image
                     src={e.images?.[0] || userPlaceholderImage}
                     alt={e.title}

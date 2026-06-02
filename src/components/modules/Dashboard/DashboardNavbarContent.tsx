@@ -36,19 +36,19 @@ const DashboardNavbarContent = ({
   }, []);
 
   return (
-    <header className='glass sticky top-0 z-30 w-full border-x-0 border-t-0 border-b border-b-white/10'>
+    <header className='glass sticky top-0 z-30 w-full border-x-0 border-t-0 border-b border-b-border'>
       <div className='flex h-16 items-center justify-between gap-3 px-4 md:px-6'>
         {/* mobile menu */}
         <Sheet open={isMobile && isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className='md:hidden'>
             <button
               aria-label='Open menu'
-              className='grid size-9 place-items-center rounded-xl border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10'
+              className='grid size-9 place-items-center rounded-xl border border-border bg-muted text-foreground transition-colors hover:bg-muted'
             >
               <Menu className='size-5' />
             </button>
           </SheetTrigger>
-          <SheetContent side='left' className='aurora w-72 border-r-white/10 p-0'>
+          <SheetContent side='left' className='aurora w-72 border-r-border p-0'>
             <DashboardMobileSidebar
               userInfo={userInfo}
               navItems={navItems || []}
@@ -64,7 +64,7 @@ const DashboardNavbarContent = ({
             <input
               type='search'
               placeholder='Search…'
-              className='h-10 w-full rounded-xl border border-white/10 bg-white/5 pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--aurora-violet)]/50 focus:bg-white/[0.07]'
+              className='h-10 w-full rounded-xl border border-border bg-muted pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--aurora-violet)]/50 focus:bg-muted'
             />
           </div>
         </div>

@@ -36,7 +36,7 @@ const EventsManagementPage = async ({
         description='Browse, inspect, and moderate platform events.'
         actions={
           meta?.total != null ? (
-            <span className='inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 font-mono text-xs text-muted-foreground'>
+            <span className='inline-flex items-center gap-2 rounded-xl border border-border bg-muted px-3 py-2 font-mono text-xs text-muted-foreground'>
               <CalendarRange className='size-3.5 text-[var(--aurora-violet)]' />
               {meta.total} events
             </span>

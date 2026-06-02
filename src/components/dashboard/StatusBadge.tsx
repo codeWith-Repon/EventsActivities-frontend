@@ -3,13 +3,13 @@ import { cn } from '@/lib/utils';
 type Tone = 'green' | 'amber' | 'red' | 'violet' | 'cyan' | 'slate' | 'blue';
 
 const toneClass: Record<Tone, string> = {
-  green: 'bg-emerald-500/12 text-emerald-400 ring-emerald-500/25',
-  amber: 'bg-amber-500/12 text-amber-400 ring-amber-500/25',
-  red: 'bg-rose-500/12 text-rose-400 ring-rose-500/25',
-  violet: 'bg-[var(--aurora-violet)]/12 text-[var(--aurora-violet)] ring-[var(--aurora-violet)]/25',
-  cyan: 'bg-[var(--aurora-cyan)]/12 text-[var(--aurora-cyan)] ring-[var(--aurora-cyan)]/25',
-  blue: 'bg-sky-500/12 text-sky-400 ring-sky-500/25',
-  slate: 'bg-slate-500/12 text-slate-400 ring-slate-500/25',
+  green: 'bg-[var(--aurora-teal)]/12 text-[var(--aurora-teal)] ring-[var(--aurora-teal)]/30',
+  amber: 'bg-amber-500/15 text-amber-600 ring-amber-500/30',
+  red: 'bg-[var(--destructive)]/12 text-[var(--destructive)] ring-[var(--destructive)]/30',
+  violet: 'bg-[var(--aurora-violet)]/12 text-[var(--aurora-violet)] ring-[var(--aurora-violet)]/30',
+  cyan: 'bg-[var(--aurora-cyan)]/12 text-[var(--aurora-cyan)] ring-[var(--aurora-cyan)]/30',
+  blue: 'bg-[var(--aurora-cyan)]/12 text-[var(--aurora-cyan)] ring-[var(--aurora-cyan)]/30',
+  slate: 'bg-muted text-muted-foreground ring-border',
 };
 
 // Maps every backend status enum value to a tone.
