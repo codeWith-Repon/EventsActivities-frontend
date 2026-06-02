@@ -1,15 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Bell, Loader2, Menu, Search } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-// import DashboardMobileSidebar from './DashboardMobileSidebar';
 import { NavSection } from '@/types/dashboard.interface';
 import { useEffect, useState } from 'react';
 import { IUserInfo } from '@/types/user.interface';
 import UserDropdown from '@/components/shared/userDropdown';
 import DashboardMobileSidebar from './DashboardMobileSidebar';
+import ThemeToggle from '@/components/dashboard/ThemeToggle';
 
 interface DashboardNavbarContentProps {
   userInfo: IUserInfo;
@@ -18,6 +16,7 @@ interface DashboardNavbarContentProps {
   loading?: boolean;
   onLogout?: () => void;
 }
+
 const DashboardNavbarContent = ({
   userInfo,
   navItems,
@@ -29,27 +28,26 @@ const DashboardNavbarContent = ({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkSmallerScreen = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkSmallerScreen();
-    window.addEventListener('resize', checkSmallerScreen);
-
-    return () => {
-      window.removeEventListener('resize', checkSmallerScreen);
-    };
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
   return (
-    <header className='sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur'>
-      <div className='flex h-16 items-center justify-between gap-4 px-4 md:px-6'>
+    <header className='glass sticky top-0 z-30 w-full border-x-0 border-t-0 border-b border-b-white/10'>
+      <div className='flex h-16 items-center justify-between gap-3 px-4 md:px-6'>
+        {/* mobile menu */}
         <Sheet open={isMobile && isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className='md:hidden'>
-            <Button variant='outline' size='icon'>
-              <Menu className='h-5 w-5' />
-            </Button>
+            <button
+              aria-label='Open menu'
+              className='grid size-9 place-items-center rounded-xl border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10'
+            >
+              <Menu className='size-5' />
+            </button>
           </SheetTrigger>
-          <SheetContent side='left' className='w-64 p-0 '>
+          <SheetContent side='left' className='aurora w-72 border-r-white/10 p-0'>
             <DashboardMobileSidebar
               userInfo={userInfo}
               navItems={navItems || []}
@@ -58,28 +56,33 @@ const DashboardNavbarContent = ({
           </SheetContent>
         </Sheet>
 
-        {/* search bar */}
-        <div className='flex-1'>
+        {/* search */}
+        <div className='hidden max-w-md flex-1 sm:block'>
           <div className='relative'>
-            <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground' />
-            <Input type='search' placeholder='Search...' className='pl-9' />
+            <Search className='absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground' />
+            <input
+              type='search'
+              placeholder='Search…'
+              className='h-10 w-full rounded-xl border border-white/10 bg-white/5 pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--aurora-violet)]/50 focus:bg-white/[0.07]'
+            />
           </div>
         </div>
 
-        {/* right side action */}
-        <div className='flex items-center gap-2'>
-          {/* notifications */}
-          <Button variant='outline' size='icon' className='relative'>
-            <Bell className='h-5 w-5' />
-            <span className='absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500' />
-          </Button>
+        <div className='flex flex-1 items-center justify-end gap-2'>
+          <ThemeToggle />
+
+          {/* notifications (wired in F10) */}
+          <button
+            aria-label='Notifications'
+            className='relative grid size-9 place-items-center rounded-xl border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10'
+          >
+            <Bell className='size-[18px]' />
+            <span className='absolute right-2 top-2 size-2 rounded-full bg-gradient-aurora ring-2 ring-[var(--card)]' />
+          </button>
 
           {loading ? (
-            <span>
-              <Loader2 className='h-5 w-5 animate-spin text-muted-foreground' />
-            </span>
+            <Loader2 className='size-5 animate-spin text-muted-foreground' />
           ) : (
-            /* user dropdown */
             <UserDropdown user={userInfo} onLogout={onLogout!} />
           )}
         </div>

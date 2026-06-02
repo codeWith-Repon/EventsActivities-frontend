@@ -11,6 +11,7 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display, var(--font-geist-sans));
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -185,3 +186,158 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #cccccc;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   AURORA GLASS — Dashboard design system (scoped to .aurora)
+   Dark-first. Violet→cyan gradient accents, glassmorphism, glow.
+   Token overrides cascade to all shadcn components inside .aurora.
+   The public site (outside .aurora) is unaffected.
+   ══════════════════════════════════════════════════════════════ */
+
+.aurora {
+  --radius: 0.9rem;
+
+  /* fonts (set on the dashboard root via next/font variables) */
+  --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jbmono), ui-monospace, monospace;
+  --font-display: var(--font-sora), var(--font-onest), sans-serif;
+
+  /* aurora accent ramp */
+  --aurora-violet: oklch(0.62 0.224 292);
+  --aurora-indigo: oklch(0.58 0.2 272);
+  --aurora-cyan: oklch(0.78 0.13 205);
+  --aurora-fuchsia: oklch(0.68 0.25 330);
+  --aurora-teal: oklch(0.74 0.13 178);
+  --aurora-amber: oklch(0.82 0.16 78);
+
+  /* dark surfaces (deep blue-violet near-black) */
+  --background: oklch(0.165 0.026 280);
+  --foreground: oklch(0.96 0.012 280);
+  --card: oklch(0.214 0.03 280);
+  --card-foreground: oklch(0.96 0.012 280);
+  --popover: oklch(0.2 0.03 282);
+  --popover-foreground: oklch(0.96 0.012 280);
+
+  --primary: var(--aurora-violet);
+  --primary-foreground: oklch(0.99 0.01 290);
+  --primary-light: var(--aurora-fuchsia);
+
+  --secondary: oklch(0.27 0.03 282);
+  --secondary-foreground: oklch(0.96 0.012 280);
+  --muted: oklch(0.27 0.03 282);
+  --muted-foreground: oklch(0.72 0.035 282);
+  --accent: oklch(0.3 0.04 286);
+  --accent-foreground: oklch(0.97 0.012 280);
+
+  --destructive: oklch(0.62 0.22 22);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: var(--aurora-violet);
+
+  --chart-1: var(--aurora-violet);
+  --chart-2: var(--aurora-cyan);
+  --chart-3: var(--aurora-fuchsia);
+  --chart-4: var(--aurora-teal);
+  --chart-5: var(--aurora-amber);
+
+  --sidebar: oklch(0.2 0.03 282 / 60%);
+  --sidebar-foreground: oklch(0.96 0.012 280);
+  --sidebar-primary: var(--aurora-violet);
+  --sidebar-primary-foreground: oklch(0.99 0.01 290);
+  --sidebar-accent: oklch(0.3 0.04 286);
+  --sidebar-accent-foreground: oklch(0.97 0.012 280);
+  --sidebar-border: oklch(1 0 0 / 9%);
+  --sidebar-ring: var(--aurora-violet);
+
+  color-scheme: dark;
+}
+
+/* light variant — lavender-tinted paper, same violet accent */
+.aurora.aurora-light {
+  --background: oklch(0.975 0.008 290);
+  --foreground: oklch(0.22 0.03 285);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.03 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.03 285);
+
+  --primary: oklch(0.55 0.23 292);
+  --primary-foreground: oklch(0.99 0.01 290);
+
+  --secondary: oklch(0.955 0.012 290);
+  --secondary-foreground: oklch(0.24 0.03 285);
+  --muted: oklch(0.955 0.012 290);
+  --muted-foreground: oklch(0.5 0.03 285);
+  --accent: oklch(0.93 0.025 292);
+  --accent-foreground: oklch(0.24 0.03 285);
+
+  --border: oklch(0.27 0.03 285 / 12%);
+  --input: oklch(0.27 0.03 285 / 16%);
+
+  --sidebar: oklch(1 0 0 / 70%);
+  --sidebar-foreground: oklch(0.22 0.03 285);
+  --sidebar-accent: oklch(0.93 0.025 292);
+  --sidebar-accent-foreground: oklch(0.24 0.03 285);
+  --sidebar-border: oklch(0.27 0.03 285 / 12%);
+
+  color-scheme: light;
+}
+
+@layer utilities {
+  /* atmospheric aurora background: gradient mesh + faint grid */
+  .aurora-canvas {
+    background-color: var(--background);
+    background-image:
+      radial-gradient(60rem 60rem at 8% -10%, oklch(0.62 0.224 292 / 0.22), transparent 60%),
+      radial-gradient(50rem 50rem at 105% 0%, oklch(0.78 0.13 205 / 0.16), transparent 55%),
+      radial-gradient(45rem 45rem at 50% 120%, oklch(0.68 0.25 330 / 0.12), transparent 60%);
+  }
+  .aurora-light .aurora-canvas {
+    background-image:
+      radial-gradient(60rem 60rem at 8% -10%, oklch(0.62 0.224 292 / 0.12), transparent 60%),
+      radial-gradient(50rem 50rem at 105% 0%, oklch(0.78 0.13 205 / 0.1), transparent 55%);
+  }
+
+  /* glassmorphism panels */
+  .glass {
+    background: color-mix(in oklch, var(--card) 62%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid oklch(1 0 0 / 0.1);
+  }
+  .aurora-light .glass {
+    background: color-mix(in oklch, var(--card) 72%, transparent);
+    border-color: oklch(0.27 0.03 285 / 0.1);
+  }
+  .glass-strong {
+    background: color-mix(in oklch, var(--card) 82%, transparent);
+    backdrop-filter: blur(28px) saturate(150%);
+    border: 1px solid oklch(1 0 0 / 0.12);
+  }
+
+  .glow-violet { box-shadow: 0 0 0 1px oklch(0.62 0.224 292 / 0.35), 0 8px 40px -8px oklch(0.62 0.224 292 / 0.5); }
+  .text-gradient-aurora {
+    background: linear-gradient(100deg, var(--aurora-violet), var(--aurora-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-gradient-aurora { background-image: linear-gradient(100deg, var(--aurora-violet), var(--aurora-fuchsia)); }
+  .ring-gradient-aurora { background-image: linear-gradient(135deg, var(--aurora-violet), var(--aurora-cyan)); }
+}
+
+/* refined scrollbar inside the dashboard */
+.aurora ::-webkit-scrollbar { width: 9px; height: 9px; }
+.aurora ::-webkit-scrollbar-track { background: transparent; }
+.aurora ::-webkit-scrollbar-thumb {
+  background: oklch(1 0 0 / 0.14);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.aurora ::-webkit-scrollbar-thumb:hover { background: oklch(1 0 0 / 0.24); background-clip: padding-box; }
+
+@keyframes aurora-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.aurora-rise { animation: aurora-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }

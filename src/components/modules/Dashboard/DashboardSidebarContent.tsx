@@ -2,7 +2,6 @@
 
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
 import { getIconComponent } from '@/lib/icon-mapper';
 import { cn } from '@/lib/utils';
 import { NavSection } from '@/types/dashboard.interface';
@@ -17,6 +16,7 @@ interface DashboardSidebarContentProps {
   dashboardHome?: string;
   loading?: boolean;
 }
+
 const DashboardSidebarContent = ({
   userInfo,
   navItems,
@@ -26,97 +26,98 @@ const DashboardSidebarContent = ({
   const pathname = usePathname();
 
   return (
-    <div className='hidden md:flex h-full w-64 flex-col border-r bg-card'>
-      {/* Logo/Brand */}
-      <div className='flex h-16 items-center border-b px-6'>
-        <Link
-          href={dashboardHome ?? '/'}
-          className='text-2xl font-bold tracking-tight'
-        >
-          <span className='text-primary'>events</span>hub
+    <aside className='glass relative z-20 hidden h-full w-72 flex-col border-y-0 border-l-0 border-r border-r-white/10 md:flex'>
+      {/* Brand */}
+      <div className='flex h-16 items-center gap-2.5 px-6'>
+        <Link href={dashboardHome ?? '/'} className='flex items-center gap-2.5'>
+          <span className='grid size-8 place-items-center rounded-xl bg-gradient-aurora text-sm font-bold text-white shadow-[0_4px_20px_-4px_var(--aurora-violet)]'>
+            E
+          </span>
+          <span className='font-display text-lg font-semibold tracking-tight text-foreground'>
+            Events<span className='text-gradient-aurora'>Hub</span>
+          </span>
         </Link>
       </div>
 
-      <>
-        {loading && (
-          <div className='flex-1 flex items-center justify-center'>
-            <span className='text-sm text-muted-foreground animate-spin'>
-              <Loader />
-            </span>
-          </div>
-        )}
-        {!loading && (
-          <>
-            <ScrollArea className='flex-1 px-3 py-4'>
-              {/* Navigation */}
-              <nav className='space-y-6'>
-                {navItems.map((section, sectionIdx) => (
-                  <div key={sectionIdx}>
-                    {section.title && (
-                      <h4 className='mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider'>
-                        {section.title}
-                      </h4>
-                    )}
-                    <div className='space-y-1'>
-                      {section.items.map((item) => {
-                        const isActive = pathname === item.href;
-                        const Icon = getIconComponent(item.icon);
+      {loading ? (
+        <div className='flex flex-1 items-center justify-center'>
+          <Loader className='size-5 animate-spin text-muted-foreground' />
+        </div>
+      ) : (
+        <>
+          <ScrollArea className='flex-1 px-3 py-2'>
+            <nav className='space-y-6 pb-4'>
+              {navItems.map((section, sectionIdx) => (
+                <div key={sectionIdx}>
+                  {section.title && (
+                    <h4 className='mb-2 px-3 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground'>
+                      {section.title}
+                    </h4>
+                  )}
+                  <div className='space-y-1'>
+                    {section.items.map((item) => {
+                      const isActive = pathname === item.href;
+                      const Icon = getIconComponent(item.icon);
 
-                        return (
-                          <Link
-                            key={item.href}
-                            href={item.href}
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className={cn(
+                            'group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                            isActive
+                              ? 'bg-white/[0.08] text-foreground'
+                              : 'text-muted-foreground hover:bg-white/[0.05] hover:text-foreground'
+                          )}
+                        >
+                          {/* active accent bar */}
+                          <span
                             className={cn(
-                              'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                              isActive
-                                ? 'bg-primary text-primary-foreground'
-                                : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                              'absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-gradient-aurora transition-opacity duration-200',
+                              isActive ? 'opacity-100' : 'opacity-0'
                             )}
-                          >
-                            <Icon className='h-4 w-4' />
-                            <span className='flex-1'>{item.title}</span>
-                            {item.badge && (
-                              <Badge
-                                variant={isActive ? 'secondary' : 'default'}
-                                className='ml-auto'
-                              >
-                                {item.badge}
-                              </Badge>
+                          />
+                          <Icon
+                            className={cn(
+                              'size-4 transition-colors',
+                              isActive && 'text-[var(--aurora-violet)]'
                             )}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                    {sectionIdx < navItems.length - 1 && (
-                      <Separator className='my-4' />
-                    )}
+                          />
+                          <span className='flex-1'>{item.title}</span>
+                          {item.badge && (
+                            <Badge className='ml-auto h-5 rounded-full bg-gradient-aurora px-1.5 text-[10px] text-white'>
+                              {item.badge}
+                            </Badge>
+                          )}
+                        </Link>
+                      );
+                    })}
                   </div>
-                ))}
-              </nav>
-            </ScrollArea>
+                </div>
+              ))}
+            </nav>
+          </ScrollArea>
 
-            {/* User Info at Bottom */}
-            <div className='border-t p-4'>
-              <div className='flex items-center gap-3'>
-                <div className='h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center'>
-                  <span className='text-sm font-semibold text-primary'>
-                    {userInfo.name.charAt(0).toUpperCase()}
-                  </span>
-                </div>
-                <div className='flex-1 overflow-hidden'>
-                  <p className='text-sm font-medium truncate'>
-                    {userInfo.name}
-                  </p>
-                  <p className='text-xs text-muted-foreground capitalize'>
-                    {userInfo.role.toLowerCase()}
-                  </p>
-                </div>
+          {/* User card */}
+          <div className='p-3'>
+            <div className='glass-strong flex items-center gap-3 rounded-2xl p-3'>
+              <div className='grid size-9 place-items-center rounded-xl bg-gradient-aurora text-sm font-semibold text-white'>
+                {userInfo?.name?.charAt(0).toUpperCase() ?? 'U'}
+              </div>
+              <div className='min-w-0 flex-1'>
+                <p className='truncate text-sm font-medium text-foreground'>
+                  {userInfo?.name}
+                </p>
+                <p className='truncate font-mono text-[10px] uppercase tracking-wider text-muted-foreground'>
+                  {userInfo?.role?.toLowerCase().replace('_', ' ')}
+                </p>
               </div>
             </div>
-          </>
-        )}
-      </>
-    </div>
+          </div>
+        </>
+      )}
+    </aside>
   );
 };
+
 export default DashboardSidebarContent;
