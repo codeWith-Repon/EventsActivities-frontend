@@ -93,7 +93,7 @@ across every feature:
 ### Phase 3 — Host & co-host tools
 
 - [x] **F11 — Per-event analytics (host)** · `feat/host-analytics` · views, participants, capacity, revenue, check-in · ✅ merged → `docs/host-analytics.md`
-- [ ] **F12 — Invitations (host)** · `feat/host-invitations` · send, list per event, revoke; accept/decline pages → `docs/host-invitations.md`
+- [x] **F12 — Invitations (host)** · `feat/host-invitations` · send, list per event, revoke; accept/decline pages · ✅ merged → `docs/host-invitations.md`
 - [ ] **F13 — Check-in & attendance (host)** · `feat/host-checkin` · participant QR, host scan/check-in, attendance summary → `docs/host-checkin.md`
 - [ ] **F14 — Co-hosts (host)** · `feat/host-cohosts` · list, add by user, remove → `docs/host-cohosts.md`
 
@@ -248,3 +248,4 @@ _(Each completed feature gets a one-line entry: date · feature · branch · mer
 - 2026-06-02 · **F09** Revenue report — monthly trend + top events/hosts · `feat/dashboard-revenue` · merged ✓
 - 2026-06-02 · **F10** Notifications — bell + page, mark read/all, delete · `feat/dashboard-notifications` · merged ✓ · **Phase 2 complete**
 - 2026-06-02 · **F11** Host analytics — manage-event shell + per-event analytics · `feat/host-analytics` · merged ✓
+- 2026-06-02 · **F12** Host invitations — send/list/revoke + accept/decline · `feat/host-invitations` · merged ✓
